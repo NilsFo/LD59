@@ -11,7 +11,6 @@ public class BillboardSprite : MonoBehaviour
     void Start()
     {
         _gameState = FindFirstObjectByType<GameState>();
-        _mainCamera = Camera.main;
     }
 
     // Update is called once per frame

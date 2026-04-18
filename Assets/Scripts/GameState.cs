@@ -6,10 +6,12 @@ public class GameState : MonoBehaviour
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
     public Economy economy;
+    private Camera _mainCamera;
 
     private void Awake()
     {
         _timeScaler = FindFirstObjectByType<TimeScaler>();
+        _mainCamera = FindFirstObjectByType<Camera>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -25,6 +27,6 @@ public class GameState : MonoBehaviour
 
     public Camera GetCamera()
     {
-        return Camera.current;
+        return _mainCamera;
     }
 }

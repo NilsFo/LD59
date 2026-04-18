@@ -1,4 +1,5 @@
 using System;
+using TMPro;
 using UnityEngine;
 
 public class SatelliteInstance : MonoBehaviour
@@ -11,6 +12,9 @@ public class SatelliteInstance : MonoBehaviour
     public int height;
 
     [Header("Properties")] public Vector2 position;
+    public bool showNameTF;
+
+    [Header("World hookup")] public TextMeshProUGUI nameTF;
 
     private GameState _gameState;
 
@@ -27,7 +31,22 @@ public class SatelliteInstance : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        nameTF.text = displayName;
+        nameTF.gameObject.transform.parent.gameObject.SetActive(showNameTF);
     }
+
+    private void OnMouseEnter()
+    {
+        showNameTF = true;
+        Debug.Log("Sat: Mouse Enter!", gameObject);
+    }
+
+    private void OnMouseExit()
+    {
+        showNameTF = false;
+        Debug.Log("Sat: Mouse Exit!", gameObject);
+    }
+
 
     private void OnDestroy()
     {
