@@ -47,7 +47,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1a672b94fd359ec4f8ee9221e9da279b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  costOfSatellite: 10
   economy: {fileID: 2778121098870243101}
+  prefabSatellite: {fileID: 7970513347705034793, guid: af377b3e53b120342ba115938c5b6f74, type: 3}
 --- !u!114 &1234729011407369579
 MonoBehaviour:
   m_ObjectHideFlags: 0

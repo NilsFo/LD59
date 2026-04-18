@@ -1,4 +1,5 @@
 using System;
+using UI;
 using TMPro;
 using UnityEngine;
 
@@ -17,15 +18,20 @@ public class SatelliteInstance : MonoBehaviour
     [Header("World hookup")] public TextMeshProUGUI nameTF;
 
     private GameState _gameState;
+    private SatellitDisplayScript _displayScript;
+    
+    public event Action OnSatelliteDestroy;
 
     private void Awake()
     {
         _gameState = FindFirstObjectByType<GameState>();
+        _displayScript = FindFirstObjectByType<SatellitDisplayScript>();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _displayScript.AddSatellit(this);
     }
 
     // Update is called once per frame
@@ -50,5 +56,6 @@ public class SatelliteInstance : MonoBehaviour
 
     private void OnDestroy()
     {
+        OnSatelliteDestroy?.Invoke();
     }
 }

@@ -1,12 +1,19 @@
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class GameState : MonoBehaviour
 {
+
+    [SerializeField]
+    private int costOfSatellite = 1000;
+    
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
     public Economy economy;
     private Camera _mainCamera;
+
+    public GameObject prefabSatellite;
 
     private void Awake()
     {
@@ -28,5 +35,18 @@ public class GameState : MonoBehaviour
     public Camera GetCamera()
     {
         return _mainCamera;
+    }
+
+    public bool AddSatellite()
+    {
+        var newBalance = economy.Money - costOfSatellite;
+        if (newBalance >= 0)
+        {
+            economy.Money = newBalance;
+            Instantiate(prefabSatellite, transform);
+            return true;
+        }
+
+        return false;
     }
 }
