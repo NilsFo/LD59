@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -5,8 +6,13 @@ namespace UI
 {
     public class MoneyDisplay : MonoBehaviour
     {
-        public GameState gameState;
+        private GameState gameState;
         public TextMeshProUGUI text;
+
+        private void Awake()
+        {
+            gameState = FindFirstObjectByType<GameState>();
+        }
 
         private void Start()
         {
