@@ -4,22 +4,17 @@ public class Orbit : MonoBehaviour
 {
     public Vector3 OrbitAxis { get; private set; } = Vector3.up;
     public Vector3 OrbitStart { get; private set; } = Vector3.left;
-    public float inclination = 45f;
-    public float equator = 45f;
     public float height = 1.1f;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
-        SetFromIncEq(inclination, equator);
     }
 
     public void SetFromIncEq(float inclination, float equator)
     {
         OrbitStart = Quaternion.AngleAxis(equator, Vector3.up) * Vector3.forward;
         OrbitAxis =  Quaternion.AngleAxis(inclination, OrbitStart) * Vector3.up;
-        this.inclination = inclination;
-        this.equator = equator;
 
     }
 
@@ -51,8 +46,8 @@ public class Orbit : MonoBehaviour
         Debug.DrawLine(Vector3.zero, vec*2, Color.green);
         Debug.DrawLine(Vector3.zero, newNormal*2, Color.red);
         Debug.DrawLine(Vector3.zero, newStart*2, Color.yellow);
-        inclination = Vector3.Angle(Vector3.up, newNormal);
-        equator = Vector3.SignedAngle(Vector3.forward, newStart, Vector3.up);
+        // inclination = Vector3.Angle(newNormal, Vector3.Cross(newStart, Vector3.up));
+        // equator = Vector3.SignedAngle(Vector3.forward, newStart, Vector3.up);
         OrbitStart = newStart;
         OrbitAxis = newNormal;
         float newOmega = Vector3.SignedAngle(OrbitStart, start, OrbitAxis);
@@ -63,5 +58,14 @@ public class Orbit : MonoBehaviour
     {
         OrbitAxis = orbit.OrbitAxis;
         OrbitStart = orbit.OrbitStart;
+    }
+
+    public Vector2 OrbitPosToEquirect(float omega)
+    {
+        Vector2 pos = new Vector2();
+        var orbitPos = GetOrbitPosition(omega);
+        //pos.x = orbitPos
+
+        return pos;
     }
 }
