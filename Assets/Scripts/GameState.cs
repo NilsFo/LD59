@@ -140,7 +140,7 @@ public class GameState : MonoBehaviour
 
     public void UpdateOrbitPreview()
     {
-        if (selectionState == SelectionState.SatelliteReroute)
+        if (selectionState == SelectionState.SatelliteReroute && selectedSatellite != null)
         {
             RaycastHit hit;
             var mousePos = Mouse.current.position.value;
