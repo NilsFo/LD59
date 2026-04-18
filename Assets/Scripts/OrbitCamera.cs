@@ -61,14 +61,14 @@ public class OrbitCamera : MonoBehaviour
 
     private void CameraZoom()
     {
-        cameraSmoothedZoom += (zoomLevelTarget - cameraSmoothedZoom) * cameraAcceleration * Time.deltaTime;
+        cameraSmoothedZoom += (zoomLevelTarget - cameraSmoothedZoom) * cameraAcceleration * Time.unscaledDeltaTime;
         float z = cameraAccelerationCurve.Evaluate(Mathf.Abs(cameraSmoothedZoom)) * Mathf.Sign(cameraSmoothedZoom);
 
         zoomLevelCurrent += z * zoomSpeed;
         zoomLevelCurrent = Mathf.Clamp(zoomLevelCurrent, 0, 1);
 
         Vector3 newPosition = Vector3.Lerp(zoomMin.localPosition, zoomMax.localPosition, zoomLevelTarget);
-        cam.localPosition = Vector3.MoveTowards(cam.localPosition, newPosition, Time.deltaTime * zoomSpeed);
+        cam.localPosition = Vector3.MoveTowards(cam.localPosition, newPosition, Time.unscaledDeltaTime * zoomSpeed);
     }
 
     public void ReadInput()
