@@ -9,15 +9,23 @@ public class Orbit : MonoBehaviour
     public float height = 1.1f;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    void Awake()
     {
+        SetFromIncEq(inclination, equator);
+    }
+
+    public void SetFromIncEq(float inclination, float equator)
+    {
+        OrbitStart = Quaternion.AngleAxis(equator, Vector3.up) * Vector3.forward;
+        OrbitAxis =  Quaternion.AngleAxis(inclination, OrbitStart) * Vector3.up;
+        this.inclination = inclination;
+        this.equator = equator;
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        OrbitStart = (Quaternion.AngleAxis(equator, Vector3.up) * Vector3.forward);
-        OrbitAxis =  Quaternion.AngleAxis(inclination, OrbitStart) * Vector3.up;
         // Debug.Log(OrbitAxis);
         // Debug.Log(OrbitStart);
         // Debug.Log(Vector3.Cross(OrbitAxis, OrbitStart));
@@ -27,5 +35,33 @@ public class Orbit : MonoBehaviour
     public Vector3 GetOrbitPosition(float omega)
     {
         return Quaternion.AngleAxis(omega, OrbitAxis) * OrbitStart.normalized * height;
+    }
+
+    public float SetNewOrbit(Vector3 start, Vector3 vec)
+    {
+        if (Vector3.Dot(start, vec) == 0)
+        {
+            return 0;
+        }
+        start.Normalize();
+        vec.Normalize();
+        Vector3 newNormal = Vector3.Cross(start, vec);
+        Vector3 newStart = Vector3.Cross(newNormal, Vector3.up);
+        Debug.DrawLine(Vector3.zero, start*2, Color.blue);
+        Debug.DrawLine(Vector3.zero, vec*2, Color.green);
+        Debug.DrawLine(Vector3.zero, newNormal*2, Color.red);
+        Debug.DrawLine(Vector3.zero, newStart*2, Color.yellow);
+        inclination = Vector3.Angle(Vector3.up, newNormal);
+        equator = Vector3.SignedAngle(Vector3.forward, newStart, Vector3.up);
+        OrbitStart = newStart;
+        OrbitAxis = newNormal;
+        float newOmega = Vector3.SignedAngle(OrbitStart, start, OrbitAxis);
+        return newOmega;
+    }
+
+    public void SetFromOrbit(Orbit orbit)
+    {
+        OrbitAxis = orbit.OrbitAxis;
+        OrbitStart = orbit.OrbitStart;
     }
 }

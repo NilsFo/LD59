@@ -30,10 +30,13 @@ public class OrbitCamera : MonoBehaviour
     private float zoomLevelTarget = 0;
     private float cameraSmoothedZoom;
 
+    private Vector3 eulerAnglesPitch;
+
 
     // Use this for initialization
     void Start()
     {
+        eulerAnglesPitch = focusRotate.eulerAngles;
     }
 
     // Update is called once per frame
@@ -48,14 +51,12 @@ public class OrbitCamera : MonoBehaviour
     {
         if (cameraRotateButton)
         {
-            Vector3 eulerAnglesPitch = focusRotate.eulerAngles;
             eulerAnglesPitch.x -= mouseDelta.y * rotationSpeed;
-            eulerAnglesPitch.x = Mathf.Clamp(eulerAnglesPitch.x, 10f, 85f);
+            eulerAnglesPitch.x = Mathf.Clamp(eulerAnglesPitch.x, -85f, 85f);
             focusRotate.eulerAngles = eulerAnglesPitch;
 
-            Vector3 eulerAnglesYaw = transform.eulerAngles;
-            eulerAnglesYaw.y += mouseDelta.x * rotationSpeed;
-            transform.eulerAngles = eulerAnglesYaw;
+            eulerAnglesPitch.y += mouseDelta.x * rotationSpeed;
+            focusRotate.eulerAngles = eulerAnglesPitch;
         }
     }
 

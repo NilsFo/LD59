@@ -14,11 +14,13 @@ public class GameState : MonoBehaviour
 
     [Header("World Hookup")] public GameObject prefabSatellite;
     public GameObject prefabOrbit;
+    public Orbit templateOrbit;
 
     private void Awake()
     {
         _timeScaler = FindFirstObjectByType<TimeScaler>();
         _mainCamera = FindFirstObjectByType<Camera>();
+        templateOrbit.gameObject.SetActive(false);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

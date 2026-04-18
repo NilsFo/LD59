@@ -2,6 +2,7 @@ using System;
 using UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class SatelliteInstance : MonoBehaviour
 {
@@ -25,6 +26,8 @@ public class SatelliteInstance : MonoBehaviour
     public float omega;
     public Orbit orbit;
 
+    public bool setNewOrbit = true;
+
     private void Awake()
     {
         _gameState = FindFirstObjectByType<GameState>();
@@ -47,6 +50,37 @@ public class SatelliteInstance : MonoBehaviour
         // name tf
         nameTF.text = displayName;
         nameTF.gameObject.transform.parent.gameObject.SetActive(showNameTF);
+        
+        if (setNewOrbit)
+        {
+            RaycastHit hit;
+            var mousePos = Mouse.current.position.value;
+            Ray ray = _gameState.GetCamera().ScreenPointToRay(mousePos);
+            
+            if (Physics.Raycast(ray, out hit)) {
+                Transform objectHit = hit.transform;
+                
+                float newOmega = _gameState.templateOrbit.SetNewOrbit(transform.position, hit.point);
+                _gameState.templateOrbit.gameObject.SetActive(true);
+                if (Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    var newOrbit = Instantiate(_gameState.templateOrbit, Vector3.zero, Quaternion.identity);
+                    newOrbit.SetFromOrbit(_gameState.templateOrbit);
+                    SwitchOrbit(newOrbit, newOmega);
+                }
+            }
+            else
+            {
+                _gameState.templateOrbit.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public void SwitchOrbit(Orbit newOrbit, float newOmega)
+    {
+        Destroy(orbit.gameObject);
+        orbit = newOrbit;
+        omega = newOmega;
     }
 
     private void OnMouseEnter()
