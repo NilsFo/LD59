@@ -535,6 +535,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6526647676600779061, guid: d8ff428b66e29464f8f2de13c75c13b7, type: 3}
+      propertyPath: _maxDelay
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 6917025001172583946, guid: d8ff428b66e29464f8f2de13c75c13b7, type: 3}
       propertyPath: m_Name
       value: GameState

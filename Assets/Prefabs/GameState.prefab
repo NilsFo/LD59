@@ -49,7 +49,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   costOfSatellite: 10
+  selectionState: 0
+  _currentDelay: 0
+  _maxDelay: 0.2
   economy: {fileID: 2778121098870243101}
+  selectedSatellite: {fileID: 0}
   prefabSatellite: {fileID: 7970513347705034793, guid: af377b3e53b120342ba115938c5b6f74, type: 3}
   prefabOrbit: {fileID: 3949989248589237322, guid: 84a44b61f2e168b78beca49d57132f18, type: 3}
   templateOrbit: {fileID: 5017074930250875595}
