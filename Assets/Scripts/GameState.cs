@@ -5,6 +5,7 @@ public class GameState : MonoBehaviour
 {
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
+    public Economy economy;
 
     private void Awake()
     {
