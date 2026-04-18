@@ -14,6 +14,9 @@ public class SatelliteInstance : MonoBehaviour
 
     private GameState _gameState;
 
+    public float omega;
+    public Orbit orbit;
+
     private void Awake()
     {
         _gameState = FindFirstObjectByType<GameState>();
@@ -27,6 +30,8 @@ public class SatelliteInstance : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        omega += Time.deltaTime * 10;
+        transform.localPosition = orbit.GetOrbitPosition(omega);
     }
 
     private void OnDestroy()
