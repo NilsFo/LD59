@@ -94,8 +94,7 @@ public class GameState : MonoBehaviour
             GameObject satInstance = Instantiate(prefabSatellite, transform);
 
             Orbit orbit = orbitInstance.GetComponent<Orbit>();
-            orbit.equator = Random.Range(0, 359);
-            orbit.inclination = Random.Range(-80, 80);
+            orbit.SetFromIncEq(Random.Range(-80, 80), Random.Range(0, 359));
 
             SatelliteInstance sat = satInstance.GetComponent<SatelliteInstance>();
             sat.orbit = orbit;
