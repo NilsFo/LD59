@@ -50,6 +50,7 @@ MonoBehaviour:
   costOfSatellite: 10
   economy: {fileID: 2778121098870243101}
   prefabSatellite: {fileID: 7970513347705034793, guid: af377b3e53b120342ba115938c5b6f74, type: 3}
+  prefabOrbit: {fileID: 3949989248589237322, guid: 84a44b61f2e168b78beca49d57132f18, type: 3}
 --- !u!114 &1234729011407369579
 MonoBehaviour:
   m_ObjectHideFlags: 0

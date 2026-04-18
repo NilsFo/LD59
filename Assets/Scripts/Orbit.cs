@@ -18,9 +18,9 @@ public class Orbit : MonoBehaviour
     {
         OrbitStart = (Quaternion.AngleAxis(equator, Vector3.up) * Vector3.forward);
         OrbitAxis =  Quaternion.AngleAxis(inclination, OrbitStart) * Vector3.up;
-        Debug.Log(OrbitAxis);
-        Debug.Log(OrbitStart);
-        Debug.Log(Vector3.Cross(OrbitAxis, OrbitStart));
+        // Debug.Log(OrbitAxis);
+        // Debug.Log(OrbitStart);
+        // Debug.Log(Vector3.Cross(OrbitAxis, OrbitStart));
     }
     
     // Omega ist die rotation um den orbit in radianten zwsichen 0 und 2*pi, startet am äquator

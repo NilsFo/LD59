@@ -1,19 +1,19 @@
 using System;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
 public class GameState : MonoBehaviour
 {
+    [SerializeField] private int costOfSatellite = 1000;
 
-    [SerializeField]
-    private int costOfSatellite = 1000;
-    
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
     public Economy economy;
     private Camera _mainCamera;
 
-    public GameObject prefabSatellite;
+    [Header("World Hookup")] public GameObject prefabSatellite;
+    public GameObject prefabOrbit;
 
     private void Awake()
     {
@@ -43,7 +43,17 @@ public class GameState : MonoBehaviour
         if (newBalance >= 0)
         {
             economy.Money = newBalance;
-            Instantiate(prefabSatellite, transform);
+
+            GameObject orbitInstance = Instantiate(prefabOrbit, Vector3.zero, Quaternion.identity);
+            GameObject satInstance = Instantiate(prefabSatellite, transform);
+
+            Orbit orbit = orbitInstance.GetComponent<Orbit>();
+            orbit.equator = Random.Range(0, 359);
+            orbit.inclination = Random.Range(-80, 80);
+
+            SatelliteInstance sat = satInstance.GetComponent<SatelliteInstance>();
+            sat.orbit = orbit;
+
             return true;
         }
 
