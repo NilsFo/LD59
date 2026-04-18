@@ -8,21 +8,24 @@ using Random = UnityEngine.Random;
 public class GameState : MonoBehaviour
 {
     [SerializeField] private int costOfSatellite = 1000;
+
     public enum SelectionState
     {
         Normal,
         SatelliteReroute
     }
 
-    public SelectionState selectionState;
+    public SelectionState selectionState = SelectionState.Normal;
+    private SelectionState _selectionState = SelectionState.Normal;
+    private bool selectionSkipFrame;
 
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
     public Economy economy;
-    
+
     [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
     public event Action<SatelliteInstance> OnSelectedSatelliteChanged;
-    
+
     private Camera _mainCamera;
 
     [Header("World Hookup")] public GameObject prefabSatellite;
@@ -52,8 +55,30 @@ public class GameState : MonoBehaviour
             economy.Money += 100;
         }
 
-        if(selectionState == SelectionState.SatelliteReroute)
-            SetNewOrbit();
+        if (_selectionState != selectionState)
+        {
+            OnNewSelectionState();
+            _selectionState = selectionState;
+            selectionSkipFrame = true;
+        }
+
+        if (selectionState == SelectionState.SatelliteReroute && !selectionSkipFrame)
+        {
+            if (selectionSkipFrame)
+            {
+                Debug.LogWarning("SELECTION SKIP FRAME");
+                selectionSkipFrame = false;
+            }
+            else
+            {
+                UpdateOrbitPreview();
+            }
+        }
+    }
+
+    private void OnNewSelectionState()
+    {
+        print("Entered a new selection state: " + selectionState);
     }
 
     public Camera GetCamera()
@@ -93,14 +118,17 @@ public class GameState : MonoBehaviour
 
     public void SetSelectedSatellite(SatelliteInstance sat = null)
     {
+        print("Sat selection registered.");
         if (sat == null)
         {
-            if (selectedSatellite !=null)
+            if (selectedSatellite != null)
             {
                 selectedSatellite.IsSelected = false;
                 selectedSatellite = null;
             }
+
             OnSelectedSatelliteChanged?.Invoke(null);
+            selectionState = SelectionState.Normal;
         }
         else
         {
@@ -110,22 +138,25 @@ public class GameState : MonoBehaviour
                 selectedSatellite.IsSelected = false;
                 selectedSatellite = null;
             }
+
+            selectionState = SelectionState.SatelliteReroute;
             selectedSatellite = sat;
             OnSelectedSatelliteChanged?.Invoke(sat);
         }
     }
 
-    public void SetNewOrbit()
+    public void UpdateOrbitPreview()
     {
         if (selectedSatellite != null)
         {
             RaycastHit hit;
             var mousePos = Mouse.current.position.value;
             Ray ray = GetCamera().ScreenPointToRay(mousePos);
-            
-            if (Physics.Raycast(ray, out hit)) {
+
+            if (Physics.Raycast(ray, out hit))
+            {
                 Transform objectHit = hit.transform;
-                
+
                 float newOmega = templateOrbit.SetNewOrbit(transform.position, hit.point);
                 templateOrbit.gameObject.SetActive(true);
                 if (Mouse.current.leftButton.wasPressedThisFrame)
@@ -139,10 +170,11 @@ public class GameState : MonoBehaviour
             {
                 templateOrbit.gameObject.SetActive(false);
             }
-        }else
+        }
+        else
         {
             templateOrbit.gameObject.SetActive(false);
+            selectionState = SelectionState.Normal;
         }
     }
-    
 }
