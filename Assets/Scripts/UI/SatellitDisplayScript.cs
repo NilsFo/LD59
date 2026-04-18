@@ -4,13 +4,11 @@ namespace UI
 {
     public class SatellitDisplayScript : MonoBehaviour
     {
-        [SerializeField]
-        private GameObject prefabUiItem;
-    
-        [SerializeField]
-        private GameObject parentUI;
+        [SerializeField] private GameObject prefabUiItem;
 
-        public void AddSatellit(SatelliteInstance sat)
+        [SerializeField] private GameObject parentUI;
+
+        public void RegisterSatellite(SatelliteInstance sat)
         {
             GameObject newItem = Instantiate(prefabUiItem, parentUI.transform);
             SatellitItemDisplayScript comp = newItem.GetComponent<SatellitItemDisplayScript>();

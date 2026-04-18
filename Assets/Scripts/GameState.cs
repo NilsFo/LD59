@@ -62,7 +62,7 @@ public class GameState : MonoBehaviour
         }
         else if (selectionState == SelectionState.Init)
         {
-            _currentDelay -= Time.deltaTime;
+            _currentDelay -= Time.unscaledDeltaTime;
             if (_currentDelay <= 0f)
             {
                 selectionState = SelectionState.SatelliteReroute;
@@ -149,7 +149,7 @@ public class GameState : MonoBehaviour
             {
                 Transform objectHit = hit.transform;
 
-                float newOmega = templateOrbit.SetNewOrbit(transform.position, hit.point);
+                float newOmega = templateOrbit.SetNewOrbit(selectedSatellite.transform.position, hit.point);
                 templateOrbit.gameObject.SetActive(true);
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
