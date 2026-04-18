@@ -8,6 +8,13 @@ using Random = UnityEngine.Random;
 public class GameState : MonoBehaviour
 {
     [SerializeField] private int costOfSatellite = 1000;
+    public enum SelectionState
+    {
+        Normal,
+        SatelliteReroute
+    }
+
+    public SelectionState selectionState;
 
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
@@ -20,11 +27,13 @@ public class GameState : MonoBehaviour
 
     [Header("World Hookup")] public GameObject prefabSatellite;
     public GameObject prefabOrbit;
+    public Orbit templateOrbit;
 
     private void Awake()
     {
         _timeScaler = FindFirstObjectByType<TimeScaler>();
         _mainCamera = FindFirstObjectByType<Camera>();
+        templateOrbit.gameObject.SetActive(false);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -42,6 +51,9 @@ public class GameState : MonoBehaviour
         {
             economy.Money += 100;
         }
+
+        if(selectionState == SelectionState.SatelliteReroute)
+            SetNewOrbit();
     }
 
     public Camera GetCamera()
@@ -100,6 +112,36 @@ public class GameState : MonoBehaviour
             }
             selectedSatellite = sat;
             OnSelectedSatelliteChanged?.Invoke(sat);
+        }
+    }
+
+    public void SetNewOrbit()
+    {
+        if (selectedSatellite != null)
+        {
+            RaycastHit hit;
+            var mousePos = Mouse.current.position.value;
+            Ray ray = GetCamera().ScreenPointToRay(mousePos);
+            
+            if (Physics.Raycast(ray, out hit)) {
+                Transform objectHit = hit.transform;
+                
+                float newOmega = templateOrbit.SetNewOrbit(transform.position, hit.point);
+                templateOrbit.gameObject.SetActive(true);
+                if (Mouse.current.leftButton.wasPressedThisFrame)
+                {
+                    var newOrbit = Instantiate(templateOrbit, Vector3.zero, Quaternion.identity);
+                    newOrbit.SetFromOrbit(templateOrbit);
+                    selectedSatellite.SwitchOrbit(newOrbit, newOmega);
+                }
+            }
+            else
+            {
+                templateOrbit.gameObject.SetActive(false);
+            }
+        }else
+        {
+            templateOrbit.gameObject.SetActive(false);
         }
     }
     

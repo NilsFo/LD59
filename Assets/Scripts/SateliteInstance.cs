@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UI;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using Random = UnityEngine.Random;
 
 public class SatelliteInstance : MonoBehaviour
@@ -67,6 +68,14 @@ public class SatelliteInstance : MonoBehaviour
         // name tf
         nameTF.text = displayName;
         nameTF.gameObject.transform.parent.gameObject.SetActive(showNameTF);
+        
+    }
+
+    public void SwitchOrbit(Orbit newOrbit, float newOmega)
+    {
+        Destroy(orbit.gameObject);
+        orbit = newOrbit;
+        omega = newOmega;
     }
 
     private void OnMouseEnter()
