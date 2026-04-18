@@ -1,10 +1,15 @@
 using System;
+using System.Collections.Generic;
 using UI;
 using TMPro;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class SatelliteInstance : MonoBehaviour
 {
+    const string Glyphs = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    public static Dictionary<String, SatelliteInstance> nameLookup = new Dictionary<string, SatelliteInstance>();
+    
     ////////////////////////////////////////
     // Params
     ////////////////////////////////////////
@@ -14,6 +19,7 @@ public class SatelliteInstance : MonoBehaviour
 
     [Header("Properties")] public Vector2 position;
     public bool showNameTF;
+    [SerializeField] private bool isSelected = false;
 
     [Header("World hookup")] public TextMeshProUGUI nameTF;
 
@@ -25,10 +31,24 @@ public class SatelliteInstance : MonoBehaviour
     public float omega;
     public Orbit orbit;
 
+    public bool IsSelected
+    {
+        get => isSelected;
+        set {
+            if (isSelected == value) return;
+            isSelected = value;
+            if (isSelected)
+            {
+                _gameState.SetSelectedSatellite(this);
+            }
+        }
+    }
+    
     private void Awake()
     {
         _gameState = FindFirstObjectByType<GameState>();
         _displayScript = FindFirstObjectByType<SatellitDisplayScript>();
+        SetNewName();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -52,18 +72,48 @@ public class SatelliteInstance : MonoBehaviour
     private void OnMouseEnter()
     {
         showNameTF = true;
-        Debug.Log("Sat: Mouse Enter!", gameObject);
     }
 
     private void OnMouseExit()
     {
         showNameTF = false;
-        Debug.Log("Sat: Mouse Exit!", gameObject);
     }
 
+    private void OnMouseDown()
+    {
+        if (!IsSelected)
+        {
+            IsSelected = true;
+        }
+    }
 
     private void OnDestroy()
     {
         OnSatelliteDestroy?.Invoke();
+    }
+
+    private void SetNewName()
+    {
+        if (displayName == null || displayName.Length == 0)
+        {
+            string candidateName;
+            do
+            {
+                candidateName = GenerateName();
+            } while (nameLookup.ContainsKey(candidateName));
+            displayName = candidateName;
+            nameLookup[candidateName] = this;
+        }
+    }
+    
+    private string GenerateName()
+    {
+        string newName = "";
+        for(int i=0; i<3; i++)
+        {
+            newName += Glyphs[Random.Range(0, Glyphs.Length)];
+        }
+        newName += " " + Random.Range(1, 10);
+        return newName;
     }
 }
