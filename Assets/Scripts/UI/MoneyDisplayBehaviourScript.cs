@@ -28,7 +28,6 @@ namespace UI
         public void DebugAddMoney()
         {
             gameState.economy.Money += 100;
-            Debug.Log(gameState.economy.Money);
         }
         
         public void DebugRemoveMoney()
@@ -42,7 +41,6 @@ namespace UI
             {
                 gameState.economy.Money = 0;
             }
-            Debug.Log(gameState.economy.Money);
         }
     }
 }
