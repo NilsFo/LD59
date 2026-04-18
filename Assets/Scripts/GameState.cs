@@ -1,4 +1,5 @@
 using System;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
@@ -11,6 +12,10 @@ public class GameState : MonoBehaviour
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
     public Economy economy;
+    
+    [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
+    public event Action<SatelliteInstance> OnSelectedSatelliteChanged;
+    
     private Camera _mainCamera;
 
     [Header("World Hookup")] public GameObject prefabSatellite;
@@ -73,4 +78,29 @@ public class GameState : MonoBehaviour
 
         return false;
     }
+
+    public void SetSelectedSatellite(SatelliteInstance sat = null)
+    {
+        if (sat == null)
+        {
+            if (selectedSatellite !=null)
+            {
+                selectedSatellite.IsSelected = false;
+                selectedSatellite = null;
+            }
+            OnSelectedSatelliteChanged?.Invoke(null);
+        }
+        else
+        {
+            if (selectedSatellite != null
+                && selectedSatellite.gameObject.GetInstanceID() != sat.gameObject.GetInstanceID())
+            {
+                selectedSatellite.IsSelected = false;
+                selectedSatellite = null;
+            }
+            selectedSatellite = sat;
+            OnSelectedSatelliteChanged?.Invoke(sat);
+        }
+    }
+    
 }
