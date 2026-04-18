@@ -104,7 +104,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 168431969776616749, guid: 8db723838a5d8224383f73efedf0d40c, type: 3}
       propertyPath: m_text
-      value: F
+      value: Fast Forward
+      objectReference: {fileID: 0}
+    - target: {fileID: 168431969776616749, guid: 8db723838a5d8224383f73efedf0d40c, type: 3}
+      propertyPath: m_fontSize
+      value: 22.2
       objectReference: {fileID: 0}
     - target: {fileID: 3212397641234665779, guid: 8db723838a5d8224383f73efedf0d40c, type: 3}
       propertyPath: m_Name
@@ -219,7 +223,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 168431969776616749, guid: 8db723838a5d8224383f73efedf0d40c, type: 3}
       propertyPath: m_text
-      value: S
+      value: Stop
+      objectReference: {fileID: 0}
+    - target: {fileID: 168431969776616749, guid: 8db723838a5d8224383f73efedf0d40c, type: 3}
+      propertyPath: m_fontSize
+      value: 42.1
       objectReference: {fileID: 0}
     - target: {fileID: 3212397641234665779, guid: 8db723838a5d8224383f73efedf0d40c, type: 3}
       propertyPath: m_Name
@@ -328,6 +336,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9044786602744225254}
     m_Modifications:
+    - target: {fileID: 168431969776616749, guid: 8db723838a5d8224383f73efedf0d40c, type: 3}
+      propertyPath: m_text
+      value: Play
+      objectReference: {fileID: 0}
+    - target: {fileID: 168431969776616749, guid: 8db723838a5d8224383f73efedf0d40c, type: 3}
+      propertyPath: m_fontSize
+      value: 47.05
+      objectReference: {fileID: 0}
     - target: {fileID: 3212397641234665779, guid: 8db723838a5d8224383f73efedf0d40c, type: 3}
       propertyPath: m_Name
       value: Play

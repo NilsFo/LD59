@@ -19,17 +19,22 @@ namespace UI
             gameState.economy.OnMoneyChanged += UpdateMoney;
             UpdateMoney(gameState.economy.Money);
         }
-    
+
+        private void Update()
+        {
+            UpdateMoney(gameState.economy.Money);
+        }
+
         void UpdateMoney(int newAmount)
         {
-            text.SetText(newAmount + "$");
+            text.SetText("$" + newAmount);
         }
 
         public void DebugAddMoney()
         {
             gameState.economy.Money += 100;
         }
-        
+
         public void DebugRemoveMoney()
         {
             var newValue = gameState.economy.Money - 100;
