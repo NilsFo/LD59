@@ -13,6 +13,7 @@ public class LaunchControlScript : MonoBehaviour
 
     public void AddSatellite()
     {
+        print("Launch control: Sat requested.");
         _gameState.AddSatellite();
     }
 }

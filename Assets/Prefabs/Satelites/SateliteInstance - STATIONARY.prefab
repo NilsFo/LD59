@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7970513347705034793, guid: af377b3e53b120342ba115938c5b6f74, type: 3}
       propertyPath: m_Name
-      value: SateliteInstance - BASE
+      value: SateliteInstance - STATIONARY
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

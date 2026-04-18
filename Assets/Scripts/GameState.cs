@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
@@ -30,6 +31,12 @@ public class GameState : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // money cheat
+        Keyboard k = Keyboard.current;
+        if (k.mKey.wasPressedThisFrame)
+        {
+            economy.Money += 100;
+        }
     }
 
     public Camera GetCamera()
@@ -39,9 +46,12 @@ public class GameState : MonoBehaviour
 
     public bool AddSatellite()
     {
+        print("Gamestate: Sat requested.");
         var newBalance = economy.Money - costOfSatellite;
         if (newBalance >= 0)
         {
+            print("Buying a sat.");
+
             economy.Money = newBalance;
 
             GameObject orbitInstance = Instantiate(prefabOrbit, Vector3.zero, Quaternion.identity);
@@ -55,6 +65,10 @@ public class GameState : MonoBehaviour
             sat.orbit = orbit;
 
             return true;
+        }
+        else
+        {
+            print("I can't give credit. Come back when you are... richer!");
         }
 
         return false;

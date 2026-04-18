@@ -27,7 +27,7 @@ namespace UI
 
         void UpdateMoney(int newAmount)
         {
-            text.SetText("$" + newAmount);
+            text.SetText(newAmount+"");
         }
 
         public void DebugAddMoney()
