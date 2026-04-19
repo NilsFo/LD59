@@ -20,7 +20,7 @@ public class GameState : MonoBehaviour
     [SerializeField] private float _currentDelay = 0f;
     [SerializeField] private float _maxDelay = 5f;
     
-    [SerializeField] private float uptimeThreshold = 5f; 
+    [SerializeField] private float uptimeThreshold = 0.8f; 
     [SerializeField] private float winUptime = 30f;
 
     public TimeScaler TimeScaler => _timeScaler;
