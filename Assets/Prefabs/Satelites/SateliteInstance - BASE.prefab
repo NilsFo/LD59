@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 4312314920311414666}
   - component: {fileID: 2963246432289856120}
   - component: {fileID: 6803123685264841383}
+  - component: {fileID: 2435133557367980837}
   m_Layer: 0
   m_Name: SateliteInstance - BASE
   m_TagString: Untagged
@@ -363,9 +364,13 @@ MonoBehaviour:
   fuelMax: 0
   fuelCurrent: 0
   height: 0
+  color: {r: 0, g: 0, b: 0, a: 0}
+  colorMuted: {r: 0, g: 0, b: 0, a: 0}
   position: {x: 0, y: 0}
-  showNameTF: 0
+  isHighLighted: 0
+  isSelected: 0
   nameTF: {fileID: 6834391147949281963}
+  myDescription: {fileID: 2435133557367980837}
   omega: 0
   orbit: {fileID: 0}
 --- !u!65 &6803123685264841383
@@ -389,6 +394,20 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.25, y: 0.25, z: 0.25}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2435133557367980837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970513347705034793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411dbd5d3d2e470499a6ccfe991a601c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: BOII
+  keep: 0
 --- !u!1 &8230744325072750880
 GameObject:
   m_ObjectHideFlags: 0
@@ -408,7 +427,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8359738480722526643
 RectTransform:
   m_ObjectHideFlags: 0

@@ -37,6 +37,8 @@ public class GameState : MonoBehaviour
     public GameObject prefabOrbit;
     public Orbit templateOrbit;
     private MusicManager _musicManager;
+    [SerializeField] private TextScroller radioDisplay;
+    [SerializeField] private TextScroller descriptionDisplay;
 
     private void Awake()
     {
@@ -54,6 +56,12 @@ public class GameState : MonoBehaviour
         Application.targetFrameRate = 60;
         _musicManager.Play(0);
         MusicManager.userDesiredMasterVolume = 0.5f;
+
+        DisplayRadioMsg("Hey kid.\n" +
+                        "You are a new guy on the job. Since you graduated idiot school, " +
+                        "I will show you the ropes.\n" +
+                        "This is gonna take a lot of text to describe all you have to do.\n" +
+                        "But this text is very long to compensate for your stupidity.");
     }
 
     // Update is called once per frame
@@ -180,6 +188,26 @@ public class GameState : MonoBehaviour
         {
             templateOrbit.gameObject.SetActive(false);
         }
+    }
+
+    public void DisplayRadioMsg(string text, bool instantly = false)
+    {
+        radioDisplay.DisplayText(text, instantly);
+    }
+
+    public void DisplayDescription(string text, bool instantly = false)
+    {
+        descriptionDisplay.DisplayText(text, instantly);
+    }
+
+    public void ClearDisplayRadioMsg()
+    {
+        radioDisplay.Clear();
+    }
+
+    public void ClearDisplayDescription()
+    {
+        descriptionDisplay.Clear();
     }
 
     public int GetNumObjectives()

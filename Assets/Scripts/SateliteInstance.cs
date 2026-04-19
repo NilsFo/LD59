@@ -45,6 +45,7 @@ public class SatelliteInstance : MonoBehaviour
     [SerializeField] private bool isSelected = false;
 
     [Header("World hookup")] public TextMeshProUGUI nameTF;
+    public HoverDescription myDescription;
 
     private GameState _gameState;
     private SatellitDisplayScript _displayScript;
@@ -91,7 +92,8 @@ public class SatelliteInstance : MonoBehaviour
 
         // name tf
         nameTF.text = displayName;
-        nameTF.gameObject.transform.parent.gameObject.SetActive(isHighLighted || isSelected);
+        nameTF.gameObject.transform.parent.gameObject.SetActive(false);
+        myDescription.description = displayName;
 
         nameTF.color = colorMuted;
         if (isSelected)
@@ -166,7 +168,6 @@ public class SatelliteInstance : MonoBehaviour
                             inSight = colonyAngles[heightIndex] < dot;
                             break;
                     }
-
                     break;
                 case Objective.ObjectiveStateEnum.Completed:
                     break;
@@ -185,8 +186,7 @@ public class SatelliteInstance : MonoBehaviour
             if (objectiveInSight[index])
             {
                 var objective = _gameState.objectives[index];
-                objective.Payday();
-                Debug.Log(objective);
+                objective.Payday(this);
             }
         }
     }
