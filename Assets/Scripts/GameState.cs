@@ -32,6 +32,8 @@ public class GameState : MonoBehaviour
     public GameObject prefabOrbit;
     public Orbit templateOrbit;
     private MusicManager _musicManager;
+    public TextScroller radioDisplay;
+    public TextScroller descriptionDisplay;
 
     private void Awake()
     {
@@ -172,5 +174,10 @@ public class GameState : MonoBehaviour
         {
             templateOrbit.gameObject.SetActive(false);
         }
+    }
+
+    public void ShowRadioMsg(string text)
+    {
+        radioDisplay.text = text;
     }
 }
