@@ -490,7 +490,7 @@ MonoBehaviour:
   displayName: 
   fuelMax: 0
   fuelCurrent: 0
-  discoverAngle: 20
+  discoverAngle: 40
   abandonedSiteAngle: 20
   colonyAngle: 40
   surveyAngle: 20

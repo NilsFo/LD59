@@ -152,7 +152,7 @@ public class SatelliteInstance : MonoBehaviour
         {
             var objective = _gameState.objectives[index];
             //Debug.Log(Vector3.Dot(objective.transform.position.normalized, transform.position.normalized));
-            var dot = Mathf.Abs(Vector3.Dot(objective.transform.position.normalized, transform.position.normalized));
+            var dot = Vector3.Dot(objective.transform.position.normalized, transform.position.normalized);
             var inSight = false;
             switch (objective.ObjectiveState)
             {
