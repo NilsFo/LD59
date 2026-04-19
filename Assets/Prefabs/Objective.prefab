@@ -138,6 +138,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8721188541493458902}
   - component: {fileID: 1079981369689103345}
+  - component: {fileID: 3518276660236370286}
+  - component: {fileID: 8947854358637704451}
   m_Layer: 0
   m_Name: Objective
   m_TagString: Untagged
@@ -176,7 +178,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a737b37b206031e11b0f2b4e7f16aacf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  payout: 100
+  discoverCooldown: 3
+  exploreCooldown: 3
+  excavateCooldown: 3
+  colonyUptimeDecay: 0.2
+  colonyUptime: 2
+  colonyProgress: 0.25
+  colonyCooldown: 3
+  surveyProgressLeo: 0.1
+  surveyProgressMeo: 0.05
+  surveyProgressGeo: 0.01
+  surveyCooldown: 3
+  siteProgressLeo: 0.1
+  siteProgressMeo: 0.05
+  siteProgressGeo: 0.01
+  siteCooldown: 3
   _objectiveState: 0
+  currentCooldown: 0
+  povProgress: 0
+  commUpTime: 0
   objectiveStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -188,6 +209,42 @@ MonoBehaviour:
   abandonedSiteViz: {fileID: 8072187215701359856}
   mineralSurveyViz: {fileID: 7166422163745453863}
   colonyViz: {fileID: 4543700020940509500}
+--- !u!114 &3518276660236370286
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5416114777395619381}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411dbd5d3d2e470499a6ccfe991a601c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: This is an objective. You should complete it.
+  keep: 0
+  instantly: 0
+--- !u!135 &8947854358637704451
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5416114777395619381}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.05
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1001 &6944285376194808021
 PrefabInstance:
   m_ObjectHideFlags: 0
