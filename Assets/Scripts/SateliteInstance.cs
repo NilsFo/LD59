@@ -24,6 +24,7 @@ public class SatelliteInstance : MonoBehaviour
     [SerializeField] private bool isSelected = false;
 
     [Header("World hookup")] public TextMeshProUGUI nameTF;
+    public HoverDescription myDescription;
 
     private GameState _gameState;
     private SatellitDisplayScript _displayScript;
@@ -69,7 +70,8 @@ public class SatelliteInstance : MonoBehaviour
 
         // name tf
         nameTF.text = displayName;
-        nameTF.gameObject.transform.parent.gameObject.SetActive(isHighLighted || isSelected);
+        nameTF.gameObject.transform.parent.gameObject.SetActive(false);
+        myDescription.description = displayName;
 
         nameTF.color = colorMuted;
         if (isSelected)

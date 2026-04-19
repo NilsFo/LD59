@@ -32,6 +32,8 @@ public class GameState : MonoBehaviour
     public GameObject prefabOrbit;
     public Orbit templateOrbit;
     private MusicManager _musicManager;
+    public TextScroller radioDisplay;
+    public TextScroller descriptionDisplay;
 
     private void Awake()
     {
