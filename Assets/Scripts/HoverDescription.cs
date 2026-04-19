@@ -1,9 +1,10 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class HoverDescription : MonoBehaviour
+public class HoverDescription : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private GameState _gameState;
-    [Header("Description:")] public string description;
+    [Header("Description:")] [TextArea] public string description;
 
     [Header("Config")] public bool keep = false;
     public bool instantly;
@@ -16,20 +17,41 @@ public class HoverDescription : MonoBehaviour
 
     public void DisplayText()
     {
-        print("New description: " + gameObject.name);
+        // print("New description: " + gameObject.name);
         _gameState.DisplayDescription(description, instantly);
     }
 
-    private void OnMouseEnter()
+    private void UnitedEnter()
     {
         DisplayText();
     }
 
-    private void OnMouseExit()
+    private void UnitedExit()
     {
         if (!keep)
         {
             _gameState.ClearDisplayDescription();
         }
+    }
+
+    private void OnMouseEnter()
+    {
+        UnitedEnter();
+    }
+
+    private void OnMouseExit()
+    {
+        UnitedExit();
+    }
+
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        UnitedEnter();
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        UnitedExit();
     }
 }

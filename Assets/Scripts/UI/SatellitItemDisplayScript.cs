@@ -6,7 +6,7 @@ namespace UI
     public class SatellitItemDisplayScript : MonoBehaviour
     {
         [SerializeField] [Header("My Satellite")]
-        private SatelliteInstance satelliteInstance;
+        public SatelliteInstance satelliteInstance;
 
         [Header("World Hookup")] public TextMeshProUGUI nameTF;
         public TextMeshProUGUI fuelTF;
@@ -47,44 +47,46 @@ namespace UI
             markedForDestroy = true;
         }
 
+        /**
         public void BuyLeo()
         {
             satelliteInstance.BuyLeo();
         }
-        
+
         public void BuyMeo()
         {
             satelliteInstance.BuyMeo();
         }
-        
+
         public void BuyGeo()
         {
             satelliteInstance.BuyGeo();
         }
-        
+
         public void BuyCam()
         {
             satelliteInstance.BuyCam();
         }
-        
+
         public void BuyScan()
         {
             satelliteInstance.BuyScan();
         }
-        
+
         public void BuyComm()
         {
             satelliteInstance.BuyComm();
         }
-        
-        public void BuyRefule()
+
+        public void BuyRefuel()
         {
-            satelliteInstance.BuyRefule();
+            satelliteInstance.BuyRefuel();
         }
-        
-        public void BuyPlusFule()
+
+        public void BuyPlusFuel()
         {
-            satelliteInstance.BuyPlusFule();
+            satelliteInstance.BuyPlusFuel();
         }
+        **/
     }
 }

@@ -375,6 +375,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2104295052497045706, guid: 3424855b47477fb439a575d1d76c6192, type: 3}
+      propertyPath: field of view
+      value: 60.000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104295052497045706, guid: 3424855b47477fb439a575d1d76c6192, type: 3}
       propertyPath: m_FocalLength
       value: 20.78461
       objectReference: {fileID: 0}
@@ -627,7 +631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4563667355185567896, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 5416233973010292781, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
       propertyPath: m_AnchorMax.x
