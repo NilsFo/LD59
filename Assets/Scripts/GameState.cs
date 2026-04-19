@@ -17,6 +17,7 @@ public class GameState : MonoBehaviour
     public int refuelCost = 1000;
     public int fuelPlusCost = 200;
 
+    public int changeOrbitCostFuel = 25;
     public int leoCostFuel = 25;
     public int meoCostFuel = 50;
     public int geoCostFuel = 100;
@@ -215,6 +216,7 @@ public class GameState : MonoBehaviour
                 Transform objectHit = hit.transform;
 
                 float newOmega = templateOrbit.SetNewOrbit(selectedSatellite.transform.position, hit.point);
+                templateOrbit.height = selectedSatellite.orbit.height;
                 templateOrbit.gameObject.SetActive(true);
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
