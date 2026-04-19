@@ -50,6 +50,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   costOfSatellite: 10
+  camCost: 100
+  scanCost: 50
+  commCost: 500
+  refuelCost: 1000
+  fuelPlusCost: 200
+  changeOrbitCostFuel: 25
+  leoCostFuel: 25
+  meoCostFuel: 50
+  geoCostFuel: 100
   selectionState: 0
   _currentDelay: 0
   _maxDelay: 0.2
@@ -59,6 +68,8 @@ MonoBehaviour:
   prefabSatellite: {fileID: 7970513347705034793, guid: af377b3e53b120342ba115938c5b6f74, type: 3}
   prefabOrbit: {fileID: 3949989248589237322, guid: 84a44b61f2e168b78beca49d57132f18, type: 3}
   templateOrbit: {fileID: 5017074930250875595}
+  radioDisplay: {fileID: 0}
+  descriptionDisplay: {fileID: 0}
 --- !u!114 &1234729011407369579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -86,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e676d76b2d51eb4b95ac5e596074692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  money: 0
+  money: 200000
 --- !u!1001 &4039185744172549839
 PrefabInstance:
   m_ObjectHideFlags: 0

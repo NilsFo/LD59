@@ -78,6 +78,7 @@ public class SatelliteInstance : MonoBehaviour
     {
         _displayScript.RegisterSatellite(this);
         objectiveInSight = new bool[_gameState.GetNumObjectives()];
+        UpdateHaloViz();
     }
 
     // Update is called once per frame
@@ -110,7 +111,7 @@ public class SatelliteInstance : MonoBehaviour
 
     private void UpdateHaloViz()
     {
-        if (isSelected)
+        if (isHighLighted)
         {
             signalHalo.gameObject.SetActive(true);
             signalHalo.height = orbit.height - 1f;
@@ -151,7 +152,7 @@ public class SatelliteInstance : MonoBehaviour
         {
             var objective = _gameState.objectives[index];
             //Debug.Log(Vector3.Dot(objective.transform.position.normalized, transform.position.normalized));
-            var dot = Mathf.Abs(Vector3.Dot(objective.transform.position.normalized, transform.position.normalized));
+            var dot = Vector3.Dot(objective.transform.position.normalized, transform.position.normalized);
             var inSight = false;
             switch (objective.ObjectiveState)
             {

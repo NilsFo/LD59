@@ -15,7 +15,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8072187215701359856
 Transform:
   m_ObjectHideFlags: 0
@@ -79,7 +79,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7166422163745453863
 Transform:
   m_ObjectHideFlags: 0
@@ -178,7 +178,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a737b37b206031e11b0f2b4e7f16aacf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  payout: 100
+  id: 
+  displayName: 
+  description: 
+  objectiveType: 1
+  longitude: 180.5
+  latitude: 34.3
+  payout: 1000
   discoverCooldown: 3
   exploreCooldown: 3
   excavateCooldown: 3
@@ -186,11 +192,11 @@ MonoBehaviour:
   colonyUptime: 2
   colonyProgress: 0.25
   colonyCooldown: 3
-  surveyProgressLeo: 0.1
-  surveyProgressMeo: 0.05
+  surveyProgressLeo: 0.5
+  surveyProgressMeo: 0.1
   surveyProgressGeo: 0.01
   surveyCooldown: 3
-  siteProgressLeo: 0.1
+  siteProgressLeo: 0.5
   siteProgressMeo: 0.05
   siteProgressGeo: 0.01
   siteCooldown: 3
@@ -201,10 +207,6 @@ MonoBehaviour:
   objectiveStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  objectiveType: 0
-  longitude: 180.5
-  latitude: 34.3
-  researchValue: 1
   unexploredViz: {fileID: 8033515816397137300}
   abandonedSiteViz: {fileID: 8072187215701359856}
   mineralSurveyViz: {fileID: 7166422163745453863}
@@ -221,9 +223,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411dbd5d3d2e470499a6ccfe991a601c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: This is an objective. You should complete it.
+  description: Our satellites have picked up something here. Send a satellite with
+    a CAM to investigate.
   keep: 0
-  instantly: 0
+  instantly: 1
 --- !u!135 &8947854358637704451
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -547,6 +550,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: mineral_deposite
       objectReference: {fileID: 0}
+    - target: {fileID: 6014684558238675576, guid: 8a2d935a0c0ec975b9b24f9727bc1144, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: feeefb9bea4bf1087a35c68a2d05a6d4, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

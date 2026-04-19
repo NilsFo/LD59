@@ -1,0 +1,64 @@
+{
+  "pois": [
+    {
+      "id": "home",
+      "name": "ORFS",
+      "description": "The UN initiative to restore communication with the colonies of Mars. It is also your home.",
+      "longitude": 85.0,
+      "latitude": 176.0,
+      "type": "Home"
+    },
+    {
+      "id": "eurdc",
+      "name": "EUR-DC",
+      "description": "The European Distant Colony Initiative has experienced rough years shortly after its conception, but has persevered despite supply shortages, radiation leaks, and overpriced certifications. The occupants have taken to calling the colony Eurydice. One may hope that through all the bureaucracy and red tape, Eurydice stands.",
+      "type": "Colony"
+    },
+    {
+      "id": "ozy",
+      "name": "Ozymandias Data Center",
+      "description": "Two vast and empty data centers stand in the desert. Thousands of GPUs crunching numbers without meaning and throwing them into the void.\n\nNothing beside remains. Round the decay of that colossal wreck, boundless and bare the lone and level sands stretch far away.",
+      "type": "Abandoned"
+    },
+    {
+      "id": "newton",
+      "name": "Newton Crater",
+      "description": "A massive source of Lithium lies below the arid planes of Mars. A bountiful find for battery production.",
+      "longitude": 30.0,
+      "latitude": 50.0,
+      "type": "Survey"
+    },
+    {
+      "id": "gao",
+      "name": "New Gao",
+      "description": "Climate change and high fences pushed many people from earth toward Mars. The city of New Gao was founded on the principle of safe harbour for all those who seek it.",
+      "type": "Colony"
+    },
+    {
+      "id": "korolev",
+      "name": "Korolev Crater",
+      "longitude": 85.0,
+      "latitude": 176.0,
+      "description": "Decades ago, scientists found the first signs of water on Mars. This is that water.",
+      "type": "Survey"
+    },
+    {
+      "id": "neod",
+      "name": "NEOD",
+      "description": "This city of the future had a massive financial backing from oil monarchies as a last ditch effort to save the line of succession. After a slave revolt, the NEOD project was abandoned, and its inhabitants fled to nearby colonies.",
+      "type": "Abandoned"
+    },
+    {
+      "id": "australe",
+      "name": "Planum Australe",
+      "description": "The south pole of Mars has a high potential of providing water for the colonies.",
+      "type": "Survey"
+    },
+    {
+      "id": "huygens",
+      "name": "Huygens Impact Crater",
+      "description": "Traces of calcium and iron from a massive impact may hint at more precious resources below the surface.",
+      "type": "Survey"
+    }
+  ]
+}

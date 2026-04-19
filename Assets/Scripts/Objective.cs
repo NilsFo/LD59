@@ -7,15 +7,22 @@ public class Objective : MonoBehaviour
 {
     public enum ObjectiveTypeEnum
     {
-        AbandonedSite, MineralSurvey, Colony
+        AbandonedSite, MineralSurvey, Colony, Home
     }
     public enum ObjectiveStateEnum
     {
         Hidden, Unexplored, Explored, Completed
     }
+
+    [Header("Params")] [Header("General")] 
+    public string id;
+    public string displayName;
+    [TextArea(5,15)] public string description;
     
-    [Header("Params")]
-    [Header("General")]
+    public ObjectiveTypeEnum objectiveType;
+    public float longitude, latitude;
+    
+    
     [SerializeField] private int payout = 100;
     [SerializeField] private float discoverCooldown = 3f;
     [SerializeField] private float exploreCooldown = 3f;
@@ -61,9 +68,6 @@ public class Objective : MonoBehaviour
     public UnityEvent<ObjectiveStateEnum> objectiveStateChanged;
 
 
-    public ObjectiveTypeEnum objectiveType;
-    public float longitude, latitude;
-    public int researchValue = 1;
 
     private GameState _gameState;
 
@@ -77,12 +81,41 @@ public class Objective : MonoBehaviour
     void Start()
     {
         CalcPos();
+        UpdateViz();
         _gameState = FindFirstObjectByType<GameState>();
+        UpdateDescription();
+        objectiveStateChanged.AddListener(_ => UpdateDescription());
+    }
+
+    void UpdateDescription()
+    {
+        var hover = GetComponent<HoverDescription>();
+        
+        if (_objectiveState == ObjectiveStateEnum.Hidden)
+        {
+            hover.description = "Our satellites have picked up something here. Send a satellite with a CAM to investigate.";
+        }
+        else if (_objectiveState == ObjectiveStateEnum.Unexplored)
+        {
+            hover.description = "Our satellites have picked up something here. Send a satellite with a CAM to investigate.";
+        }
+        else if (_objectiveState == ObjectiveStateEnum.Explored || _objectiveState == ObjectiveStateEnum.Completed)
+        {
+            if(objectiveType == ObjectiveTypeEnum.Home)
+                hover.description = displayName + "\n\n" + description;
+            else if(objectiveType == ObjectiveTypeEnum.Colony)
+                hover.description = displayName + "\n\n" + description + "\n\nThis is a colony. Establish communication using a COMM satellite.";
+            else if(objectiveType == ObjectiveTypeEnum.AbandonedSite)
+                hover.description = displayName + "\n\n" + description + "\n\nThis is an abandoned site. There is nothing more to do than document what happened.";
+            else if(objectiveType == ObjectiveTypeEnum.MineralSurvey)
+                hover.description = displayName + "\n\n" + description + "\n\nThis is a survey site. Equip a satellite with the Mineral sensor (MSE) to scan for resources.";
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateViz();
         if (Application.IsPlaying(gameObject))
         {
             // Play logic
@@ -98,7 +131,6 @@ public class Objective : MonoBehaviour
         else
         {
             CalcPos();
-            UpdateViz();
         }
     }
 
@@ -233,7 +265,7 @@ public class Objective : MonoBehaviour
         {
             unexploredViz.gameObject.SetActive(false);
 
-            if (objectiveType == ObjectiveTypeEnum.Colony)
+            if (objectiveType == ObjectiveTypeEnum.Colony || objectiveType == ObjectiveTypeEnum.Home)
             {
                 abandonedSiteViz.gameObject.SetActive(false);
                 mineralSurveyViz.gameObject.SetActive(false);

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class Orbit : MonoBehaviour
 {
-    public const float LeoValue = 1.5f;
-    public const float MeoValue = 2.2f;
-    public const float GeoValue = 3.5f;
+    public const float LeoValue = 1.3f;
+    public const float MeoValue = 1.7f;
+    public const float GeoValue = 2.5f;
     
     public enum OrbitState: Int32
     {
@@ -30,6 +30,20 @@ public class Orbit : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        switch (orbitState)
+        {
+            case OrbitState.LEO:
+                height = LeoValue;
+                break;
+            case OrbitState.MEO:
+                height = MeoValue;
+                break;
+            case OrbitState.GEO:
+                height = GeoValue;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
     }
 
     public void SetFromIncEq(float inclination, float equator)
