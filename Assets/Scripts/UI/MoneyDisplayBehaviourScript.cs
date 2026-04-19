@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 
@@ -27,7 +26,7 @@ namespace UI
 
         void UpdateMoney(int newAmount)
         {
-            text.SetText(newAmount+"");
+            text.SetText(newAmount + "");
         }
 
         public void DebugAddMoney()

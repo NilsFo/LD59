@@ -16,9 +16,11 @@ public class SatelliteInstance : MonoBehaviour
     [Header("Params")] public string displayName;
     public int fuelMax, fuelCurrent;
     public int height;
+    public Color color;
+    public Color colorMuted;
 
     [Header("Properties")] public Vector2 position;
-    public bool showNameTF;
+    public bool isHighLighted = false;
     [SerializeField] private bool isSelected = false;
 
     [Header("World hookup")] public TextMeshProUGUI nameTF;
@@ -67,7 +69,13 @@ public class SatelliteInstance : MonoBehaviour
 
         // name tf
         nameTF.text = displayName;
-        nameTF.gameObject.transform.parent.gameObject.SetActive(showNameTF);
+        nameTF.gameObject.transform.parent.gameObject.SetActive(isHighLighted || isSelected);
+
+        nameTF.color = colorMuted;
+        if (isSelected)
+        {
+            nameTF.color = color;
+        }
     }
 
     public void SwitchOrbit(Orbit newOrbit, float newOmega)
@@ -79,12 +87,12 @@ public class SatelliteInstance : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        showNameTF = true;
+        isHighLighted = true;
     }
 
     private void OnMouseExit()
     {
-        showNameTF = false;
+        isHighLighted = false;
     }
 
     private void OnMouseDown()
@@ -112,6 +120,19 @@ public class SatelliteInstance : MonoBehaviour
 
             displayName = candidateName;
             nameLookup[candidateName] = this;
+
+            float h = Random.value;
+            color = Color.HSVToRGB(
+                H: h,
+                S: 0.85f,
+                V: 0.8f
+            );
+
+            colorMuted = Color.HSVToRGB(
+                H: h,
+                S: 0.5f,
+                V: 0.5f
+            );
         }
     }
 
@@ -123,7 +144,7 @@ public class SatelliteInstance : MonoBehaviour
             newName += Glyphs[Random.Range(0, Glyphs.Length)];
         }
 
-        newName += " " + Random.Range(1, 10);
+        newName += "-" + Random.Range(1, 10);
         return newName;
     }
 }

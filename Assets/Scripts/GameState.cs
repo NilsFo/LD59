@@ -2,7 +2,6 @@ using System;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class GameState : MonoBehaviour
@@ -32,11 +31,13 @@ public class GameState : MonoBehaviour
     [Header("World Hookup")] public GameObject prefabSatellite;
     public GameObject prefabOrbit;
     public Orbit templateOrbit;
+    private MusicManager _musicManager;
 
     private void Awake()
     {
         _timeScaler = FindFirstObjectByType<TimeScaler>();
         _mainCamera = FindFirstObjectByType<Camera>();
+        _musicManager = FindAnyObjectByType<MusicManager>();
         templateOrbit.gameObject.SetActive(false);
     }
 
@@ -44,6 +45,8 @@ public class GameState : MonoBehaviour
     void Start()
     {
         Application.targetFrameRate = 60;
+        _musicManager.Play(0);
+        MusicManager.userDesiredMasterVolume = 0.5f;
     }
 
     // Update is called once per frame
@@ -55,7 +58,7 @@ public class GameState : MonoBehaviour
         {
             economy.Money += 100;
         }
-        
+
         if (selectionState == SelectionState.SatelliteReroute)
         {
             UpdateOrbitPreview();
@@ -118,6 +121,7 @@ public class GameState : MonoBehaviour
                 selectedSatellite.IsSelected = false;
                 selectedSatellite = null;
             }
+
             selectionState = SelectionState.None;
             OnSelectedSatelliteChanged?.Invoke(null);
         }

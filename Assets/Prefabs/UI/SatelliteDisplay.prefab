@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 167120700550713592}
   - component: {fileID: 8148969256887307389}
   m_Layer: 5
-  m_Name: SatellitDisplay
+  m_Name: SatelliteDisplay
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

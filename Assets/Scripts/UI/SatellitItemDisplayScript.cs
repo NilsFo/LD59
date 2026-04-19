@@ -8,10 +8,8 @@ namespace UI
         [SerializeField] [Header("My Satellite")]
         private SatelliteInstance satelliteInstance;
 
-        [SerializeField] [Header("World Hookup")]
-        private TextMeshProUGUI nameTF;
-
-        [SerializeField] private TextMeshProUGUI fuelTF;
+        [Header("World Hookup")] public TextMeshProUGUI nameTF;
+        public TextMeshProUGUI fuelTF;
 
         private bool markedForDestroy = false;
 
@@ -20,9 +18,20 @@ namespace UI
         {
             if (satelliteInstance)
             {
-/*                nameTF.SetText(satelliteInstance.displayName);
-                fuelTF.SetText("LEVEL " + satelliteInstance.fuelCurrent);
-  */          }
+                nameTF.SetText(satelliteInstance.displayName);
+                fuelTF.SetText("Fuel: " + satelliteInstance.fuelCurrent + "/" + satelliteInstance.fuelMax);
+
+                nameTF.color = Color.white;
+                if (satelliteInstance.isHighLighted)
+                {
+                    nameTF.color = satelliteInstance.colorMuted;
+                }
+
+                if (satelliteInstance.IsSelected)
+                {
+                    nameTF.color = satelliteInstance.color;
+                }
+            }
 
             if (markedForDestroy) Destroy(gameObject);
         }

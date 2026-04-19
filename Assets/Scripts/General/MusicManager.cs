@@ -1,12 +1,10 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class MusicManager : MonoBehaviour
@@ -22,13 +20,13 @@ public class MusicManager : MonoBehaviour
     [Range(0, 1)] public float baselineSoundVolume = 1.0f;
     [Range(0, 1)] public float baselineMasterVolume = 1.0f;
 
-    public float UserDesiredMusicVolumeDB =>
+    public float userDesiredMusicVolumeDB =>
         Mathf.Log10(Mathf.Clamp(userDesiredMusicVolume * baselineMusicVolume, 0.0001f, 1.0f)) * 20;
 
-    public float UserDesiredSoundVolumeDB =>
+    public float userDesiredSoundVolumeDB =>
         Mathf.Log10(Mathf.Clamp(userDesiredSoundVolume * baselineSoundVolume, 0.0001f, 1.0f)) * 20;
 
-    public float UserDesiredMasterVolumeDB =>
+    public float userDesiredMasterVolumeDB =>
         Mathf.Log10(Mathf.Clamp(userDesiredMasterVolume * baselineMasterVolume, 0.0001f, 1.0f)) * 20;
 
     [Header("Mixer")] public AudioMixer audioMixer;
@@ -84,9 +82,12 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void Play(int index, bool fromBeginning = false)
+    public void Play(int index, bool fromBeginning = false, bool stopOthers = false)
     {
-        Stop();
+        if (stopOthers)
+        {
+            Stop();
+        }
 
         if (fromBeginning)
         {
@@ -108,6 +109,20 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+    public int CurrentlyPlayingMusicIndex()
+    {
+        for (var i = 0; i < _desiredMixingVolumes.Count; i++)
+        {
+            int desiredMixingVolume = _desiredMixingVolumes[i];
+            if (desiredMixingVolume == 1)
+            {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
     public void SkipFade()
     {
         for (var i = 0; i < _playList.Count; i++)
@@ -120,8 +135,13 @@ public class MusicManager : MonoBehaviour
     {
         for (var i = 0; i < _playList.Count; i++)
         {
-            _desiredMixingVolumes[i] = 0;
+            Stop(i);
         }
+    }
+
+    public void Stop(int index)
+    {
+        _desiredMixingVolumes[index] = 0;
     }
 
     // Update is called once per frame
@@ -129,9 +149,9 @@ public class MusicManager : MonoBehaviour
     {
         // ################################
         // Forcing Mixer Settings
-        audioMixer.SetFloat(musicTrackName, UserDesiredMusicVolumeDB);
-        audioMixer.SetFloat(soundEffectsTrackName, UserDesiredSoundVolumeDB);
-        audioMixer.SetFloat(masterTrackName, UserDesiredMasterVolumeDB);
+        audioMixer.SetFloat(musicTrackName, userDesiredMusicVolumeDB);
+        audioMixer.SetFloat(soundEffectsTrackName, userDesiredSoundVolumeDB);
+        audioMixer.SetFloat(masterTrackName, userDesiredMasterVolumeDB);
 
         // if setup failed, silently fail
         if (_audioJail == null) return;
@@ -184,6 +204,7 @@ public class MusicManager : MonoBehaviour
             if (audioSource.isPlaying && _lastKnownPlayingStates.Contains(i))
             {
                 _lastKnownPlayingStates.Remove(i);
+                Stop(i);
                 Debug.Log("MuscManager: Stopped playing: " + audioSource.gameObject.name);
                 OnMusicStoppedPlaying(i);
             }

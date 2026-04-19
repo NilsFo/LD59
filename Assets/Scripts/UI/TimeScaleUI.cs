@@ -2,17 +2,16 @@ using UnityEngine;
 
 public class TimeScaleUI : MonoBehaviour
 {
-
     private TimeScaler _timeScaler;
 
-    public GameObject timeScaleButtonPlay,timeScaleButtonPause,timeScaleButtonFastForward;
-    
+    public GameObject timeScaleButtonPlay, timeScaleButtonPause, timeScaleButtonFastForward;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         _timeScaler = FindFirstObjectByType<TimeScaler>();
         _timeScaler.onTimeChanged.AddListener(OnTimeChanged);
-        
+
         OnTimeChanged();
     }
 
@@ -37,15 +36,10 @@ public class TimeScaleUI : MonoBehaviour
                 Debug.LogError("ERROR IN TIME SCALE STATE!");
                 break;
         }
-        
-        
     }
 
     // Update is called once per frame
     void Update()
     {
-        
-        
-        
     }
 }
