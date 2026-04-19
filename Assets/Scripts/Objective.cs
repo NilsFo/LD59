@@ -132,7 +132,7 @@ public class Objective : MonoBehaviour
     private void ExplorePoi(SatelliteInstance caller)
     {
         if (ObjectiveState != ObjectiveStateEnum.Unexplored 
-            && caller.satFunktion == SatelliteInstance.SatFunktions.CAM)
+            && caller.satFunction == SatelliteInstance.SatFunctions.CAM)
         {
             return;
         }
@@ -150,7 +150,7 @@ public class Objective : MonoBehaviour
         {
             //TODO check if Sat has Connection mit andere Colonie & Base
             //Get Count als Multi
-            if (caller.satFunktion != SatelliteInstance.SatFunktions.COMM)
+            if (caller.satFunction != SatelliteInstance.SatFunctions.COMM)
             {
                 currentCooldown = colonyCooldown;
                 return;
@@ -168,7 +168,7 @@ public class Objective : MonoBehaviour
         }
         else if(objectiveType == ObjectiveTypeEnum.MineralSurvey)
         {
-            if (caller.satFunktion != SatelliteInstance.SatFunktions.SCAN)
+            if (caller.satFunction != SatelliteInstance.SatFunctions.SCAN)
             {
                 currentCooldown = surveyCooldown;
                 return;
@@ -189,7 +189,7 @@ public class Objective : MonoBehaviour
         }
         else if(objectiveType == ObjectiveTypeEnum.AbandonedSite)
         {
-            if (caller.satFunktion != SatelliteInstance.SatFunktions.CAM)
+            if (caller.satFunction != SatelliteInstance.SatFunctions.CAM)
             {
                 currentCooldown = siteCooldown;
                 return;

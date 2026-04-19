@@ -8,16 +8,16 @@ using UnityEngine.UI;
 public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
     public SatellitItemDisplayScript displayScript;
+    private GameState _gameState;
 
-    public Image image;
+    [Header("Hookup")] public Image image;
     public Sprite activeImage;
     public Sprite notBuyableImage;
     public Sprite buyableImage;
 
-    public UnityEvent onClick;
-
-    public enum SatelliteButtonType : UInt64
+    public enum SatelliteButtonType
     {
+        MOVE,
         CAM,
         SCAN,
         COMM,
@@ -28,8 +28,15 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
         REFUEL
     }
 
-    public SatelliteButtonType buttonType = SatelliteButtonType.CAM;
+    [Header("What is this button?")] public SatelliteButtonType buttonType = SatelliteButtonType.CAM;
 
+    public UnityEvent onClick;
+
+
+    private void Awake()
+    {
+        _gameState = FindFirstObjectByType<GameState>();
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -58,13 +65,70 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void Click()
     {
+        print("Click on button: " + buttonType + " for: " + displayScript.satelliteInstance.displayName);
         onClick.Invoke();
+        bool actionSucceeded = false;
+
+        if (!CanAfford())
+        {
+            var err = "Sorry player, this satellite can't give credit. Come back when you are little bit... richer!";
+            Debug.Log(err);
+            _gameState.DisplayDescription(err, false);
+
+            return;
+        }
+
+        switch (buttonType)
+        {
+            case SatelliteButtonType.MOVE:
+                print("How do i move?");
+                break;
+            case SatelliteButtonType.CAM:
+                actionSucceeded = displayScript.satelliteInstance.BuyCam();
+                break;
+            case SatelliteButtonType.COMM:
+                actionSucceeded = displayScript.satelliteInstance.BuyComm();
+                break;
+            case SatelliteButtonType.GEO:
+                actionSucceeded = displayScript.satelliteInstance.BuyGeo();
+                break;
+            case SatelliteButtonType.LEO:
+                actionSucceeded = displayScript.satelliteInstance.BuyLeo();
+                break;
+            case SatelliteButtonType.MAXFUEL:
+                actionSucceeded = displayScript.satelliteInstance.BuyPlusFuel();
+                break;
+            case SatelliteButtonType.MEO:
+                actionSucceeded = displayScript.satelliteInstance.BuyMeo();
+                break;
+            case SatelliteButtonType.REFUEL:
+                actionSucceeded = displayScript.satelliteInstance.BuyRefuel();
+                break;
+            case SatelliteButtonType.SCAN:
+                actionSucceeded = displayScript.satelliteInstance.BuyScan();
+                break;
+            default:
+                Debug.LogWarning("Unknown sat type!");
+                actionSucceeded = false;
+                break;
+        }
+
+        if (actionSucceeded)
+        {
+            print("The button did its job.");
+        }
+        else
+        {
+            Debug.LogWarning("THE BUTTON FAILED AT WHAT EVER IT TRIED TO DO!!", gameObject);
+        }
     }
 
     private bool CanAfford()
     {
         switch (buttonType)
         {
+            case SatelliteButtonType.MOVE:
+                return true; // TODO implement
             case SatelliteButtonType.CAM:
                 return displayScript.satelliteInstance.CanAffordCam();
             case SatelliteButtonType.COMM:
@@ -108,7 +172,6 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
         return false;
     }
 
-
     public void OnPointerEnter(PointerEventData eventData)
     {
     }
@@ -119,6 +182,6 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        print("Click on button: " + buttonType + " for: " + displayScript.satelliteInstance.displayName);
+        Click();
     }
 }
