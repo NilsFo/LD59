@@ -134,7 +134,7 @@ ScriptedImporter:
       x: 4
       y: 4
       width: 216
-      height: 51
+      height: 48
     spriteID: 6dd1af2fc407e104bb82772a0f31d130
     spriteBone: []
     spriteOutline: []
@@ -144,6 +144,48 @@ ScriptedImporter:
     edges: []
     tessellationDetail: 0
     uvTransform: {x: 4, y: 4}
+  - name: Frame_1
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 60
+      width: 216
+      height: 48
+    spriteID: fd306de34d94fe24383a25e7c94b9a8c
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 60}
+  - name: Frame_2
+    originalName: 
+    pivot: {x: 0.5, y: 0}
+    alignment: 9
+    border: {x: 0, y: 0, z: 0, w: 0}
+    customData: 
+    rect:
+      serializedVersion: 2
+      x: 4
+      y: 116
+      width: 216
+      height: 48
+    spriteID: 5b1b56e94d38047469a9a078ae4095af
+    spriteBone: []
+    spriteOutline: []
+    vertices: []
+    spritePhysicsOutline: []
+    indices: 
+    edges: []
+    tessellationDetail: 0
+    uvTransform: {x: 4, y: 116}
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
@@ -158,15 +200,33 @@ ScriptedImporter:
     layerType: 0
     blendMode: 0
     cells:
-    - name: satelite_info
+    - name: Frame_0
       frameIndex: 0
       additiveSortOrder: 0
       cellRect:
         x: 0
         y: 0
         width: 216
-        height: 51
+        height: 48
       spriteId: 6dd1af2fc407e104bb82772a0f31d130
+    - name: Frame_1
+      frameIndex: 1
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 216
+        height: 48
+      spriteId: fd306de34d94fe24383a25e7c94b9a8c
+    - name: Frame_2
+      frameIndex: 2
+      additiveSortOrder: 0
+      cellRect:
+        x: 0
+        y: 0
+        width: 216
+        height: 48
+      spriteId: 5b1b56e94d38047469a9a078ae4095af
     linkedCells: []
     parentIndex: -1
   platformSettings:
@@ -185,5 +245,5 @@ ScriptedImporter:
   generatePhysicsShape: 0
   secondarySpriteTextures: []
   spritePackingTag: 
-  canvasSize: {x: 216, y: 51}
-  previousTextureSize: {x: 256, y: 64}
+  canvasSize: {x: 216, y: 48}
+  previousTextureSize: {x: 256, y: 256}
