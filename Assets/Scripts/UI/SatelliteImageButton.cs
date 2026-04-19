@@ -14,6 +14,7 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
     public Sprite activeImage;
     public Sprite notBuyableImage;
     public Sprite buyableImage;
+    public HoverDescription myHoverDescription;
 
     public enum SatelliteButtonType
     {
@@ -45,6 +46,9 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
         {
             onClick = new UnityEvent();
         }
+
+        myHoverDescription.description = myHoverDescription + "\n" +
+                                         "[Cost: " + GetCost() + "!]";
     }
 
     // Update is called once per frame
@@ -81,7 +85,7 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
         switch (buttonType)
         {
             case SatelliteButtonType.MOVE:
-                print("How do i move?");
+                actionSucceeded = displayScript.satelliteInstance.BuyChangeOrbit();
                 break;
             case SatelliteButtonType.CAM:
                 actionSucceeded = displayScript.satelliteInstance.BuyCam();
@@ -123,12 +127,39 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
         }
     }
 
+    public string GetCost()
+    {
+        switch (buttonType)
+        {
+            case SatelliteButtonType.MOVE:
+                return _gameState.changeOrbitCostFuel + " fuel";
+            case SatelliteButtonType.CAM:
+                return _gameState.camCost + "€";
+            case SatelliteButtonType.COMM:
+                return _gameState.commCost + "€";
+            case SatelliteButtonType.GEO:
+                return _gameState.geoCostFuel + " fuel";
+            case SatelliteButtonType.LEO:
+                return _gameState.leoCostFuel + " fuel";
+            case SatelliteButtonType.MAXFUEL:
+                return _gameState.fuelPlusCost + "€";
+            case SatelliteButtonType.MEO:
+                return _gameState.meoCostFuel + " fuel";
+            case SatelliteButtonType.REFUEL:
+                return _gameState.refuelCost + "€";
+            case SatelliteButtonType.SCAN:
+                return _gameState.scanCost + "€";
+            default:
+                return "????";
+        }
+    }
+
     private bool CanAfford()
     {
         switch (buttonType)
         {
             case SatelliteButtonType.MOVE:
-                return true; // TODO implement
+                return displayScript.satelliteInstance.CanAffordChangeOrbit();
             case SatelliteButtonType.CAM:
                 return displayScript.satelliteInstance.CanAffordCam();
             case SatelliteButtonType.COMM:

@@ -94,6 +94,7 @@ MonoBehaviour:
   activeImage: {fileID: 0}
   notBuyableImage: {fileID: 0}
   buyableImage: {fileID: 0}
+  myHoverDescription: {fileID: 1941429730508824475}
   buttonType: 0
   onClick:
     m_PersistentCalls:

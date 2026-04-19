@@ -23,7 +23,7 @@ public class SatelliteInstance : MonoBehaviour
     ////////////////////////////////////////
     [Header("Params")] public string displayName;
     public int fuelMax, fuelCurrent;
-    
+
     public float discoverAngle = 10f;
     public float abandonedSiteAngle = 10f;
     public float colonyAngle = 30f;
@@ -110,7 +110,6 @@ public class SatelliteInstance : MonoBehaviour
 
     private void UpdateHaloViz()
     {
-        
         if (isSelected)
         {
             signalHalo.gameObject.SetActive(true);
@@ -355,6 +354,23 @@ public class SatelliteInstance : MonoBehaviour
     public bool CanAffordMeo()
     {
         return fuelCurrent >= _gameState.meoCostFuel;
+    }
+
+    public bool CanAffordChangeOrbit()
+    {
+        return fuelCurrent >= _gameState.changeOrbitCostFuel;
+    }
+
+    public bool BuyChangeOrbit()
+    {
+        if (CanAffordChangeOrbit())
+        {
+            fuelCurrent -= _gameState.changeOrbitCostFuel;
+            // TODO IMPLEMENT HERE!!!
+            return true;
+        }
+
+        return false;
     }
 
     public bool BuyGeo()

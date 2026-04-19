@@ -19,6 +19,7 @@ public class GameState : MonoBehaviour
     public int refuelCost = 1000;
     public int fuelPlusCost = 200;
 
+    public int changeOrbitCostFuel = 25;
     public int leoCostFuel = 25;
     public int meoCostFuel = 50;
     public int geoCostFuel = 100;
