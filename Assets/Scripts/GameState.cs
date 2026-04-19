@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
@@ -7,8 +8,9 @@ using Random = UnityEngine.Random;
 
 public class GameState : MonoBehaviour
 {
-    [Header("Kaufhaus")]
-    public int costOfSatellite = 1000;
+    [Header("Kaufhaus")] 
+    public int maxSatellites = 9;
+    public int[] costOfSatellite = { 500, 1000, 1500, 2000, 2500 };
     
     public int camCost = 100;
     public int scanCost = 50;
@@ -37,6 +39,8 @@ public class GameState : MonoBehaviour
     [SerializeField] private float uptimeThreshold = 0.8f; 
     [SerializeField] private float winUptime = 30f;
 
+    [SerializeField] private List<GameObject> listOfSatellites;
+     
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
     public Economy economy;
@@ -72,6 +76,8 @@ public class GameState : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (listOfSatellites == null) listOfSatellites = new List<GameObject>();
+        
         Application.targetFrameRate = 60;
         _musicManager.Play(0);
         MusicManager.userDesiredMasterVolume = 0.5f;
@@ -148,7 +154,18 @@ public class GameState : MonoBehaviour
     public bool AddSatellite()
     {
         print("Gamestate: Sat requested.");
-        var newBalance = economy.Money - costOfSatellite;
+        if (!HasSpaceForMoreSatellites())
+        {
+            print("It's crowded up there! No more Sattellites");
+            return false;
+        }
+        int index = listOfSatellites.Count;
+        if (index > costOfSatellite.Length - 1)
+        {
+            index = costOfSatellite.Length - 1;
+        }
+        
+        var newBalance = economy.Money - costOfSatellite[index];
         if (newBalance >= 0)
         {
             print("Buying a sat.");
@@ -157,7 +174,8 @@ public class GameState : MonoBehaviour
 
             GameObject orbitInstance = Instantiate(prefabOrbit, Vector3.zero, Quaternion.identity);
             GameObject satInstance = Instantiate(prefabSatellite, transform);
-
+            listOfSatellites.Add(satInstance);
+            
             Orbit orbit = orbitInstance.GetComponent<Orbit>();
             orbit.SetFromIncEq(Random.Range(-80, 80), Random.Range(0, 359));
 
@@ -261,5 +279,14 @@ public class GameState : MonoBehaviour
     public int GetNumObjectives()
     {
         return objectives.Length;
+    }
+
+    public bool HasSpaceForMoreSatellites()
+    {
+        if (listOfSatellites.Count >= maxSatellites)
+        {
+            return false;
+        }
+        return true;
     }
 }
