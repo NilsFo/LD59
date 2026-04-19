@@ -768,6 +768,10 @@ PrefabInstance:
       propertyPath: descriptionDisplay
       value: 
       objectReference: {fileID: 8182820032519256877}
+    - target: {fileID: 6526647676600779061, guid: d8ff428b66e29464f8f2de13c75c13b7, type: 3}
+      propertyPath: changeOrbitCostFuel
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6917025001172583946, guid: d8ff428b66e29464f8f2de13c75c13b7, type: 3}
       propertyPath: m_Name
       value: GameState

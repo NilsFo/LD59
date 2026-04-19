@@ -184,7 +184,7 @@ MonoBehaviour:
   objectiveType: 1
   longitude: 180.5
   latitude: 34.3
-  payout: 100
+  payout: 1000
   discoverCooldown: 3
   exploreCooldown: 3
   excavateCooldown: 3
@@ -192,11 +192,11 @@ MonoBehaviour:
   colonyUptime: 2
   colonyProgress: 0.25
   colonyCooldown: 3
-  surveyProgressLeo: 0.1
-  surveyProgressMeo: 0.05
+  surveyProgressLeo: 0.5
+  surveyProgressMeo: 0.1
   surveyProgressGeo: 0.01
   surveyCooldown: 3
-  siteProgressLeo: 0.1
+  siteProgressLeo: 0.5
   siteProgressMeo: 0.05
   siteProgressGeo: 0.01
   siteCooldown: 3
@@ -223,7 +223,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411dbd5d3d2e470499a6ccfe991a601c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: This is an objective. You should complete it.
+  description: Our satellites have picked up something here. Send a satellite with
+    a CAM to investigate.
   keep: 0
   instantly: 1
 --- !u!135 &8947854358637704451

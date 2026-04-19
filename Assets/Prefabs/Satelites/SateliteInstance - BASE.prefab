@@ -488,8 +488,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   displayName: 
-  fuelMax: 0
-  fuelCurrent: 0
+  fuelMax: 5
+  fuelCurrent: 5
   discoverAngle: 40
   abandonedSiteAngle: 20
   colonyAngle: 40
