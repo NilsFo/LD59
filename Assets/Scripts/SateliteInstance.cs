@@ -99,6 +99,14 @@ public class SatelliteInstance : MonoBehaviour
         }
     }
 
+    public void UpdateObjectivesInSight()
+    {
+        foreach (Objective objective in _gameState.objectives)
+        {
+            
+        }
+    }
+
     public void SwitchOrbit(Orbit newOrbit, float newOmega)
     {
         Destroy(orbit.gameObject);

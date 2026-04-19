@@ -35,6 +35,8 @@ public class Objective : MonoBehaviour
     public float longitude, latitude;
     public int researchValue = 1;
 
+    private GameState _gameState;
+
     [Header("Visuals")]
     public Transform unexploredViz;
     public Transform abandonedSiteViz;
@@ -45,6 +47,7 @@ public class Objective : MonoBehaviour
     void Start()
     {
         CalcPos();
+        _gameState = FindFirstObjectByType<GameState>();
     }
 
     // Update is called once per frame
@@ -59,6 +62,11 @@ public class Objective : MonoBehaviour
             CalcPos();
             UpdateViz();
         }
+    }
+
+    public void Payday()
+    {
+        // TODO PQ
     }
 
     public void UpdateViz()

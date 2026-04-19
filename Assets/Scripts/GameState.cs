@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public class GameState : MonoBehaviour
@@ -23,6 +26,8 @@ public class GameState : MonoBehaviour
     private TimeScaler _timeScaler;
     public Economy economy;
 
+    public List<Objective> objectives;
+
     [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
     public event Action<SatelliteInstance> OnSelectedSatelliteChanged;
 
@@ -39,6 +44,8 @@ public class GameState : MonoBehaviour
         _mainCamera = FindFirstObjectByType<Camera>();
         _musicManager = FindAnyObjectByType<MusicManager>();
         templateOrbit.gameObject.SetActive(false);
+
+        objectives = FindObjectsByType<Objective>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID).ToList();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
