@@ -115,15 +115,15 @@ public class SatelliteInstance : MonoBehaviour
         {
             signalHalo.gameObject.SetActive(true);
             signalHalo.height = orbit.height - 1f;
-            switch (satFunktion)
+            switch (satFunction)
             {
-                case SatFunktions.CAM:
+                case SatFunctions.CAM:
                     signalHalo.angle = discoverAngle;
                     break;
-                case SatFunktions.SCAN:
+                case SatFunctions.SCAN:
                     signalHalo.angle = surveyAngle;
                     break;
-                case SatFunktions.COMM:
+                case SatFunctions.COMM:
                     signalHalo.angle = colonyAngle;
                     break;
                 default:
