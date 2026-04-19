@@ -4,13 +4,13 @@ using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public class GameState : MonoBehaviour
 {
-    [Header("Kaufhaus")]
-    public int costOfSatellite = 1000;
+    [Header("Kaufhaus")] 
+    public int maxSatellites = 9;
+    public int[] costOfSatellite = { 500, 1000, 1500, 2000, 2500 };
     
     public int camCost = 100;
     public int scanCost = 50;
@@ -28,6 +28,7 @@ public class GameState : MonoBehaviour
     {
         None,
         Init,
+        Selected,
         SatelliteReroute
     }
 
@@ -35,12 +36,19 @@ public class GameState : MonoBehaviour
     public SelectionState selectionState = SelectionState.None;
     [SerializeField] private float _currentDelay = 0f;
     [SerializeField] private float _maxDelay = 5f;
+    
+    [SerializeField] private float uptimeThreshold = 0.8f; 
+    [SerializeField] private float winUptime = 30f;
 
+    [SerializeField] private List<GameObject> listOfSatellites;
+     
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
     public Economy economy;
 
     public Objective[] objectives;
+    public Objective[] colonies;
+    public float commUptime = 0f;
 
     [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
     public event Action<SatelliteInstance> OnSelectedSatelliteChanged;
@@ -62,11 +70,15 @@ public class GameState : MonoBehaviour
         templateOrbit.gameObject.SetActive(false);
 
         objectives = FindObjectsByType<Objective>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID);
+        colonies = objectives.Where(objective => objective.objectiveType == Objective.ObjectiveTypeEnum.Colony)
+            .ToArray();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if (listOfSatellites == null) listOfSatellites = new List<GameObject>();
+        
         Application.targetFrameRate = 60;
         _musicManager.Play(0);
         MusicManager.userDesiredMasterVolume = 0.5f;
@@ -97,9 +109,37 @@ public class GameState : MonoBehaviour
             _currentDelay -= Time.unscaledDeltaTime;
             if (_currentDelay <= 0f)
             {
-                selectionState = SelectionState.SatelliteReroute;
+                selectionState = SelectionState.Selected;
             }
         }
+
+        if (HasAllColoniesConnection())
+        {
+            commUptime += Time.deltaTime;
+            //TODO Maybe Set State and Display Connections on all Satellites
+        }
+        else
+        {
+            commUptime = 0f;
+        }
+
+        if (commUptime >= winUptime)
+        {
+            playWin();
+        }
+    }
+
+    private bool HasAllColoniesConnection()
+    {
+        if (colonies.Length < 3) return false;
+        Objective[] belowThreshold = 
+            colonies.Where(objective => objective.CommunicationUptime < uptimeThreshold).ToArray();
+        return belowThreshold.Length == 0;
+    }
+
+    private void playWin()
+    {
+        //TODO
     }
 
     private void OnNewSelectionState()
@@ -115,7 +155,18 @@ public class GameState : MonoBehaviour
     public bool AddSatellite()
     {
         print("Gamestate: Sat requested.");
-        var newBalance = economy.Money - costOfSatellite;
+        if (!HasSpaceForMoreSatellites())
+        {
+            print("It's crowded up there! No more Sattellites");
+            return false;
+        }
+        int index = listOfSatellites.Count;
+        if (index > costOfSatellite.Length - 1)
+        {
+            index = costOfSatellite.Length - 1;
+        }
+        
+        var newBalance = economy.Money - costOfSatellite[index];
         if (newBalance >= 0)
         {
             print("Buying a sat.");
@@ -124,7 +175,8 @@ public class GameState : MonoBehaviour
 
             GameObject orbitInstance = Instantiate(prefabOrbit, Vector3.zero, Quaternion.identity);
             GameObject satInstance = Instantiate(prefabSatellite, transform);
-
+            listOfSatellites.Add(satInstance);
+            
             Orbit orbit = orbitInstance.GetComponent<Orbit>();
             orbit.SetFromIncEq(Random.Range(-80, 80), Random.Range(0, 359));
 
@@ -141,7 +193,7 @@ public class GameState : MonoBehaviour
         return false;
     }
 
-    public void SetSelectedSatellite(SatelliteInstance sat = null)
+    public void SetSelectedSatellite(SatelliteInstance sat = null, bool skipDelay = false)
     {
         if (sat == null)
         {
@@ -165,6 +217,7 @@ public class GameState : MonoBehaviour
 
             _currentDelay = _maxDelay;
             selectionState = SelectionState.Init;
+            if(skipDelay)  selectionState = SelectionState.Selected;
             selectedSatellite = sat;
             OnSelectedSatelliteChanged?.Invoke(sat);
         }
@@ -228,5 +281,22 @@ public class GameState : MonoBehaviour
     public int GetNumObjectives()
     {
         return objectives.Length;
+    }
+
+    public bool HasSpaceForMoreSatellites()
+    {
+        if (listOfSatellites.Count >= maxSatellites)
+        {
+            return false;
+        }
+        return true;
+    }
+
+    public void SetReroute()
+    {
+        if(selectionState != SelectionState.Selected){
+         return;
+        }
+        selectionState = SelectionState.SatelliteReroute;
     }
 }

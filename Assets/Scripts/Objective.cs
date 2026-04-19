@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Serialization;
 
 [ExecuteAlways]
 public class Objective : MonoBehaviour
@@ -51,7 +50,19 @@ public class Objective : MonoBehaviour
     [SerializeField] private float currentCooldown;
     [SerializeField] private float povProgress; //0-1 für 0-100%
     [SerializeField] private float commUpTime; //0-1 für 0-100%
-    
+
+    public float CommunicationUptime
+    {
+        get
+        {
+            return commUpTime;
+        }
+        set
+        {
+            Debug.LogError("Dont set CommunicationUptime!!!"); 
+        }
+    }
+
     public ObjectiveStateEnum ObjectiveState
     {
         get => _objectiveState;
