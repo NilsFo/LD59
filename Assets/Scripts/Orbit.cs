@@ -8,11 +8,11 @@ public class Orbit : MonoBehaviour
     private const float MeoValue = 3.0f;
     private const float GeoValue = 5.0f;
     
-    public enum OrbitState
+    public enum OrbitState: UInt32
     {
-        LEO,
-        MEO,
-        GEO
+        LEO=0,
+        MEO=1,
+        GEO=2
     }
     
     public Vector3 OrbitAxis { get; private set; } = Vector3.up;
