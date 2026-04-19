@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Orbit : MonoBehaviour
 {
-    private const float LeoValue = 1.0f;
-    private const float MeoValue = 3.0f;
-    private const float GeoValue = 5.0f;
+    public const float LeoValue = 1.5f;
+    public const float MeoValue = 2.2f;
+    public const float GeoValue = 3.5f;
     
-    public enum OrbitState: UInt32
+    public enum OrbitState: Int32
     {
         LEO=0,
         MEO=1,

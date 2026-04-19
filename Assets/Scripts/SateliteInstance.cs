@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class SatelliteInstance : MonoBehaviour
@@ -22,6 +23,11 @@ public class SatelliteInstance : MonoBehaviour
     ////////////////////////////////////////
     [Header("Params")] public string displayName;
     public int fuelMax, fuelCurrent;
+    
+    public float discoverAngle = 10f;
+    public float abandonedSiteAngle = 10f;
+    public float colonyAngle = 30f;
+    public float surveyAngle = 10f;
 
     public Color color;
     public Color colorMuted;
@@ -58,6 +64,8 @@ public class SatelliteInstance : MonoBehaviour
         }
     }
 
+    public HaloViz signalHalo;
+
     private void Awake()
     {
         _gameState = FindFirstObjectByType<GameState>();
@@ -78,6 +86,7 @@ public class SatelliteInstance : MonoBehaviour
         // orbit
         omega += Time.deltaTime * orbit.rotationSpeed;
         transform.localPosition = orbit.GetOrbitPosition(omega);
+        transform.LookAt(Vector3.zero);
 
         // name tf
         nameTF.text = displayName;
@@ -89,6 +98,8 @@ public class SatelliteInstance : MonoBehaviour
         {
             nameTF.color = color;
         }
+
+        UpdateHaloViz();
     }
 
     private void FixedUpdate()
@@ -97,38 +108,45 @@ public class SatelliteInstance : MonoBehaviour
         ObjectivePayday();
     }
 
-    private float[] discoverAngle =
+    private void UpdateHaloViz()
     {
-        Mathf.Cos(20f * Mathf.Deg2Rad),
-        Mathf.Cos(30f * Mathf.Deg2Rad),
-        Mathf.Cos(50f * Mathf.Deg2Rad)
-    };
+        
+        if (isSelected)
+        {
+            signalHalo.gameObject.SetActive(true);
+            signalHalo.height = orbit.height - 1f;
+            switch (satFunktion)
+            {
+                case SatFunktions.CAM:
+                    signalHalo.angle = discoverAngle;
+                    break;
+                case SatFunktions.SCAN:
+                    signalHalo.angle = surveyAngle;
+                    break;
+                case SatFunktions.COMM:
+                    signalHalo.angle = colonyAngle;
+                    break;
+                default:
+                    signalHalo.angle = discoverAngle;
+                    break;
+            }
+        }
+        else
+        {
+            signalHalo.gameObject.SetActive(false);
+        }
+    }
 
-    private float[] abandonedSiteAngles =
-    {
-        Mathf.Cos(20f * Mathf.Deg2Rad),
-        Mathf.Cos(30f * Mathf.Deg2Rad),
-        Mathf.Cos(50f * Mathf.Deg2Rad)
-    };
-
-    private float[] colonyAngles =
-    {
-        Mathf.Cos(20f * Mathf.Deg2Rad),
-        Mathf.Cos(30f * Mathf.Deg2Rad),
-        Mathf.Cos(50f * Mathf.Deg2Rad)
-    };
-
-    private float[] surveyAngles =
-    {
-        Mathf.Cos(20f * Mathf.Deg2Rad),
-        Mathf.Cos(30f * Mathf.Deg2Rad),
-        Mathf.Cos(50f * Mathf.Deg2Rad)
-    };
 
     public bool[] objectiveInSight;
 
     public void UpdateObjectivesInSight()
     {
+        float discover = Mathf.Cos(Mathf.Atan(Mathf.Tan(discoverAngle * Mathf.Deg2Rad) * (orbit.height - 1)));
+        float colony = Mathf.Cos(Mathf.Atan(Mathf.Tan(colonyAngle * Mathf.Deg2Rad) * (orbit.height - 1)));
+        float abandon = Mathf.Cos(Mathf.Atan(Mathf.Tan(abandonedSiteAngle * Mathf.Deg2Rad) * (orbit.height - 1)));
+        float survey = Mathf.Cos(Mathf.Atan(Mathf.Tan(surveyAngle * Mathf.Deg2Rad) * (orbit.height - 1)));
+
         int heightIndex = (int)orbit.orbitState;
         for (var index = 0; index < _gameState.objectives.Length; index++)
         {
@@ -139,22 +157,22 @@ public class SatelliteInstance : MonoBehaviour
             switch (objective.ObjectiveState)
             {
                 case Objective.ObjectiveStateEnum.Hidden:
-                    inSight = discoverAngle[heightIndex] < dot;
+                    inSight = discover < dot;
                     break;
                 case Objective.ObjectiveStateEnum.Unexplored:
-                    inSight = discoverAngle[heightIndex] < dot;
+                    inSight = discover < dot;
                     break;
                 case Objective.ObjectiveStateEnum.Explored:
                     switch (objective.objectiveType)
                     {
                         case Objective.ObjectiveTypeEnum.AbandonedSite:
-                            inSight = abandonedSiteAngles[heightIndex] < dot && heightIndex == 0;
+                            inSight = abandon < dot && heightIndex == 0;
                             break;
                         case Objective.ObjectiveTypeEnum.MineralSurvey:
-                            inSight = surveyAngles[heightIndex] < dot && heightIndex <= 1;
+                            inSight = survey < dot && heightIndex <= 1;
                             break;
                         case Objective.ObjectiveTypeEnum.Colony:
-                            inSight = colonyAngles[heightIndex] < dot;
+                            inSight = colony < dot;
                             break;
                     }
 

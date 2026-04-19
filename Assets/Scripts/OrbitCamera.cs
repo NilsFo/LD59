@@ -26,8 +26,8 @@ public class OrbitCamera : MonoBehaviour
     private Vector2 keyInputVector;
     private bool cameraRotateButton; // right mouse 
     private Vector2 mouseDelta;
-    private float zoomLevelCurrent = 0;
-    private float zoomLevelTarget = 0;
+    private float zoomLevelCurrent = 0.5f;
+    private float zoomLevelTarget = 0.5f;
     private float cameraSmoothedZoom;
 
     private Vector3 eulerAnglesPitch;
