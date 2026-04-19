@@ -207,6 +207,7 @@ public class GameState : MonoBehaviour
                 {
                     var newOrbit = Instantiate(templateOrbit, Vector3.zero, Quaternion.identity);
                     newOrbit.SetFromOrbit(templateOrbit);
+                    newOrbit.GetComponentInChildren<OrbitViz3D>().isPreview = false;
                     selectedSatellite.SwitchOrbit(newOrbit, newOmega);
                     SetSelectedSatellite(); //Reset
                 }

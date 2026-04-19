@@ -45,9 +45,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3d053731b69b57a519dbd7bd487c6938, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inclination: 45
-  equator: 45
   height: 1.1
+  rotationSpeed: 10
+  ascendingSpeed: 10
+  descendingSpeed: 10
+  orbitState: 0
+  targetOrbitState: 0
 --- !u!1001 &5997220395341222458
 PrefabInstance:
   m_ObjectHideFlags: 0

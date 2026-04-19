@@ -54,6 +54,7 @@ MonoBehaviour:
   _currentDelay: 0
   _maxDelay: 0.2
   economy: {fileID: 2778121098870243101}
+  objectives: []
   selectedSatellite: {fileID: 0}
   prefabSatellite: {fileID: 7970513347705034793, guid: af377b3e53b120342ba115938c5b6f74, type: 3}
   prefabOrbit: {fileID: 3949989248589237322, guid: 84a44b61f2e168b78beca49d57132f18, type: 3}
@@ -160,6 +161,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 143916942937267964}
     m_Modifications:
+    - target: {fileID: 2833670702029068158, guid: 84a44b61f2e168b78beca49d57132f18, type: 3}
+      propertyPath: isPreview
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3949989248589237322, guid: 84a44b61f2e168b78beca49d57132f18, type: 3}
       propertyPath: m_Name
       value: TemplateOrbit
