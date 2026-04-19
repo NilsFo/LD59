@@ -46,5 +46,45 @@ namespace UI
         {
             markedForDestroy = true;
         }
+
+        public void BuyLeo()
+        {
+            satelliteInstance.BuyLeo();
+        }
+        
+        public void BuyMeo()
+        {
+            satelliteInstance.BuyMeo();
+        }
+        
+        public void BuyGeo()
+        {
+            satelliteInstance.BuyGeo();
+        }
+        
+        public void BuyCam()
+        {
+            satelliteInstance.BuyCam();
+        }
+        
+        public void BuyScan()
+        {
+            satelliteInstance.BuyScan();
+        }
+        
+        public void BuyComm()
+        {
+            satelliteInstance.BuyComm();
+        }
+        
+        public void BuyRefule()
+        {
+            satelliteInstance.BuyRefule();
+        }
+        
+        public void BuyPlusFule()
+        {
+            satelliteInstance.BuyPlusFule();
+        }
     }
 }
