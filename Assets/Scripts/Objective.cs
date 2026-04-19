@@ -1,6 +1,6 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Serialization;
 
 [ExecuteAlways]
 public class Objective : MonoBehaviour
@@ -11,12 +11,40 @@ public class Objective : MonoBehaviour
     }
     public enum ObjectiveStateEnum
     {
-        Hidden, Unexplored, Explored, Completed
+        Hidden, Unexplored, Completed
     }
-
-    [SerializeField] ObjectiveStateEnum _objectiveState;
     
-    [field: SerializeField] public ObjectiveStateEnum ObjectiveState
+    [Header("Params")]
+    [Header("General")]
+    [SerializeField] private int payout = 100;
+    [SerializeField] private float discoverCooldown = 3f;
+    [SerializeField] private float exploreCooldown = 3f;
+    
+    [Header("Colony")]
+    [SerializeField] private float colonyUptimeDecay = 0.2f;
+    [SerializeField] private float exploreColonyUptime = 2.0f;
+    [SerializeField] private float exploreColonyProgress = 0.25f;
+    [SerializeField] private float exploreColonyCooldown = 3f;
+    
+    [Header("MineralSurvey")]
+    [SerializeField] private float surveyProgressLeo = 0.10f;
+    [SerializeField] private float surveyProgressMeo = 0.05f;
+    [SerializeField] private float surveyProgressGeo = 0.01f;
+    [SerializeField] private float surveyCooldown = 3f;
+    
+    [Header("AbandonedSite")]
+    [SerializeField] private float siteProgressLeo = 0.10f;
+    [SerializeField] private float siteProgressMeo = 0.05f;
+    [SerializeField] private float siteProgressGeo = 0.01f;
+    [SerializeField] private float siteCooldown = 3f;
+
+    [Header("Properties")]
+    [SerializeField] private ObjectiveStateEnum _objectiveState;
+    [SerializeField] private float currentCooldown;
+    [SerializeField] private float povProgress; //0-1 für 0-100%
+    [SerializeField] private float commUpTime; //0-1 für 0-100%
+    
+    public ObjectiveStateEnum ObjectiveState
     {
         get => _objectiveState;
         set
@@ -56,6 +84,14 @@ public class Objective : MonoBehaviour
         if (Application.IsPlaying(gameObject))
         {
             // Play logic
+            if (currentCooldown > 0) currentCooldown -= Time.deltaTime;
+            if (
+                objectiveType == ObjectiveTypeEnum.Colony
+                && commUpTime > 0
+            )
+            {
+                commUpTime -= Time.deltaTime * colonyUptimeDecay;
+            }
         }
         else
         {
@@ -64,9 +100,102 @@ public class Objective : MonoBehaviour
         }
     }
 
-    public void Payday()
+    public void Payday(SatelliteInstance caller) 
     {
-        // TODO PQ
+        if (currentCooldown > 0) { return; }
+        if (ObjectiveState == ObjectiveStateEnum.Hidden)
+        {
+            DiscoverPoi(caller);
+        }
+        else if (ObjectiveState == ObjectiveStateEnum.Unexplored)
+        {
+            ExplorePoi(caller);
+        } 
+    }
+
+    private void DiscoverPoi(SatelliteInstance caller)
+    {
+        if (ObjectiveState != ObjectiveStateEnum.Hidden 
+            && caller.satFunktion == SatelliteInstance.SatFunktions.CAM)
+        {
+            return;
+        }
+        currentCooldown = discoverCooldown;
+        ObjectiveState = ObjectiveStateEnum.Unexplored;
+    }
+    
+    private void ExplorePoi(SatelliteInstance caller)
+    {
+        if (ObjectiveState != ObjectiveStateEnum.Unexplored)
+        {
+            return;
+        }
+        if (objectiveType == ObjectiveTypeEnum.Colony)
+        {
+            //TODO check if Sat has Connection mit andere Colonie & Base
+            //Get Count als Multi
+            if (caller.satFunktion != SatelliteInstance.SatFunktions.COMM)
+            {
+                currentCooldown = exploreColonyCooldown;
+                return;
+            }
+            
+            commUpTime += exploreColonyUptime;
+            povProgress += exploreColonyProgress;
+            currentCooldown = exploreColonyCooldown;
+            
+            if (povProgress >= 1.0f)
+            {
+                povProgress = 0f;
+                _gameState.economy.Money += payout;
+            }
+        }
+        else if(objectiveType == ObjectiveTypeEnum.MineralSurvey)
+        {
+            if (caller.satFunktion != SatelliteInstance.SatFunktions.SCAN)
+            {
+                currentCooldown = surveyCooldown;
+                return;
+            }
+            
+            float currentProgress = surveyProgressLeo;
+            if (caller.orbit.orbitState == Orbit.OrbitState.MEO) currentProgress = surveyProgressMeo;
+            if (caller.orbit.orbitState == Orbit.OrbitState.GEO) currentProgress = surveyProgressGeo;
+            povProgress += currentProgress;
+            currentCooldown = surveyCooldown;
+            
+            if (povProgress >= 1.0f)
+            {
+                povProgress = 0f;
+                _gameState.economy.Money += payout;
+                ObjectiveState = ObjectiveStateEnum.Completed;
+            }
+        }
+        else if(objectiveType == ObjectiveTypeEnum.AbandonedSite)
+        {
+            if (caller.satFunktion != SatelliteInstance.SatFunktions.CAM)
+            {
+                currentCooldown = siteCooldown;
+                return;
+            }
+            
+            float currentProgress = siteProgressLeo;
+            if (caller.orbit.orbitState == Orbit.OrbitState.MEO) currentProgress = siteProgressMeo;
+            if (caller.orbit.orbitState == Orbit.OrbitState.GEO) currentProgress = siteProgressGeo;
+            povProgress += currentProgress;
+            currentCooldown = siteCooldown;
+            
+            if (povProgress >= 1.0f)
+            {
+                povProgress = 0f;
+                _gameState.economy.Money += payout;
+                ObjectiveState = ObjectiveStateEnum.Completed;
+            }
+        }
+        else
+        {
+            currentCooldown = exploreCooldown;
+        }
     }
 
     public void UpdateViz()
