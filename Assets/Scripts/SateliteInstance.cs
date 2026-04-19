@@ -7,18 +7,7 @@ using Random = UnityEngine.Random;
 
 public class SatelliteInstance : MonoBehaviour
 {
-    public const int CamCost = 100;
-    public const int ScanCost = 50;
-    public const int CommCost = 500;
-
-    public const int RefuleCost = 1000;
-    public const int FulePlusCost = 200;
-
-    public const int LeoCostFule = 25;
-    public const int MeoCostFule = 50;
-    public const int GeoCostFule = 100;
-
-    public enum SatFunktions
+    public enum SatFunctions
     {
         CAM,
         SCAN,
@@ -37,8 +26,8 @@ public class SatelliteInstance : MonoBehaviour
     public Color color;
     public Color colorMuted;
 
-    public SatFunktions satFunktion = SatFunktions.CAM;
-    public event Action<SatFunktions> OnSatFunktionChanged;
+    public SatFunctions satFunction = SatFunctions.CAM;
+    public event Action<SatFunctions> OnSatFunktionChanged;
 
     [Header("Properties")] public Vector2 position;
     public bool isHighLighted = false;
@@ -109,30 +98,30 @@ public class SatelliteInstance : MonoBehaviour
     }
 
     private float[] discoverAngle =
-        { 
-            Mathf.Cos(20f * Mathf.Deg2Rad), 
-            Mathf.Cos(30f * Mathf.Deg2Rad), 
-            Mathf.Cos(50f * Mathf.Deg2Rad) 
-        };
+    {
+        Mathf.Cos(20f * Mathf.Deg2Rad),
+        Mathf.Cos(30f * Mathf.Deg2Rad),
+        Mathf.Cos(50f * Mathf.Deg2Rad)
+    };
 
     private float[] abandonedSiteAngles =
     {
-        Mathf.Cos(20f * Mathf.Deg2Rad), 
-        Mathf.Cos(30f * Mathf.Deg2Rad), 
+        Mathf.Cos(20f * Mathf.Deg2Rad),
+        Mathf.Cos(30f * Mathf.Deg2Rad),
         Mathf.Cos(50f * Mathf.Deg2Rad)
     };
 
     private float[] colonyAngles =
     {
-        Mathf.Cos(20f * Mathf.Deg2Rad), 
-        Mathf.Cos(30f * Mathf.Deg2Rad), 
+        Mathf.Cos(20f * Mathf.Deg2Rad),
+        Mathf.Cos(30f * Mathf.Deg2Rad),
         Mathf.Cos(50f * Mathf.Deg2Rad)
     };
 
     private float[] surveyAngles =
     {
-        Mathf.Cos(20f * Mathf.Deg2Rad), 
-        Mathf.Cos(30f * Mathf.Deg2Rad), 
+        Mathf.Cos(20f * Mathf.Deg2Rad),
+        Mathf.Cos(30f * Mathf.Deg2Rad),
         Mathf.Cos(50f * Mathf.Deg2Rad)
     };
 
@@ -168,6 +157,7 @@ public class SatelliteInstance : MonoBehaviour
                             inSight = colonyAngles[heightIndex] < dot;
                             break;
                     }
+
                     break;
                 case Objective.ObjectiveStateEnum.Completed:
                     break;
@@ -261,13 +251,18 @@ public class SatelliteInstance : MonoBehaviour
         return newName;
     }
 
+    public bool CanAffordCam()
+    {
+        return _gameState.economy.Money >= _gameState.camCost;
+    }
+
     public bool BuyCam()
     {
-        if (_gameState.economy.Money >= CamCost)
+        if (CanAffordCam())
         {
-            _gameState.economy.Money -= CamCost;
-            satFunktion = SatFunktions.CAM;
-            OnSatFunktionChanged?.Invoke(satFunktion);
+            _gameState.economy.Money -= _gameState.camCost;
+            satFunction = SatFunctions.CAM;
+            OnSatFunktionChanged?.Invoke(satFunction);
             return true;
         }
 
@@ -276,35 +271,45 @@ public class SatelliteInstance : MonoBehaviour
 
     public bool BuyScan()
     {
-        if (_gameState.economy.Money >= ScanCost)
+        if (CanAffordScan())
         {
-            _gameState.economy.Money -= ScanCost;
-            satFunktion = SatFunktions.SCAN;
-            OnSatFunktionChanged?.Invoke(satFunktion);
+            _gameState.economy.Money -= _gameState.scanCost;
+            satFunction = SatFunctions.SCAN;
+            OnSatFunktionChanged?.Invoke(satFunction);
             return true;
         }
 
         return false;
+    }
+
+    public bool CanAffordScan()
+    {
+        return _gameState.economy.Money >= _gameState.scanCost;
     }
 
     public bool BuyComm()
     {
-        if (_gameState.economy.Money >= CommCost)
+        if (CanAffordComm())
         {
-            _gameState.economy.Money -= CommCost;
-            satFunktion = SatFunktions.COMM;
-            OnSatFunktionChanged?.Invoke(satFunktion);
+            _gameState.economy.Money -= _gameState.camCost;
+            satFunction = SatFunctions.COMM;
+            OnSatFunktionChanged?.Invoke(satFunction);
             return true;
         }
 
         return false;
     }
 
+    public bool CanAffordComm()
+    {
+        return _gameState.economy.Money >= _gameState.camCost;
+    }
+
     public bool BuyLeo()
     {
-        if (fuelCurrent >= LeoCostFule)
+        if (CanAffordLeo())
         {
-            fuelCurrent -= LeoCostFule;
+            fuelCurrent -= _gameState.leoCostFuel;
             orbit.SetLeo();
             return true;
         }
@@ -312,35 +317,50 @@ public class SatelliteInstance : MonoBehaviour
         return false;
     }
 
+    public bool CanAffordLeo()
+    {
+        return fuelCurrent >= _gameState.leoCostFuel;
+    }
+
     public bool BuyMeo()
     {
-        if (fuelCurrent >= MeoCostFule)
+        if (CanAffordMeo())
         {
-            fuelCurrent -= MeoCostFule;
+            fuelCurrent -= _gameState.meoCostFuel;
             orbit.SetMeo();
             return true;
         }
 
         return false;
+    }
+
+    public bool CanAffordMeo()
+    {
+        return fuelCurrent >= _gameState.meoCostFuel;
     }
 
     public bool BuyGeo()
     {
-        if (fuelCurrent >= GeoCostFule)
+        if (CanAffordGeo())
         {
-            fuelCurrent -= GeoCostFule;
-            orbit.SetMeo();
+            fuelCurrent -= _gameState.meoCostFuel;
+            orbit.SetGeo();
             return true;
         }
 
         return false;
     }
 
-    public bool BuyRefule()
+    public bool CanAffordGeo()
     {
-        if (_gameState.economy.Money >= RefuleCost)
+        return fuelCurrent >= _gameState.meoCostFuel;
+    }
+
+    public bool BuyRefuel()
+    {
+        if (CanAffordRefuel())
         {
-            _gameState.economy.Money -= RefuleCost;
+            _gameState.economy.Money -= _gameState.refuelCost;
             fuelCurrent = fuelMax;
             return true;
         }
@@ -348,16 +368,26 @@ public class SatelliteInstance : MonoBehaviour
         return false;
     }
 
-    public bool BuyPlusFule()
+    public bool CanAffordRefuel()
     {
-        if (_gameState.economy.Money >= FulePlusCost)
+        return _gameState.economy.Money >= _gameState.refuelCost;
+    }
+
+    public bool BuyPlusFuel()
+    {
+        if (CanAffordPlusFuel())
         {
-            _gameState.economy.Money -= FulePlusCost;
+            _gameState.economy.Money -= _gameState.refuelCost;
             fuelMax += 25;
             fuelCurrent = fuelMax;
             return true;
         }
 
         return false;
+    }
+
+    public bool CanAffordPlusFuel()
+    {
+        return _gameState.economy.Money >= _gameState.refuelCost;
     }
 }

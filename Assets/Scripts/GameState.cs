@@ -9,7 +9,19 @@ using Random = UnityEngine.Random;
 
 public class GameState : MonoBehaviour
 {
-    [SerializeField] private int costOfSatellite = 1000;
+    [Header("Kaufhaus")]
+    public int costOfSatellite = 1000;
+    
+    public int camCost = 100;
+    public int scanCost = 50;
+    public int commCost = 500;
+
+    public int refuelCost = 1000;
+    public int fuelPlusCost = 200;
+
+    public int leoCostFuel = 25;
+    public int meoCostFuel = 50;
+    public int geoCostFuel = 100;
 
     public enum SelectionState
     {
@@ -18,6 +30,7 @@ public class GameState : MonoBehaviour
         SatelliteReroute
     }
 
+    [Header("Config")]
     public SelectionState selectionState = SelectionState.None;
     [SerializeField] private float _currentDelay = 0f;
     [SerializeField] private float _maxDelay = 5f;
