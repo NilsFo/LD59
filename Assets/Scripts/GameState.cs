@@ -26,7 +26,7 @@ public class GameState : MonoBehaviour
     private TimeScaler _timeScaler;
     public Economy economy;
 
-    public List<Objective> objectives;
+    public Objective[] objectives;
 
     [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
     public event Action<SatelliteInstance> OnSelectedSatelliteChanged;
@@ -45,7 +45,7 @@ public class GameState : MonoBehaviour
         _musicManager = FindAnyObjectByType<MusicManager>();
         templateOrbit.gameObject.SetActive(false);
 
-        objectives = FindObjectsByType<Objective>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID).ToList();
+        objectives = FindObjectsByType<Objective>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -179,5 +179,10 @@ public class GameState : MonoBehaviour
         {
             templateOrbit.gameObject.SetActive(false);
         }
+    }
+
+    public int GetNumObjectives()
+    {
+        return objectives.Length;
     }
 }
