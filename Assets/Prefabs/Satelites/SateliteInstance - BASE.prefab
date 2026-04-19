@@ -490,13 +490,13 @@ MonoBehaviour:
   displayName: 
   fuelMax: 0
   fuelCurrent: 0
-  discoverAngle: 30
+  discoverAngle: 20
   abandonedSiteAngle: 20
-  colonyAngle: 30
+  colonyAngle: 40
   surveyAngle: 20
   color: {r: 0, g: 0, b: 0, a: 0}
   colorMuted: {r: 0, g: 0, b: 0, a: 0}
-  satFunktion: 0
+  satFunction: 0
   position: {x: 0, y: 0}
   isHighLighted: 0
   isSelected: 0

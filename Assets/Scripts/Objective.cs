@@ -84,9 +84,24 @@ public class Objective : MonoBehaviour
         UpdateViz();
         _gameState = FindFirstObjectByType<GameState>();
         var hover = GetComponent<HoverDescription>();
-        if (objectiveType == ObjectiveTypeEnum.AbandonedSite)
+        if (_objectiveState == ObjectiveStateEnum.Hidden)
         {
             hover.description = description + "\n";
+        }
+        else if (_objectiveState == ObjectiveStateEnum.Unexplored)
+        {
+            hover.description = "Our satellites have picked up something here. Send a satellite with a CAM to investigate.";
+        }
+        else if (_objectiveState == ObjectiveStateEnum.Explored || _objectiveState == ObjectiveStateEnum.Completed)
+        {
+            if(objectiveType == ObjectiveTypeEnum.Home)
+                hover.description = displayName + "\n\n" + description;
+            else if(objectiveType == ObjectiveTypeEnum.Colony)
+                hover.description = displayName + "\n\n" + description + "\n\nThis is a colony. Establish communication using a COMM satellite.";
+            else if(objectiveType == ObjectiveTypeEnum.AbandonedSite)
+                hover.description = displayName + "\n\n" + description + "\n\nThis is an abandoned site. There is nothing more to do than document what happened.";
+            else if(objectiveType == ObjectiveTypeEnum.MineralSurvey)
+                hover.description = displayName + "\n\n" + description + "\n\nThis is a survey site. Equip a satellite with the Mineral sensor (MSE) to scan for resources.";
         }
     }
 
