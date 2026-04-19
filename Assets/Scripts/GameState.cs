@@ -175,4 +175,9 @@ public class GameState : MonoBehaviour
             templateOrbit.gameObject.SetActive(false);
         }
     }
+
+    public void ShowRadioMsg(string text)
+    {
+        radioDisplay.text = text;
+    }
 }
