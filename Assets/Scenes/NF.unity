@@ -317,6 +317,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2104295052497045706, guid: 3424855b47477fb439a575d1d76c6192, type: 3}
+      propertyPath: m_FocalLength
+      value: 20.78461
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104295052497045706, guid: 3424855b47477fb439a575d1d76c6192, type: 3}
+      propertyPath: m_LensShift.x
+      value: 0.12
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104295052497045706, guid: 3424855b47477fb439a575d1d76c6192, type: 3}
+      propertyPath: m_LensShift.y
+      value: -0.09
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104295052497045706, guid: 3424855b47477fb439a575d1d76c6192, type: 3}
+      propertyPath: m_TargetTexture
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2104295052497045706, guid: 3424855b47477fb439a575d1d76c6192, type: 3}
+      propertyPath: m_projectionMatrixMode
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4758736962339290576, guid: 3424855b47477fb439a575d1d76c6192, type: 3}
       propertyPath: m_Name
       value: Planet
@@ -417,6 +437,10 @@ PrefabInstance:
     - target: {fileID: 4369058774960186437, guid: 3566a1bdb923792408ac9786ac631344, type: 3}
       propertyPath: m_Name
       value: FakeCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 4369058774960186437, guid: 3566a1bdb923792408ac9786ac631344, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -573,6 +597,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: -9.014099
       objectReference: {fileID: 0}
+    - target: {fileID: 3434324332722676236, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1.8027954
+      objectReference: {fileID: 0}
     - target: {fileID: 3448343977961945055, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
       propertyPath: m_Name
       value: UI Canvas
@@ -595,7 +623,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4563667355185567896, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000009536743
+      value: -0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 5416233973010292781, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
       propertyPath: m_AnchorMax.x
@@ -608,6 +636,10 @@ PrefabInstance:
     - target: {fileID: 5416233973010292781, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5985941837949396641, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00005722046
       objectReference: {fileID: 0}
     - target: {fileID: 6628826637498797926, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
       propertyPath: m_Value
