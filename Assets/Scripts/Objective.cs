@@ -83,10 +83,17 @@ public class Objective : MonoBehaviour
         CalcPos();
         UpdateViz();
         _gameState = FindFirstObjectByType<GameState>();
+        UpdateDescription();
+        objectiveStateChanged.AddListener(_ => UpdateDescription());
+    }
+
+    void UpdateDescription()
+    {
         var hover = GetComponent<HoverDescription>();
+        
         if (_objectiveState == ObjectiveStateEnum.Hidden)
         {
-            hover.description = description + "\n";
+            hover.description = "Our satellites have picked up something here. Send a satellite with a CAM to investigate.";
         }
         else if (_objectiveState == ObjectiveStateEnum.Unexplored)
         {
