@@ -17,20 +17,20 @@ public class TimeScaleUI : MonoBehaviour
 
     private void OnTimeChanged()
     {
-        timeScaleButtonPlay.SetActive(false);
-        timeScaleButtonPause.SetActive(false);
-        timeScaleButtonFastForward.SetActive(false);
+        // timeScaleButtonPlay.SetActive(false);
+        // timeScaleButtonPause.SetActive(false);
+        // timeScaleButtonFastForward.SetActive(false);
 
         switch (_timeScaler.currentTimeScaleState)
         {
             case TimeScaler.TimeScaleState.Normal:
-                timeScaleButtonPlay.SetActive(true);
+                // timeScaleButtonPlay.SetActive(true);
                 break;
             case TimeScaler.TimeScaleState.FastForward:
-                timeScaleButtonFastForward.SetActive(true);
+                // timeScaleButtonFastForward.SetActive(true);
                 break;
             case TimeScaler.TimeScaleState.Pause:
-                timeScaleButtonPause.SetActive(true);
+                // timeScaleButtonPause.SetActive(true);
                 break;
             default:
                 Debug.LogError("ERROR IN TIME SCALE STATE!");
