@@ -149,7 +149,7 @@ Texture2D:
   m_ColorSpace: 1
   m_PlatformBlob: 
   image data: 1
-  _typelessdata: cd
+  _typelessdata: 00
   m_StreamData:
     serializedVersion: 2
     offset: 0
@@ -187,7 +187,7 @@ MonoBehaviour:
     m_SubscriptSize: 0.5
     m_UnderlineOffset: 6.767578
     m_UnderlineThickness: 4.482422
-    m_StrikethroughOffset: 0
+    m_StrikethroughOffset: 27.2
     m_StrikethroughThickness: 4.482422
     m_TabWidth: 42
   m_Material: {fileID: -4151435875505641348}
