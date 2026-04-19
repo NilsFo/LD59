@@ -1,10 +1,8 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public class GameState : MonoBehaviour
@@ -21,12 +19,17 @@ public class GameState : MonoBehaviour
     public SelectionState selectionState = SelectionState.None;
     [SerializeField] private float _currentDelay = 0f;
     [SerializeField] private float _maxDelay = 5f;
+    
+    [SerializeField] private float uptimeThreshold = 5f; 
+    [SerializeField] private float winUptime = 30f;
 
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
     public Economy economy;
 
     public Objective[] objectives;
+    public Objective[] colonies;
+    public float commUptime = 0f;
 
     [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
     public event Action<SatelliteInstance> OnSelectedSatelliteChanged;
@@ -46,6 +49,8 @@ public class GameState : MonoBehaviour
         templateOrbit.gameObject.SetActive(false);
 
         objectives = FindObjectsByType<Objective>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID);
+        colonies = objectives.Where(objective => objective.objectiveType == Objective.ObjectiveTypeEnum.Colony)
+            .ToArray();
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -78,6 +83,34 @@ public class GameState : MonoBehaviour
                 selectionState = SelectionState.SatelliteReroute;
             }
         }
+
+        if (HasAllColoniesConnection())
+        {
+            commUptime += Time.deltaTime;
+            //TODO Maybe Set State and Display Connections on all Satellites
+        }
+        else
+        {
+            commUptime = 0f;
+        }
+
+        if (commUptime >= winUptime)
+        {
+            playWin();
+        }
+    }
+
+    private bool HasAllColoniesConnection()
+    {
+        if (colonies.Length < 3) return false;
+        Objective[] belowThreshold = 
+            colonies.Where(objective => objective.CommunicationUptime < uptimeThreshold).ToArray();
+        return belowThreshold.Length == 0;
+    }
+
+    private void playWin()
+    {
+        //TODO
     }
 
     private void OnNewSelectionState()
