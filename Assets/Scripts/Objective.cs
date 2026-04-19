@@ -7,15 +7,22 @@ public class Objective : MonoBehaviour
 {
     public enum ObjectiveTypeEnum
     {
-        AbandonedSite, MineralSurvey, Colony
+        AbandonedSite, MineralSurvey, Colony, Home
     }
     public enum ObjectiveStateEnum
     {
         Hidden, Unexplored, Explored, Completed
     }
+
+    [Header("Params")] [Header("General")] 
+    public string id;
+    public string displayName;
+    [TextArea(5,15)] public string description;
     
-    [Header("Params")]
-    [Header("General")]
+    public ObjectiveTypeEnum objectiveType;
+    public float longitude, latitude;
+    
+    
     [SerializeField] private int payout = 100;
     [SerializeField] private float discoverCooldown = 3f;
     [SerializeField] private float exploreCooldown = 3f;
@@ -61,9 +68,6 @@ public class Objective : MonoBehaviour
     public UnityEvent<ObjectiveStateEnum> objectiveStateChanged;
 
 
-    public ObjectiveTypeEnum objectiveType;
-    public float longitude, latitude;
-    public int researchValue = 1;
 
     private GameState _gameState;
 
@@ -77,12 +81,14 @@ public class Objective : MonoBehaviour
     void Start()
     {
         CalcPos();
+        UpdateViz();
         _gameState = FindFirstObjectByType<GameState>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        UpdateViz();
         if (Application.IsPlaying(gameObject))
         {
             // Play logic
@@ -98,7 +104,6 @@ public class Objective : MonoBehaviour
         else
         {
             CalcPos();
-            UpdateViz();
         }
     }
 
@@ -233,7 +238,7 @@ public class Objective : MonoBehaviour
         {
             unexploredViz.gameObject.SetActive(false);
 
-            if (objectiveType == ObjectiveTypeEnum.Colony)
+            if (objectiveType == ObjectiveTypeEnum.Colony || objectiveType == ObjectiveTypeEnum.Home)
             {
                 abandonedSiteViz.gameObject.SetActive(false);
                 mineralSurveyViz.gameObject.SetActive(false);
