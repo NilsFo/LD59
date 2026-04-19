@@ -166,7 +166,6 @@ public class SatelliteInstance : MonoBehaviour
                             inSight = colonyAngles[heightIndex] < dot;
                             break;
                     }
-
                     break;
                 case Objective.ObjectiveStateEnum.Completed:
                     break;
@@ -185,8 +184,7 @@ public class SatelliteInstance : MonoBehaviour
             if (objectiveInSight[index])
             {
                 var objective = _gameState.objectives[index];
-                objective.Payday();
-                Debug.Log(objective);
+                objective.Payday(this);
             }
         }
     }

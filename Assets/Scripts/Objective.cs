@@ -11,7 +11,7 @@ public class Objective : MonoBehaviour
     }
     public enum ObjectiveStateEnum
     {
-        Hidden, Unexplored, Completed
+        Hidden, Unexplored, Explored, Completed
     }
     
     [Header("Params")]
@@ -19,12 +19,13 @@ public class Objective : MonoBehaviour
     [SerializeField] private int payout = 100;
     [SerializeField] private float discoverCooldown = 3f;
     [SerializeField] private float exploreCooldown = 3f;
+    [SerializeField] private float excavateCooldown = 3f;
     
     [Header("Colony")]
-    [SerializeField] private float colonyUptimeDecay = 0.2f;
-    [SerializeField] private float exploreColonyUptime = 2.0f;
-    [SerializeField] private float exploreColonyProgress = 0.25f;
-    [SerializeField] private float exploreColonyCooldown = 3f;
+    [SerializeField] private float colonyUptimeDecay = 0.2f; //Decay of Uptime
+    [SerializeField] private float colonyUptime = 2.0f; //Amount of Uptime
+    [SerializeField] private float colonyProgress = 0.25f; //Amount of Progress
+    [SerializeField] private float colonyCooldown = 3f; //Delay between Progress
     
     [Header("MineralSurvey")]
     [SerializeField] private float surveyProgressLeo = 0.10f;
@@ -53,6 +54,7 @@ public class Objective : MonoBehaviour
             {
                 _objectiveState = value;
                 objectiveStateChanged.Invoke(_objectiveState);
+                print("POI: " + _objectiveState);
             }
         }
     }
@@ -111,12 +113,15 @@ public class Objective : MonoBehaviour
         {
             ExplorePoi(caller);
         } 
+        else if (ObjectiveState == ObjectiveStateEnum.Explored)
+        {
+            ExcavatePoi(caller);
+        } 
     }
 
     private void DiscoverPoi(SatelliteInstance caller)
     {
-        if (ObjectiveState != ObjectiveStateEnum.Hidden 
-            && caller.satFunktion == SatelliteInstance.SatFunktions.CAM)
+        if (ObjectiveState != ObjectiveStateEnum.Hidden)
         {
             return;
         }
@@ -126,7 +131,18 @@ public class Objective : MonoBehaviour
     
     private void ExplorePoi(SatelliteInstance caller)
     {
-        if (ObjectiveState != ObjectiveStateEnum.Unexplored)
+        if (ObjectiveState != ObjectiveStateEnum.Unexplored 
+            && caller.satFunktion == SatelliteInstance.SatFunktions.CAM)
+        {
+            return;
+        }
+        currentCooldown = exploreCooldown;
+        ObjectiveState = ObjectiveStateEnum.Explored;
+    }
+    
+    private void ExcavatePoi(SatelliteInstance caller)
+    {
+        if (ObjectiveState != ObjectiveStateEnum.Explored)
         {
             return;
         }
@@ -136,13 +152,13 @@ public class Objective : MonoBehaviour
             //Get Count als Multi
             if (caller.satFunktion != SatelliteInstance.SatFunktions.COMM)
             {
-                currentCooldown = exploreColonyCooldown;
+                currentCooldown = colonyCooldown;
                 return;
             }
             
-            commUpTime += exploreColonyUptime;
-            povProgress += exploreColonyProgress;
-            currentCooldown = exploreColonyCooldown;
+            commUpTime += colonyUptime;
+            povProgress += colonyProgress;
+            currentCooldown = colonyCooldown;
             
             if (povProgress >= 1.0f)
             {
