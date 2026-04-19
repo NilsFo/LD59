@@ -1,11 +1,32 @@
+using System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Orbit : MonoBehaviour
 {
+    private const float LeoValue = 1.0f;
+    private const float MeoValue = 3.0f;
+    private const float GeoValue = 5.0f;
+    
+    public enum OrbitState: UInt32
+    {
+        LEO=0,
+        MEO=1,
+        GEO=2
+    }
+    
     public Vector3 OrbitAxis { get; private set; } = Vector3.up;
     public Vector3 OrbitStart { get; private set; } = Vector3.left;
     public float height = 1.1f;
+    public float rotationSpeed = 10.0f;
+    
+    public float ascendingSpeed = 10.0f;
+    public float descendingSpeed = 10.0f;
 
+    public OrbitState orbitState = OrbitState.LEO;
+    public OrbitState targetOrbitState = OrbitState.LEO;
+    public event Action<OrbitState> OnOrbitChanged;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -23,6 +44,68 @@ public class Orbit : MonoBehaviour
         // Debug.Log(OrbitAxis);
         // Debug.Log(OrbitStart);
         // Debug.Log(Vector3.Cross(OrbitAxis, OrbitStart));
+        if (orbitState != targetOrbitState)
+        {
+            if (orbitState == OrbitState.LEO)
+            {
+                //Accend
+                height += Time.deltaTime * ascendingSpeed;
+                if (height >= MeoValue)
+                {
+                    orbitState = OrbitState.MEO;
+                    height = MeoValue;
+                    OnOrbitChanged?.Invoke(orbitState);
+                }
+                if (height >= GeoValue)
+                {
+                    orbitState = OrbitState.GEO;
+                    height = GeoValue;
+                    OnOrbitChanged?.Invoke(orbitState);
+                }
+            }
+            else if (orbitState == OrbitState.MEO)
+            {
+                if (targetOrbitState == OrbitState.LEO)
+                {
+                    //Desent
+                    height -= Time.deltaTime * descendingSpeed;
+                    if (height <= LeoValue)
+                    {
+                        orbitState = OrbitState.LEO;
+                        height = LeoValue;
+                        OnOrbitChanged?.Invoke(orbitState);
+                    }
+                }
+                else
+                {
+                    //Accend
+                    height += Time.deltaTime * ascendingSpeed;
+                    if (height >= GeoValue)
+                    {
+                        orbitState = OrbitState.GEO;
+                        height = GeoValue;
+                        OnOrbitChanged?.Invoke(orbitState);
+                    }
+                }
+            }
+            else //GEO
+            {
+                //Decent
+                height -= Time.deltaTime * descendingSpeed;
+                if (height <= MeoValue)
+                {
+                    orbitState = OrbitState.MEO;
+                    height = MeoValue;
+                    OnOrbitChanged?.Invoke(orbitState);
+                }
+                if (height <= LeoValue)
+                {
+                    orbitState = OrbitState.LEO;
+                    height = LeoValue;
+                    OnOrbitChanged?.Invoke(orbitState);
+                }
+            }
+        }
     }
 
     // Omega ist die rotation um den orbit in radianten zwsichen 0 und 2*pi, startet am äquator
@@ -67,5 +150,35 @@ public class Orbit : MonoBehaviour
         //pos.x = orbitPos
 
         return pos;
+    }
+
+    public bool SetLeo()
+    {
+        if (orbitState == targetOrbitState)
+        {
+            targetOrbitState = OrbitState.LEO;
+            return true;
+        }
+        return false;
+    }
+    
+    public bool SetMeo()
+    {
+        if (orbitState == targetOrbitState)
+        {
+            targetOrbitState = OrbitState.MEO;
+            return true;
+        }
+        return false;
+    }
+    
+    public bool SetGeo()
+    {
+        if (orbitState == targetOrbitState)
+        {
+            targetOrbitState = OrbitState.GEO;
+            return true;
+        }
+        return false;
     }
 }
