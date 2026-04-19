@@ -207,6 +207,8 @@ public class GameState : MonoBehaviour
     public void ClearDisplayDescription()
     {
         descriptionDisplay.Clear();
+    }
+
     public int GetNumObjectives()
     {
         return objectives.Length;
