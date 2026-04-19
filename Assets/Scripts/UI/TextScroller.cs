@@ -5,8 +5,7 @@ using UnityEngine.Events;
 public class TextScroller : MonoBehaviour
 {
     [Header("World Hookup")] public TMP_Text myTMPText;
-    public string text;
-    private string _text;
+    [SerializeField] private string text;
 
     public UnityEvent onNewText;
     public float scrollSpeed = 1f;
@@ -26,12 +25,6 @@ public class TextScroller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (_text != text)
-        {
-            _text = text;
-            OnNewText();
-        }
-
         myTMPText.text = text;
         _charsDisplayed += scrollSpeed * Time.unscaledDeltaTime;
         myTMPText.maxVisibleCharacters = (int)(_charsDisplayed);
@@ -41,6 +34,16 @@ public class TextScroller : MonoBehaviour
     {
         onNewText.Invoke();
         _charsDisplayed = 0;
+    }
+
+    public void DisplayText(string newText, bool instantly)
+    {
+        OnNewText();
+        text = newText;
+        if (instantly)
+        {
+            _charsDisplayed = newText.Length * 2;
+        }
     }
 
     public void Clear()

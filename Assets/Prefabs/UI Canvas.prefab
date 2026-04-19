@@ -234,7 +234,7 @@ MonoBehaviour:
   onNewText:
     m_PersistentCalls:
       m_Calls: []
-  scrollSpeed: 50
+  scrollSpeed: 15
 --- !u!1 &3448343977961945055
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,7 +781,7 @@ MonoBehaviour:
   onNewText:
     m_PersistentCalls:
       m_Calls: []
-  scrollSpeed: 50
+  scrollSpeed: 15
 --- !u!1001 &2388548855092331301
 PrefabInstance:
   m_ObjectHideFlags: 0
