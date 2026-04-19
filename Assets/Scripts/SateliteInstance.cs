@@ -367,7 +367,8 @@ public class SatelliteInstance : MonoBehaviour
         if (CanAffordChangeOrbit())
         {
             fuelCurrent -= _gameState.changeOrbitCostFuel;
-            // TODO IMPLEMENT HERE!!!
+            _gameState.SetSelectedSatellite(this, true);
+            _gameState.SetReroute();
             return true;
         }
 

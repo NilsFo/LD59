@@ -28,6 +28,7 @@ public class GameState : MonoBehaviour
     {
         None,
         Init,
+        Selected,
         SatelliteReroute
     }
 
@@ -108,7 +109,7 @@ public class GameState : MonoBehaviour
             _currentDelay -= Time.unscaledDeltaTime;
             if (_currentDelay <= 0f)
             {
-                selectionState = SelectionState.SatelliteReroute;
+                selectionState = SelectionState.Selected;
             }
         }
 
@@ -192,7 +193,7 @@ public class GameState : MonoBehaviour
         return false;
     }
 
-    public void SetSelectedSatellite(SatelliteInstance sat = null)
+    public void SetSelectedSatellite(SatelliteInstance sat = null, bool skipDelay = false)
     {
         if (sat == null)
         {
@@ -216,6 +217,7 @@ public class GameState : MonoBehaviour
 
             _currentDelay = _maxDelay;
             selectionState = SelectionState.Init;
+            if(skipDelay)  selectionState = SelectionState.Selected;
             selectedSatellite = sat;
             OnSelectedSatelliteChanged?.Invoke(sat);
         }
@@ -288,5 +290,13 @@ public class GameState : MonoBehaviour
             return false;
         }
         return true;
+    }
+
+    public void SetReroute()
+    {
+        if(selectionState != SelectionState.Selected){
+         return;
+        }
+        selectionState = SelectionState.SatelliteReroute;
     }
 }
