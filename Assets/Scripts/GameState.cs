@@ -169,6 +169,7 @@ public class GameState : MonoBehaviour
                 Transform objectHit = hit.transform;
 
                 float newOmega = templateOrbit.SetNewOrbit(selectedSatellite.transform.position, hit.point);
+                templateOrbit.height = selectedSatellite.orbit.height;
                 templateOrbit.gameObject.SetActive(true);
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
