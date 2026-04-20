@@ -75,7 +75,7 @@ public class Objective : MonoBehaviour
             float currentUptime = commUpTime;
             currentUptime /= _gameState.winUptime;
             if (currentUptime > 1.0f) return 1.0f;
-            return currentUptime; 
+            return currentUptime;
         }
     }
 
@@ -206,6 +206,7 @@ public class Objective : MonoBehaviour
         {
             return;
         }
+
         //Debug.Log(displayName + " WAS FOUND BY "+caller.displayName+" WITH " + caller.satFunction );
         currentCooldown = exploreCooldown;
         ObjectiveState = ObjectiveStateEnum.Explored;
@@ -229,7 +230,7 @@ public class Objective : MonoBehaviour
             var curIndex = openSet.Dequeue();
             var sat = sats[curIndex];
             closedSet.Add(curIndex);
-            
+
             foreach (var othersat in sat.comSatsInSight)
             {
                 if (othersat.IsObjectiveInSight(_gameState.home))
@@ -237,6 +238,7 @@ public class Objective : MonoBehaviour
                     Debug.Log(displayName + " can phone home");
                     return true;
                 }
+
                 int othersatindex = sats.IndexOf(othersat);
                 if (closedSet.Contains(othersatindex))
                     continue;
@@ -268,6 +270,7 @@ public class Objective : MonoBehaviour
                 currentCooldown = colonyCooldown;
                 return;
             }
+
             commUpTime += colonyUptime;
 
             povProgress += colonyProgress;
@@ -276,12 +279,12 @@ public class Objective : MonoBehaviour
             if (povProgress >= 1.0f)
             {
                 povProgress = 0f;
-                spawnPaydayText(payout);
+                SpawnPaydayText(payout);
                 _gameState.economy.Money += payout;
             }
             else
             {
-                spawnProgressText(colonyProgress);
+                SpawnProgressText(colonyProgress);
             }
         }
         else if (objectiveType == ObjectiveTypeEnum.MineralSurvey)
@@ -301,13 +304,13 @@ public class Objective : MonoBehaviour
             if (povProgress >= 1.0f)
             {
                 povProgress = 0f;
-                spawnPaydayText(payout);
+                SpawnPaydayText(payout);
                 _gameState.economy.Money += payout;
                 //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat MineralSurvey
             }
             else
             {
-                spawnProgressText(currentProgress);
+                SpawnProgressText(currentProgress);
             }
         }
         else if (objectiveType == ObjectiveTypeEnum.AbandonedSite)
@@ -328,12 +331,12 @@ public class Objective : MonoBehaviour
             {
                 povProgress = 0f;
                 _gameState.economy.Money += payout;
-                spawnPaydayText(payout);
+                SpawnPaydayText(payout);
                 //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat AbandonedSite
             }
             else
             {
-                spawnProgressText(currentProgress);
+                SpawnProgressText(currentProgress);
             }
         }
         else
@@ -430,15 +433,18 @@ public class Objective : MonoBehaviour
         return new Vector2(lng, lat) * Mathf.Rad2Deg;
     }
 
-    public void spawnProgressText(float prozent)
+    public void SpawnProgressText(float percent)
     {
         //TODO 
-        Debug.Log("NEED TO SPAWN FLOATING TEXT MADE PROGRESS: "+ prozent);
+        Debug.Log("NEED TO SPAWN FLOATING TEXT MADE PROGRESS: " + percent);
+        _gameState.ShowFloatingText(transform.position, "NEED TO SPAWN FLOATING TEXT MADE PROGRESS: " + percent,
+            Color.red);
     }
-    
-    public void spawnPaydayText(float amount)
+
+    public void SpawnPaydayText(float amount)
     {
         //TODO 
-        Debug.Log("NEED TO SPAWN FLOATING TEXT EARNED: "+ amount);
+        Debug.Log("NEED TO SPAWN FLOATING TEXT EARNED: " + amount);
+        _gameState.ShowFloatingText(transform.position, "NEED TO SPAWN FLOATING TEXT EARNED: " + amount, Color.red);
     }
 }

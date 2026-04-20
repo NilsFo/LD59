@@ -47,8 +47,8 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
             onClick = new UnityEvent();
         }
 
-        myHoverDescription.description = myHoverDescription + "\n" +
-                                         "[Cost: " + GetCost() + "!]";
+        // myHoverDescription.description = myHoverDescription + "\n" +
+        //                                  "[Cost: " + GetCost() + "!]";
     }
 
     // Update is called once per frame
@@ -205,10 +205,12 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        displayScript.costTF.text = GetCost();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        displayScript.costTF.text = "";
     }
 
     public void OnPointerClick(PointerEventData eventData)
