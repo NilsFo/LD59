@@ -313,23 +313,20 @@ public class SatelliteInstance : MonoBehaviour
 
     public void RevealFogOfWar()
     {
-        if (satFunction == SatFunctions.CAM)
-        {
-            Vector2 pos = Objective.Vec3ToLongLat(transform.position);
-            float lon = pos.x;
-            float lat = pos.y;
-            // print("lat:" + lat + "lon:" + lon);
+        Vector2 pos = Objective.Vec3ToLongLat(transform.position);
+        float lon = pos.x;
+        float lat = pos.y;
+        // print("lat:" + lat + "lon:" + lon);
 
-            lon = ((lon * -1 + 90+360) % 360) / 360f;
-            lat /= 180f;
+        lon = ((lon * -1 + 90+360) % 360) / 360f;
+        lat /= 180f;
 
-            int x = (int)((lon) * _fogOfWar.width);
-            int y = (int)((lat + .5f) * _fogOfWar.height);
+        int x = (int)((lon) * _fogOfWar.width);
+        int y = (int)((lat + .5f) * _fogOfWar.height);
 
-            float radius = Mathf.Tan(discoverAngle * Mathf.Deg2Rad) * (orbit.height - 1);
-            
-            _fogOfWar.RevealCircleAt(x, y, Mathf.CeilToInt(radius / Mathf.PI / 2 * _fogOfWar.width));
-        }
+        float radius = Mathf.Tan(discoverAngle * Mathf.Deg2Rad) * (orbit.height - 1);
+        
+        _fogOfWar.RevealCircleAt(x, y, Mathf.CeilToInt(radius / Mathf.PI / 2 * _fogOfWar.width));
     }
     
     public void SwitchOrbit(Orbit newOrbit, float newOmega)
