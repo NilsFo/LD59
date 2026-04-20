@@ -169,10 +169,12 @@ public class GameState : MonoBehaviour
             listOfSatellites.Add(satInstance.GetComponent<SatelliteInstance>());
 
             Orbit orbit = orbitInstance.GetComponent<Orbit>();
-            orbit.SetFromIncEq(Random.Range(-80, 80), Random.Range(0, 359));
+            //orbit.SetFromIncEq(Random.Range(-80, 80), Random.Range(0, 359));
+            orbit.SetFromIncEq(34f,90f);
 
             SatelliteInstance sat = satInstance.GetComponent<SatelliteInstance>();
             sat.orbit = orbit;
+            sat.omega = 90f;
 
             return true;
         }

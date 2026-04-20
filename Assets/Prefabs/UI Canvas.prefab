@@ -437,7 +437,7 @@ MonoBehaviour:
   onNewText:
     m_PersistentCalls:
       m_Calls: []
-  scrollSpeed: 22
+  scrollSpeed: 35
 --- !u!114 &2857616918126930749
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,8 +454,6 @@ MonoBehaviour:
   textHistory: []
   selectedText: 0
   counterTF: {fileID: 6768739631652707527}
-  initialTutorialTexts:
-  - 
   basicTutorialProgress: 0
 --- !u!1 &1686933033032633490
 GameObject:
