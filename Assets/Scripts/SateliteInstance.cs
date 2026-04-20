@@ -37,7 +37,7 @@ public class SatelliteInstance : MonoBehaviour
 
     [Header("Properties")] public Vector2 position;
     private bool _isHighLighted;
-
+    
     public bool IsHighLighted
     {
         get => _isHighLighted;
@@ -55,6 +55,7 @@ public class SatelliteInstance : MonoBehaviour
 
     [Header("World hookup")] public TextMeshProUGUI nameTF;
     public HoverDescription myDescription;
+    public MiniMapRepresented miniMapRepresented;
 
     private GameState _gameState;
     private SatellitDisplayScript _displayScript;
@@ -105,7 +106,8 @@ public class SatelliteInstance : MonoBehaviour
         _displayScript.RegisterSatellite(this);
         objectiveInSight = new bool[_gameState.GetNumObjectives()];
         UpdateHaloViz(true);
-
+        miniMapRepresented.Dynamic();
+        miniMapRepresented.SetSatellite(this);
         _drawLines = _gameState.GetCamera().GetComponent<DrawLines>();
     }
 
@@ -313,23 +315,20 @@ public class SatelliteInstance : MonoBehaviour
 
     public void RevealFogOfWar()
     {
-        if (satFunction == SatFunctions.CAM)
-        {
-            Vector2 pos = Objective.Vec3ToLongLat(transform.position);
-            float lon = pos.x;
-            float lat = pos.y;
-            // print("lat:" + lat + "lon:" + lon);
+        Vector2 pos = Objective.Vec3ToLongLat(transform.position);
+        float lon = pos.x;
+        float lat = pos.y;
+        // print("lat:" + lat + "lon:" + lon);
 
-            lon = ((lon * -1 + 90+360) % 360) / 360f;
-            lat /= 180f;
+        lon = ((lon * -1 + 90+360) % 360) / 360f;
+        lat /= 180f;
 
-            int x = (int)((lon) * _fogOfWar.width);
-            int y = (int)((lat + .5f) * _fogOfWar.height);
+        int x = (int)((lon) * _fogOfWar.width);
+        int y = (int)((lat + .5f) * _fogOfWar.height);
 
-            float radius = Mathf.Tan(discoverAngle * Mathf.Deg2Rad) * (orbit.height - 1);
-            
-            _fogOfWar.RevealCircleAt(x, y, Mathf.CeilToInt(radius / Mathf.PI / 2 * _fogOfWar.width));
-        }
+        float radius = Mathf.Tan(discoverAngle * Mathf.Deg2Rad) * (orbit.height - 1);
+        
+        _fogOfWar.RevealCircleAt(x, y, Mathf.CeilToInt(radius / Mathf.PI / 2 * _fogOfWar.width));
     }
     
     public void SwitchOrbit(Orbit newOrbit, float newOmega)
@@ -478,7 +477,7 @@ public class SatelliteInstance : MonoBehaviour
     {
         if (CanAffordLeo() && HasNeedForLeo())
         {
-            fuelCurrent -= _gameState.leoCostFuel;
+            fuelCurrent -= GetLeoCost();
             orbit.SetLeo();
             return true;
         }
@@ -488,13 +487,20 @@ public class SatelliteInstance : MonoBehaviour
 
     public bool CanAffordLeo()
     {
-        return fuelCurrent >= _gameState.leoCostFuel;
+        return fuelCurrent >= GetLeoCost();
     }
 
     public bool HasNeedForLeo()
     {
         if (orbit.targetOrbitState == Orbit.OrbitState.LEO) return false;
         return true;
+    }
+    
+    public int GetLeoCost()
+    {
+        if (orbit.orbitState == Orbit.OrbitState.GEO)
+            return _gameState.leoCostFuel + _gameState.meoCostFuel;
+        return _gameState.leoCostFuel;
     }
     
     public bool BuyMeo()
@@ -557,7 +563,14 @@ public class SatelliteInstance : MonoBehaviour
 
     public bool CanAffordGeo()
     {
-        return fuelCurrent >= _gameState.meoCostFuel;
+        return fuelCurrent >= GetGeoCost();
+    }
+
+    public int GetGeoCost()
+    {
+        if (orbit.orbitState == Orbit.OrbitState.LEO)
+            return _gameState.geoCostFuel + _gameState.meoCostFuel;
+        return _gameState.geoCostFuel;
     }
     
     public bool HasNeedForGeo()
