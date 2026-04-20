@@ -555,7 +555,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf65168e2cf4364ab810ae1f0f838df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  miniMapSprite: {fileID: 21300000, guid: 18e6d9a20bb67664fbde20f9ef56f341, type: 3}
+  miniMapSprite: {fileID: 21300000, guid: 03162294f0e84ca4eb369959c423551d, type: 3}
   _iconObj: {fileID: 0}
 --- !u!1 &8230744325072750880
 GameObject:

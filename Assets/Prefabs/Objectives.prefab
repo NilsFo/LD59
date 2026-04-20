@@ -84,7 +84,7 @@ PrefabInstance:
     - target: {fileID: 4565615088542195623, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: miniMapSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 18e6d9a20bb67664fbde20f9ef56f341, type: 3}
+      objectReference: {fileID: 21300000, guid: d323efa566669944995f0b685b184912, type: 3}
     - target: {fileID: 5371586004135692536, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -188,7 +188,7 @@ PrefabInstance:
     - target: {fileID: 4565615088542195623, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: miniMapSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 18e6d9a20bb67664fbde20f9ef56f341, type: 3}
+      objectReference: {fileID: 21300000, guid: ae5950e2dfe6cb0428d4845d95f39190, type: 3}
     - target: {fileID: 5371586004135692536, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -294,7 +294,7 @@ PrefabInstance:
     - target: {fileID: 4565615088542195623, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: miniMapSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 18e6d9a20bb67664fbde20f9ef56f341, type: 3}
+      objectReference: {fileID: 21300000, guid: 249df1d801decf44890a851724230741, type: 3}
     - target: {fileID: 5371586004135692536, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -397,7 +397,7 @@ PrefabInstance:
     - target: {fileID: 4565615088542195623, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: miniMapSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 18e6d9a20bb67664fbde20f9ef56f341, type: 3}
+      objectReference: {fileID: 21300000, guid: d323efa566669944995f0b685b184912, type: 3}
     - target: {fileID: 5371586004135692536, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -505,7 +505,7 @@ PrefabInstance:
     - target: {fileID: 4565615088542195623, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: miniMapSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 18e6d9a20bb67664fbde20f9ef56f341, type: 3}
+      objectReference: {fileID: 21300000, guid: ae5950e2dfe6cb0428d4845d95f39190, type: 3}
     - target: {fileID: 5371586004135692536, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -608,7 +608,7 @@ PrefabInstance:
     - target: {fileID: 4565615088542195623, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: miniMapSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 18e6d9a20bb67664fbde20f9ef56f341, type: 3}
+      objectReference: {fileID: 21300000, guid: d323efa566669944995f0b685b184912, type: 3}
     - target: {fileID: 5371586004135692536, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -711,7 +711,7 @@ PrefabInstance:
     - target: {fileID: 4565615088542195623, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: miniMapSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 18e6d9a20bb67664fbde20f9ef56f341, type: 3}
+      objectReference: {fileID: 21300000, guid: d323efa566669944995f0b685b184912, type: 3}
     - target: {fileID: 5371586004135692536, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -815,7 +815,7 @@ PrefabInstance:
     - target: {fileID: 4565615088542195623, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: miniMapSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 18e6d9a20bb67664fbde20f9ef56f341, type: 3}
+      objectReference: {fileID: 21300000, guid: 249df1d801decf44890a851724230741, type: 3}
     - target: {fileID: 5371586004135692536, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -926,7 +926,7 @@ PrefabInstance:
     - target: {fileID: 4565615088542195623, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: miniMapSprite
       value: 
-      objectReference: {fileID: 21300000, guid: 18e6d9a20bb67664fbde20f9ef56f341, type: 3}
+      objectReference: {fileID: 21300000, guid: 6c8c659beb441b543be37af104973289, type: 3}
     - target: {fileID: 5371586004135692536, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: m_IsActive
       value: 1
