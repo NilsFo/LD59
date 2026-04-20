@@ -4,6 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameState : MonoBehaviour
@@ -17,6 +18,7 @@ public class GameState : MonoBehaviour
 
     public int refuelCost = 1000;
     public int fuelPlusCost = 200;
+    public int fuelPlusAmount = 25;
 
     public int changeOrbitCostFuel = 25;
     public int leoCostFuel = 25;
@@ -48,6 +50,7 @@ public class GameState : MonoBehaviour
     public Objective[] colonies;
     public Objective home;
     public float commUptime = 0f;
+    public float winning = 0f;
 
     [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
     public event Action<SatelliteInstance> OnSelectedSatelliteChanged;
@@ -55,11 +58,14 @@ public class GameState : MonoBehaviour
     private Camera _mainCamera;
 
     [Header("World Hookup")] public GameObject prefabSatellite;
+    public GameObject prefabMiniMapIcon;
     public GameObject prefabOrbit;
     public Orbit templateOrbit;
     private MusicManager _musicManager;
     [SerializeField] private TextScroller radioDisplay;
     [SerializeField] private TextScroller descriptionDisplay;
+    public RectTransform miniMapTransform;
+    private GlobalSignalStrength _globalSignalStrength;
 
     private void Awake()
     {
@@ -67,6 +73,7 @@ public class GameState : MonoBehaviour
         _mainCamera = FindFirstObjectByType<Camera>();
         _musicManager = FindAnyObjectByType<MusicManager>();
         templateOrbit.gameObject.SetActive(false);
+        _globalSignalStrength = FindFirstObjectByType<GlobalSignalStrength>();
 
         objectives = FindObjectsByType<Objective>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID);
         colonies = objectives.Where(objective => objective.objectiveType == Objective.ObjectiveTypeEnum.Colony)
@@ -124,8 +131,9 @@ public class GameState : MonoBehaviour
         {
             commUptime = 0f;
         }
-
-        if (commUptime >= winUptime)
+        
+        winning = commUptime / winUptime;
+        if (winning >= 1.0f)
         {
             playWin();
         }
@@ -243,11 +251,20 @@ public class GameState : MonoBehaviour
                 templateOrbit.gameObject.SetActive(true);
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
-                    var newOrbit = Instantiate(templateOrbit, Vector3.zero, Quaternion.identity);
-                    newOrbit.SetFromOrbit(templateOrbit);
-                    newOrbit.GetComponentInChildren<OrbitViz3D>().isPreview = false;
-                    selectedSatellite.SwitchOrbit(newOrbit, newOmega);
-                    SetSelectedSatellite(); //Reset
+                    if (selectedSatellite.CanAffordChangeOrbit())
+                    {
+                        selectedSatellite.payChangeOrbit();
+                        var newOrbit = Instantiate(templateOrbit, Vector3.zero, Quaternion.identity);
+                        newOrbit.SetFromOrbit(templateOrbit);
+                        newOrbit.GetComponentInChildren<OrbitViz3D>().isPreview = false;
+                        selectedSatellite.SwitchOrbit(newOrbit, newOmega);
+                        SetSelectedSatellite(); //Reset
+                    }
+                    else
+                    {
+                        //TODO Feedback User can afford ChangeOrbit
+                        print("Ups! You can't afford that! Not enough fule left!");
+                    }
                 }
             }
             else
@@ -304,5 +321,15 @@ public class GameState : MonoBehaviour
         }
 
         selectionState = SelectionState.SatelliteReroute;
+    }
+
+    public void Win()
+    {
+        print("A winner is you!");
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }

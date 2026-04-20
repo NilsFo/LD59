@@ -21,6 +21,8 @@ public class Objective : MonoBehaviour
         Completed
     }
 
+    [Header("Hookup")] public MiniMapRepresented miniMapRepresented;
+
     [Header("Params")] [Header("General")] public string id;
     public string displayName;
     [TextArea(5, 15)] public string description;
@@ -99,6 +101,7 @@ public class Objective : MonoBehaviour
         UpdateDescription();
         objectiveStateChanged.AddListener(_ => UpdateDescription());
     }
+
 
     void UpdateDescription()
     {

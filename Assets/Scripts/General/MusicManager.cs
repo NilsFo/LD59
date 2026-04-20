@@ -183,7 +183,7 @@ public class MusicManager : MonoBehaviour
             if (trueVolume == 0 && autoStopSilentMusic)
             {
                 audioSource.Stop();
-                Debug.Log("MuscManager: Auto stopping: " + audioSource.gameObject.name);
+                //Debug.Log("MuscManager: Auto stopping: " + audioSource.gameObject.name);
             }
 
             // if the song is not looping and not playing audio, we can tune down the volume
