@@ -68,6 +68,16 @@ public class Objective : MonoBehaviour
         set { Debug.LogError("Dont set CommunicationUptime!!!"); }
     }
 
+    public float CommunicationUptimeProzent
+    {
+        get
+        {
+            float currentUptime = commUpTime;
+            currentUptime /= _gameState.winUptime;
+            return currentUptime; 
+        }
+    }
+
     public ObjectiveStateEnum ObjectiveState
     {
         get => _objectiveState;
