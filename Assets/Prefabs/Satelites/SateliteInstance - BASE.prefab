@@ -305,6 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 10
+  axis: {x: 0, y: 0, z: 1}
 --- !u!1 &4586157186297270387
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,6 +499,10 @@ MonoBehaviour:
   color: {r: 0, g: 0, b: 0, a: 0}
   colorMuted: {r: 0, g: 0, b: 0, a: 0}
   satFunction: 0
+  satConfigChange: {fileID: 8300000, guid: 269725e0afb6a82c5ba1fb39d54bbcfc, type: 3}
+  satLaunch: {fileID: 8300000, guid: 3bfb1feb7786483eba78fd1f6ba08361, type: 3}
+  satSelect: {fileID: 8300000, guid: 5dfdd721caa11a88e888a174be85113c, type: 3}
+  satManeuver: {fileID: 8300000, guid: 3bfb1feb7786483eba78fd1f6ba08361, type: 3}
   position: {x: 0, y: 0}
   isSelected: 0
   nameTF: {fileID: 6834391147949281963}

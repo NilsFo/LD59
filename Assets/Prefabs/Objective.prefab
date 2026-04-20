@@ -215,6 +215,9 @@ MonoBehaviour:
   mineralSurveyViz: {fileID: 7166422163745453863}
   colonyViz: {fileID: 4543700020940509500}
   paydayAvailable: 0
+  audioMined: {fileID: 8300000, guid: fad5fc257b93b83c18ffc88a11fd77a3, type: 3}
+  audioCashout: {fileID: 8300000, guid: 273f9a456e86b61558e0f2a651f4ae2d, type: 3}
+  audioDiscover: {fileID: 8300000, guid: 95403c9cfd965e3c08e0ea1d7816cb15, type: 3}
   paydayAvailableViz: {fileID: 7976750642096850782}
 --- !u!114 &3518276660236370286
 MonoBehaviour:

@@ -103,8 +103,25 @@ public class Objective : MonoBehaviour
     public Transform abandonedSiteViz;
     public Transform mineralSurveyViz;
     public Transform colonyViz;
-    [SerializeField] public bool paydayAvailable;
+    private bool _paydayAvailable;
 
+    [field: SerializeField]
+    public bool PaydayAvailable
+    {
+        get => _paydayAvailable;
+        set
+        {
+            if (!_paydayAvailable && value)
+            {
+                _gameState.musicManager.CreateAudioClip(audioMined, Vector3.zero);
+            }
+            _paydayAvailable = value;
+        }
+    }
+
+    [Header("Audio")] public AudioClip audioMined;
+    public AudioClip audioCashout, audioDiscover;
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -211,6 +228,7 @@ public class Objective : MonoBehaviour
         currentCooldown = discoverCooldown;
         ObjectiveState = ObjectiveStateEnum.Unexplored;
         miniMapRepresented.Unexplored();
+        SpawnRevealed();
     }
 
     private void ExplorePoi(SatelliteInstance caller)
@@ -225,6 +243,7 @@ public class Objective : MonoBehaviour
         currentCooldown = exploreCooldown;
         ObjectiveState = ObjectiveStateEnum.Explored;
         miniMapRepresented.Explored();
+        SpawnDiscoverd();
     }
 
     public bool ComDepthSearch()
@@ -292,7 +311,7 @@ public class Objective : MonoBehaviour
 
             if (povProgress >= 1.0f)
             {
-                paydayAvailable = true;
+                PaydayAvailable = true;
                 paydayAvailableViz.gameObject.SetActive(true);
             }
             else
@@ -316,7 +335,7 @@ public class Objective : MonoBehaviour
 
             if (povProgress >= 1.0f)
             {
-                paydayAvailable = true;
+                PaydayAvailable = true;
                 paydayAvailableViz.gameObject.SetActive(true);
             }
             else
@@ -340,7 +359,7 @@ public class Objective : MonoBehaviour
 
             if (povProgress >= 1.0f)
             {
-                paydayAvailable = true;
+                PaydayAvailable = true;
                 paydayAvailableViz.gameObject.SetActive(true);
                 //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat AbandonedSite
             }
@@ -362,13 +381,13 @@ public class Objective : MonoBehaviour
         povProgress = 0f;
         
         SpawnPaydayText(payout);
-        paydayAvailable = false;
+        PaydayAvailable = false;
         paydayAvailableViz.gameObject.SetActive(false);
     }
 
     private void OnMouseDown()
     {
-        if (paydayAvailable)
+        if (PaydayAvailable)
         {
             Abkassieren();
         }
@@ -465,18 +484,26 @@ public class Objective : MonoBehaviour
     public void SpawnProgressText(float percent)
     {
         Debug.LogError("PLAY OBJ Mined!");
-        _gameState.ShowFloatingText(transform.position, percent + " %", Color.red);
+        _gameState.ShowFloatingText(transform.position, percent + " %", Color.white);
     }
 
     public void SpawnPaydayText(float amount)
     {
         Debug.LogError("PLAY OBJ Cashout!");
-        _gameState.ShowFloatingText(transform.position,  "+" + amount + "$", Color.red);
+        _gameState.musicManager.CreateAudioClip(audioCashout, Vector3.zero);
+        _gameState.ShowFloatingText(transform.position,  "+" + amount + "$", Color.green);
     }
 
     public void SpawnDiscoverd()
     {
         Debug.LogError("PLAY OBJ Discoverd!");
+        _gameState.musicManager.CreateAudioClip(audioDiscover, Vector3.zero);
         _gameState.ShowFloatingText(transform.position, displayName+" discoverd!", Color.red);
+    }
+    public void SpawnRevealed()
+    {
+        Debug.LogError("PLAY OBJ Revealed!");
+        _gameState.musicManager.CreateAudioClip(audioDiscover, Vector3.zero);
+        _gameState.ShowFloatingText(transform.position, "Site revealed!", Color.red);
     }
 }
