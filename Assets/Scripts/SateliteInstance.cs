@@ -37,7 +37,21 @@ public class SatelliteInstance : MonoBehaviour
     public event Action<SatFunctions> OnSatFunktionChanged;
 
     [Header("Properties")] public Vector2 position;
-    public bool isHighLighted = false;
+    private bool _isHighLighted;
+
+    public bool IsHighLighted
+    {
+        get => _isHighLighted;
+        set
+        {
+            _isHighLighted = value;
+            if (_isHighLighted)
+                OnHover();
+            else
+                OnUnhover();
+        }
+    }
+
     [SerializeField] private bool isSelected = false;
 
     [Header("World hookup")] public TextMeshProUGUI nameTF;
@@ -48,6 +62,11 @@ public class SatelliteInstance : MonoBehaviour
     private FogOfWar _fogOfWar;
     
     public event Action OnSatelliteDestroy;
+
+    public bool[] objectiveInSight;
+    public List<SatelliteInstance> comSatsInSight = new List<SatelliteInstance>();
+
+    private DrawLines _drawLines;
 
     public float omega;
     public Orbit orbit;
@@ -62,6 +81,11 @@ public class SatelliteInstance : MonoBehaviour
             if (isSelected)
             {
                 _gameState.SetSelectedSatellite(this);
+                OnSelected();
+            }
+            else
+            {
+                OnDeselected();
             }
         }
     }
@@ -81,7 +105,9 @@ public class SatelliteInstance : MonoBehaviour
     {
         _displayScript.RegisterSatellite(this);
         objectiveInSight = new bool[_gameState.GetNumObjectives()];
-        UpdateHaloViz();
+        UpdateHaloViz(true);
+
+        _drawLines = _gameState.GetCamera().GetComponent<DrawLines>();
     }
 
     // Update is called once per frame
@@ -104,18 +130,44 @@ public class SatelliteInstance : MonoBehaviour
         }
 
         UpdateHaloViz();
+        UpdateComLinesViz();
     }
 
     private void FixedUpdate()
     {
         UpdateObjectivesInSight();
+        UpdateComSatsInSight();
         ObjectivePayday();
         RevealFogOfWar();
     }
 
-    private void UpdateHaloViz()
+    private void UpdateComLinesViz()
     {
-        if (isHighLighted)
+        if ((!IsHighLighted && !IsSelected) || satFunction != SatFunctions.COMM) return;
+        foreach (var sat in comSatsInSight)
+        {
+            _drawLines.lines.Enqueue((sat.transform.position, transform.position));
+        }
+
+        for (var index = 0; index < _gameState.objectives.Length; index++)
+        {
+            if (objectiveInSight[index])
+            {
+                var objective = _gameState.objectives[index];
+                if ((objective.objectiveType == Objective.ObjectiveTypeEnum.Colony ||
+                     objective.objectiveType == Objective.ObjectiveTypeEnum.Home) &&
+                    (objective.ObjectiveState == Objective.ObjectiveStateEnum.Explored ||
+                     objective.ObjectiveState == Objective.ObjectiveStateEnum.Completed))
+                {
+                    _drawLines.lines.Enqueue((transform.position, objective.transform.position));
+                }
+            }
+        }
+    }
+
+    private void UpdateHaloViz(bool force = false)
+    {
+        if (IsHighLighted || isSelected || force)
         {
             signalHalo.gameObject.SetActive(true);
             signalHalo.height = orbit.height - 1f;
@@ -141,8 +193,6 @@ public class SatelliteInstance : MonoBehaviour
         }
     }
 
-
-    public bool[] objectiveInSight;
 
     public void UpdateObjectivesInSight()
     {
@@ -191,6 +241,45 @@ public class SatelliteInstance : MonoBehaviour
         }
     }
 
+    public void UpdateComSatsInSight()
+    {
+        if (satFunction != SatFunctions.COMM)
+            return;
+        comSatsInSight.Clear();
+        foreach (var sat in _gameState.listOfSatellites)
+        {
+            if (sat.satFunction != SatFunctions.COMM)
+                continue;
+            var blocked = Physics.Linecast(transform.position, sat.transform.position, LayerMask.GetMask("satBlock"));
+            if (blocked)
+                continue;
+            comSatsInSight.Add(sat);
+            Debug.DrawLine(transform.position, sat.transform.position, Color.blue, Time.fixedDeltaTime);
+        }
+    }
+
+    public void OnHover()
+    {
+        if (!isSelected)
+            orbit.Show();
+    }
+
+    public void OnUnhover()
+    {
+        if (!isSelected)
+            orbit.Hide();
+    }
+
+    public void OnSelected()
+    {
+        orbit.Show();
+    }
+
+    public void OnDeselected()
+    {
+        orbit.Hide();
+    }
+
     public void ObjectivePayday()
     {
         for (var index = 0; index < _gameState.objectives.Length; index++)
@@ -221,12 +310,12 @@ public class SatelliteInstance : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        isHighLighted = true;
+        IsHighLighted = true;
     }
 
     private void OnMouseExit()
     {
-        isHighLighted = false;
+        IsHighLighted = false;
     }
 
     private void OnMouseDown()

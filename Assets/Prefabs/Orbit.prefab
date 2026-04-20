@@ -51,6 +51,7 @@ MonoBehaviour:
   descendingSpeed: 10
   orbitState: 0
   targetOrbitState: 0
+  orbitViz3D: {fileID: 2833670702029068158}
 --- !u!1001 &5997220395341222458
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -117,3 +118,14 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6475154718772293009, guid: 65ab68296daee81599d19756298d70a1, type: 3}
   m_PrefabInstance: {fileID: 5997220395341222458}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2833670702029068158 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8388324092944926020, guid: 65ab68296daee81599d19756298d70a1, type: 3}
+  m_PrefabInstance: {fileID: 5997220395341222458}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd0789083eb37f0dcb069894b05d5f98, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
