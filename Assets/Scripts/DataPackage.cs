@@ -14,7 +14,11 @@ public class DataPackage : MonoBehaviour
         if (dataPath.Count == 0)
         {
             Destroy(gameObject);
+            return;
         }
+        
+        transform.position = dataPath[0].transform.position;
+        transform.LookAt(dataPath[0].transform, Vector3.up);
     }
 
     private void Update()

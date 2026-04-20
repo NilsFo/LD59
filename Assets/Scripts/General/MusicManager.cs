@@ -51,7 +51,7 @@ public class MusicManager : MonoBehaviour
     private List<int> _lastKnownPlayingStates;
 
     // Audio Binning
-    private Dictionary<string, float> _audioJail;
+    private Dictionary<string, float> _audioJail = new Dictionary<string, float>();
 
     private void Awake()
     {
