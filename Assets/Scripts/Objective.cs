@@ -76,7 +76,7 @@ public class Objective : MonoBehaviour
             {
                 _objectiveState = value;
                 objectiveStateChanged.Invoke(_objectiveState);
-                print("POI: " + _objectiveState);
+                print(displayName + " is now " + _objectiveState);
             }
         }
     }
@@ -189,11 +189,11 @@ public class Objective : MonoBehaviour
     private void ExplorePoi(SatelliteInstance caller)
     {
         if (ObjectiveState != ObjectiveStateEnum.Unexplored
-            && caller.satFunction == SatelliteInstance.SatFunctions.CAM)
+            || caller.satFunction != SatelliteInstance.SatFunctions.CAM)
         {
             return;
         }
-
+        //Debug.Log(displayName + " WAS FOUND BY "+caller.displayName+" WITH " + caller.satFunction );
         currentCooldown = exploreCooldown;
         ObjectiveState = ObjectiveStateEnum.Explored;
     }
