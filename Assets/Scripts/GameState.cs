@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
 
 public class GameState : MonoBehaviour
 {
@@ -62,12 +63,14 @@ public class GameState : MonoBehaviour
     public GameObject prefabOrbit;
     public Transform homeBasePosition;
     public Orbit templateOrbit;
-    private MusicManager _musicManager;
+    [FormerlySerializedAs("_musicManager")] public MusicManager musicManager;
     [SerializeField] private TextScroller radioDisplay;
     [SerializeField] private TextScroller descriptionDisplay;
     public RectTransform miniMapTransform;
     private GlobalSignalStrength _globalSignalStrength;
     private RadioTextStack _radioTextStack;
+
+    [Header("Audio")] public AudioClip satSelect;
 
     // [Header("Tutorial texte")] public List<string> welcomeTutorialTexts;
 
@@ -75,7 +78,7 @@ public class GameState : MonoBehaviour
     {
         _timeScaler = FindFirstObjectByType<TimeScaler>();
         _mainCamera = FindFirstObjectByType<Camera>();
-        _musicManager = FindAnyObjectByType<MusicManager>();
+        musicManager = FindAnyObjectByType<MusicManager>();
         _radioTextStack = FindFirstObjectByType<RadioTextStack>();
         templateOrbit.Hide();
         _globalSignalStrength = FindFirstObjectByType<GlobalSignalStrength>();
@@ -92,8 +95,8 @@ public class GameState : MonoBehaviour
         if (listOfSatellites == null) listOfSatellites = new List<SatelliteInstance>();
 
         Application.targetFrameRate = 60;
-        _musicManager.Stop();
-        _musicManager.Play(1, stopOthers: true);
+        musicManager.Stop();
+        musicManager.Play(1, stopOthers: true);
         MusicManager.userDesiredMasterVolume = 0.5f;
     }
 
@@ -175,7 +178,6 @@ public class GameState : MonoBehaviour
             sat.omega = 90f;
 
             ShowFloatingText(homeBasePosition.position, instance.displayName + " launched!", instance.color);
-            Debug.LogError("PLAY SAT LAUNCH!");
             return true;
         }
         else
@@ -225,7 +227,7 @@ public class GameState : MonoBehaviour
             if (skipDelay) selectionState = SelectionState.Selected;
             selectedSatellite = sat;
             sat.IsSelected = true;
-            Debug.LogError("PLAY Satellit Changed!");
+            musicManager.CreateAudioClip(satSelect, new Vector3());
             OnSelectedSatelliteChanged?.Invoke(sat);
         }
     }
@@ -256,6 +258,7 @@ public class GameState : MonoBehaviour
                         newOrbit.SetFromOrbit(templateOrbit);
                         newOrbit.orbitViz3D.isPreview = false;
                         selectedSatellite.SwitchOrbit(newOrbit, newOmega);
+                        musicManager.CreateAudioClip(selectedSatellite.satManeuver, Vector3.zero);
                         SetSelectedSatellite(); //Reset
                     }
                     else

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7fc59a4b21bf7149bac116b40d1ebaa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  temporalAudioPlayerPrefab: {fileID: 0}
+  temporalAudioPlayerPrefab: {fileID: 3267106185732615435, guid: baadb6d14489cff4e9b379d8d3c984d3, type: 3}
   baselineMusicVolume: 0.5
   baselineSoundVolume: 0.5
   baselineMasterVolume: 0.5

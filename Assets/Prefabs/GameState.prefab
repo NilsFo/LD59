@@ -76,10 +76,13 @@ MonoBehaviour:
   prefabMiniMapIcon: {fileID: 3945830237297060368, guid: bf4fcb69a881079488388532ec05bd87, type: 3}
   prefabFloatingText: {fileID: 5550755665023628024, guid: faf45129e781af24f95531e57150da25, type: 3}
   prefabOrbit: {fileID: 3949989248589237322, guid: 84a44b61f2e168b78beca49d57132f18, type: 3}
+  homeBasePosition: {fileID: 0}
   templateOrbit: {fileID: 5017074930250875595}
+  musicManager: {fileID: 0}
   radioDisplay: {fileID: 0}
   descriptionDisplay: {fileID: 0}
   miniMapTransform: {fileID: 0}
+  satSelect: {fileID: 8300000, guid: 5dfdd721caa11a88e888a174be85113c, type: 3}
 --- !u!114 &2778121098870243101
 MonoBehaviour:
   m_ObjectHideFlags: 0

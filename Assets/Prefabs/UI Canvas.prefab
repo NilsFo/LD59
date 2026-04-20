@@ -459,6 +459,7 @@ MonoBehaviour:
   textHistory: []
   selectedText: 0
   counterTF: {fileID: 6768739631652707527}
+  radioAudio: {fileID: 8300000, guid: 5264c808a7c6fc86da3b2b9c5c340bb7, type: 3}
   basicTutorialProgress: 0
 --- !u!1 &1686933033032633490
 GameObject:
