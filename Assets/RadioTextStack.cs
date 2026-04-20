@@ -14,6 +14,8 @@ public class RadioTextStack : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public int selectedText;
     public TMP_Text counterTF;
 
+    public AudioClip radioAudio;
+
 
     [Header("Initial Tutorial")] public int basicTutorialProgress = 0;
 
@@ -78,6 +80,7 @@ public class RadioTextStack : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void DisplayMsg(string msg)
     {
         selectedText = textHistory.Count;
+        _gameState.musicManager.CreateAudioClip(radioAudio, Vector3.zero, soundVolume:0.5f);
         textHistory.Add(msg);
         SetMsg(msg, false);
     }

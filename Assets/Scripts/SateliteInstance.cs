@@ -36,6 +36,9 @@ public class SatelliteInstance : MonoBehaviour
     
     public SatFunctions satFunction = SatFunctions.NONE;
 
+    [Header("Audio")] public AudioClip satConfigChange;
+    public AudioClip satLaunch, satManeuver;
+
     public SatFunctions SatFunction
     {
         get
@@ -45,7 +48,7 @@ public class SatelliteInstance : MonoBehaviour
         set
         {
             satFunction = value;
-            Debug.LogError("PLAY Sat Config Changes");
+            _gameState.musicManager.CreateAudioClip(satConfigChange, Vector3.zero);
         }
     }
     
@@ -124,6 +127,8 @@ public class SatelliteInstance : MonoBehaviour
         miniMapRepresented.Dynamic();
         miniMapRepresented.SetSatellite(this);
         _drawLines = _gameState.GetCamera().GetComponent<DrawLines>();
+        InvokeRepeating(nameof(RevealFogOfWar), 0f, 1f/10f);
+        _gameState.musicManager.CreateAudioClip(satLaunch, Vector3.zero);
     }
 
     // Update is called once per frame
@@ -157,7 +162,6 @@ public class SatelliteInstance : MonoBehaviour
         UpdateObjectivesInSight();
         UpdateComSatsInSight();
         ObjectivePayday();
-        RevealFogOfWar();
     }
 
     private void UpdateComLinesViz()
@@ -332,6 +336,8 @@ public class SatelliteInstance : MonoBehaviour
 
     public void RevealFogOfWar()
     {
+        if (orbit.targetOrbitState == Orbit.OrbitState.GEO) return;
+        
         Vector2 pos = Objective.Vec3ToLongLat(transform.position);
         float lon = pos.x;
         float lat = pos.y;
@@ -496,6 +502,7 @@ public class SatelliteInstance : MonoBehaviour
         {
             fuelCurrent -= GetLeoCost();
             orbit.SetLeo();
+            _gameState.musicManager.CreateAudioClip(satManeuver, Vector3.zero);
             return true;
         }
 
@@ -526,6 +533,7 @@ public class SatelliteInstance : MonoBehaviour
         {
             fuelCurrent -= _gameState.meoCostFuel;
             orbit.SetMeo();
+            _gameState.musicManager.CreateAudioClip(satManeuver, Vector3.zero);
             return true;
         }
 
@@ -545,6 +553,7 @@ public class SatelliteInstance : MonoBehaviour
 
     public bool CanAffordChangeOrbit()
     {
+        if (orbit.orbitState == Orbit.OrbitState.GEO) return false;
         return fuelCurrent >= _gameState.changeOrbitCostFuel;
     }
 
@@ -572,6 +581,8 @@ public class SatelliteInstance : MonoBehaviour
         {
             fuelCurrent -= _gameState.meoCostFuel;
             orbit.SetGeo();
+            
+            _gameState.musicManager.CreateAudioClip(satManeuver, Vector3.zero);
             return true;
         }
 
@@ -602,6 +613,7 @@ public class SatelliteInstance : MonoBehaviour
         {
             _gameState.economy.Money -= _gameState.refuelCost;
             fuelCurrent = fuelMax;
+            _gameState.musicManager.CreateAudioClip(satManeuver, Vector3.zero);
             return true;
         }
 
@@ -626,6 +638,7 @@ public class SatelliteInstance : MonoBehaviour
             _gameState.economy.Money -= _gameState.refuelCost;
             fuelMax += _gameState.fuelPlusAmount;
             fuelCurrent = fuelMax;
+            _gameState.musicManager.CreateAudioClip(satConfigChange, Vector3.zero);
             return true;
         }
 
