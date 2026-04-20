@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6164365791788327135}
   - component: {fileID: 1630062086061894374}
   - component: {fileID: 7938545514252023161}
+  - component: {fileID: 2864114881670421518}
   m_Layer: 5
   m_Name: MiniMapIcon
   m_TagString: Untagged
@@ -102,3 +103,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20692096f50221f489130c78e754fc63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sourceDescription: {fileID: 0}
+--- !u!95 &2864114881670421518
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945830237297060368}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: ddbcabf2b22cacf4ba22a5f915dc5a10, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
