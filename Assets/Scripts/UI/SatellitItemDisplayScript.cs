@@ -7,6 +7,7 @@ namespace UI
     {
         [SerializeField] [Header("My Satellite")]
         public SatelliteInstance satelliteInstance;
+        public TMP_Text costTF;
 
         [Header("World Hookup")] public TextMeshProUGUI nameTF;
         public TextMeshProUGUI fuelTF;
@@ -36,9 +37,11 @@ namespace UI
             if (markedForDestroy) Destroy(gameObject);
         }
 
-        public void SetSatelliteInstance(SatelliteInstance sat)
+
+        public void SetSatelliteInstance(SatelliteInstance sat, TMP_Text tf)
         {
             satelliteInstance = sat;
+            costTF = tf;
             sat.OnSatelliteDestroy += OnSatelliteDestroy;
         }
 
@@ -46,47 +49,5 @@ namespace UI
         {
             markedForDestroy = true;
         }
-
-        /**
-        public void BuyLeo()
-        {
-            satelliteInstance.BuyLeo();
-        }
-
-        public void BuyMeo()
-        {
-            satelliteInstance.BuyMeo();
-        }
-
-        public void BuyGeo()
-        {
-            satelliteInstance.BuyGeo();
-        }
-
-        public void BuyCam()
-        {
-            satelliteInstance.BuyCam();
-        }
-
-        public void BuyScan()
-        {
-            satelliteInstance.BuyScan();
-        }
-
-        public void BuyComm()
-        {
-            satelliteInstance.BuyComm();
-        }
-
-        public void BuyRefuel()
-        {
-            satelliteInstance.BuyRefuel();
-        }
-
-        public void BuyPlusFuel()
-        {
-            satelliteInstance.BuyPlusFuel();
-        }
-        **/
     }
 }

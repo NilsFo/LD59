@@ -68,6 +68,17 @@ public class Objective : MonoBehaviour
         set { Debug.LogError("Dont set CommunicationUptime!!!"); }
     }
 
+    public float CommunicationUptimeProzent
+    {
+        get
+        {
+            float currentUptime = commUpTime;
+            currentUptime /= _gameState.winUptime;
+            if (currentUptime > 1.0f) return 1.0f;
+            return currentUptime; 
+        }
+    }
+
     public ObjectiveStateEnum ObjectiveState
     {
         get => _objectiveState;
@@ -243,8 +254,6 @@ public class Objective : MonoBehaviour
 
         if (objectiveType == ObjectiveTypeEnum.Colony)
         {
-            //TODO check if Sat has Connection mit andere Colonie & Base
-            
             //Get Count als Multi
             if (caller.satFunction != SatelliteInstance.SatFunctions.COMM)
             {
@@ -265,7 +274,12 @@ public class Objective : MonoBehaviour
             if (povProgress >= 1.0f)
             {
                 povProgress = 0f;
+                SpawnPaydayText(payout);
                 _gameState.economy.Money += payout;
+            }
+            else
+            {
+                SpawnProgressText(colonyProgress);
             }
         }
         else if (objectiveType == ObjectiveTypeEnum.MineralSurvey)
@@ -285,8 +299,13 @@ public class Objective : MonoBehaviour
             if (povProgress >= 1.0f)
             {
                 povProgress = 0f;
+                SpawnPaydayText(payout);
                 _gameState.economy.Money += payout;
-                ObjectiveState = ObjectiveStateEnum.Completed;
+                //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat MineralSurvey
+            }
+            else
+            {
+                SpawnProgressText(currentProgress);
             }
         }
         else if (objectiveType == ObjectiveTypeEnum.AbandonedSite)
@@ -307,7 +326,12 @@ public class Objective : MonoBehaviour
             {
                 povProgress = 0f;
                 _gameState.economy.Money += payout;
-                ObjectiveState = ObjectiveStateEnum.Completed;
+                SpawnPaydayText(payout);
+                //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat AbandonedSite
+            }
+            else
+            {
+                SpawnProgressText(currentProgress);
             }
         }
         else
@@ -402,5 +426,19 @@ public class Objective : MonoBehaviour
         if (vec.y < 0) lat *= -1;
 
         return new Vector2(lng, lat) * Mathf.Rad2Deg;
+    }
+
+    public void SpawnProgressText(float percent)
+    {
+        //TODO 
+        Debug.Log("NEED TO SPAWN FLOATING TEXT MADE PROGRESS: "+ percent);
+        _gameState.ShowFloatingText("NEED TO SPAWN FLOATING TEXT MADE PROGRESS: "+ percent,Color.red);
+    }
+    
+    public void SpawnPaydayText(float amount)
+    {
+        //TODO 
+        Debug.Log("NEED TO SPAWN FLOATING TEXT EARNED: "+ amount);
+        _gameState.ShowFloatingText("NEED TO SPAWN FLOATING TEXT EARNED: "+ amount,Color.red);
     }
 }

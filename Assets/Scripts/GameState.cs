@@ -37,8 +37,7 @@ public class GameState : MonoBehaviour
     [SerializeField] private float _currentDelay = 0f;
     [SerializeField] private float _maxDelay = 5f;
 
-    [SerializeField] private float uptimeThreshold = 0.8f;
-    [SerializeField] private float winUptime = 30f;
+    [SerializeField] public float winUptime = 30f;
 
     [SerializeField] public List<SatelliteInstance> listOfSatellites;
 
@@ -49,7 +48,7 @@ public class GameState : MonoBehaviour
     public Objective[] objectives;
     public Objective[] colonies;
     public Objective home;
-    public float commUptime = 0f;
+
     public float winning = 0f;
 
     [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
@@ -59,6 +58,7 @@ public class GameState : MonoBehaviour
 
     [Header("World Hookup")] public GameObject prefabSatellite;
     public GameObject prefabMiniMapIcon;
+    public GameObject prefabFloatingText;
     public GameObject prefabOrbit;
     public Orbit templateOrbit;
     private MusicManager _musicManager;
@@ -66,12 +66,16 @@ public class GameState : MonoBehaviour
     [SerializeField] private TextScroller descriptionDisplay;
     public RectTransform miniMapTransform;
     private GlobalSignalStrength _globalSignalStrength;
+    private RadioTextStack _radioTextStack;
+
+    // [Header("Tutorial texte")] public List<string> welcomeTutorialTexts;
 
     private void Awake()
     {
         _timeScaler = FindFirstObjectByType<TimeScaler>();
         _mainCamera = FindFirstObjectByType<Camera>();
         _musicManager = FindAnyObjectByType<MusicManager>();
+        _radioTextStack = FindFirstObjectByType<RadioTextStack>();
         templateOrbit.Hide();
         _globalSignalStrength = FindFirstObjectByType<GlobalSignalStrength>();
 
@@ -79,7 +83,6 @@ public class GameState : MonoBehaviour
         colonies = objectives.Where(objective => objective.objectiveType == Objective.ObjectiveTypeEnum.Colony)
             .ToArray();
         home = objectives.First(objective => objective.objectiveType == Objective.ObjectiveTypeEnum.Home);
-        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -91,12 +94,6 @@ public class GameState : MonoBehaviour
         _musicManager.Stop();
         _musicManager.Play(1, stopOthers: true);
         MusicManager.userDesiredMasterVolume = 0.5f;
-
-        DisplayRadioMsg("Hey kid.\n" +
-                        "You are a new guy on the job. Since you graduated idiot school, " +
-                        "I will show you the ropes.\n" +
-                        "This is gonna take a lot of text to describe all you have to do.\n" +
-                        "But this text is very long to compensate for your stupidity.");
     }
 
     // Update is called once per frame
@@ -110,7 +107,7 @@ public class GameState : MonoBehaviour
         }
 
         UpdateOrbitPreview();
-        
+
         if (selectionState == SelectionState.Init)
         {
             _currentDelay -= Time.unscaledDeltaTime;
@@ -120,25 +117,20 @@ public class GameState : MonoBehaviour
             }
         }
 
-        if (HasAllColoniesConnection())
-        {
-            commUptime += Time.deltaTime;
-            //TODO Maybe Set State and Display Connections on all Satellites
-        }
-        else
-        {
-            commUptime = 0f;
-        }
-
-        winning = commUptime / winUptime;
+        CalcUptime();
     }
 
-    private bool HasAllColoniesConnection()
+    private void CalcUptime()
     {
-        if (colonies.Length < 3) return false;
-        Objective[] belowThreshold =
-            colonies.Where(objective => objective.CommunicationUptime < uptimeThreshold).ToArray();
-        return belowThreshold.Length == 0;
+        float avgUptime = 0f;
+        for (int i = 0; i < colonies.Length; i++)
+        {
+            var colony = colonies[i];
+            avgUptime += colony.CommunicationUptimeProzent;
+        }
+
+        avgUptime /= colonies.Length;
+        winning = avgUptime;
     }
 
     private void OnNewSelectionState()
@@ -160,13 +152,8 @@ public class GameState : MonoBehaviour
             return false;
         }
 
-        int index = listOfSatellites.Count;
-        if (index > costOfSatellite.Length - 1)
-        {
-            index = costOfSatellite.Length - 1;
-        }
-
-        var newBalance = economy.Money - costOfSatellite[index];
+        var cost = CostOfNextSatellite();
+        var newBalance = economy.Money - cost;
         if (newBalance >= 0)
         {
             print("Buying a sat.");
@@ -178,10 +165,12 @@ public class GameState : MonoBehaviour
             listOfSatellites.Add(satInstance.GetComponent<SatelliteInstance>());
 
             Orbit orbit = orbitInstance.GetComponent<Orbit>();
-            orbit.SetFromIncEq(Random.Range(-80, 80), Random.Range(0, 359));
+            //orbit.SetFromIncEq(Random.Range(-80, 80), Random.Range(0, 359));
+            orbit.SetFromIncEq(34f, 90f);
 
             SatelliteInstance sat = satInstance.GetComponent<SatelliteInstance>();
             sat.orbit = orbit;
+            sat.omega = 90f;
 
             return true;
         }
@@ -191,6 +180,17 @@ public class GameState : MonoBehaviour
         }
 
         return false;
+    }
+
+    public int CostOfNextSatellite()
+    {
+        int index = listOfSatellites.Count;
+        if (index > costOfSatellite.Length - 1)
+        {
+            index = costOfSatellite.Length - 1;
+        }
+
+        return costOfSatellite[index];
     }
 
     public void SetSelectedSatellite(SatelliteInstance sat = null, bool skipDelay = false)
@@ -270,7 +270,7 @@ public class GameState : MonoBehaviour
 
     public void DisplayRadioMsg(string text, bool instantly = false)
     {
-        radioDisplay.DisplayText(text, instantly);
+        _radioTextStack.DisplayMsg(text);
     }
 
     public void DisplayDescription(string text, bool instantly = false)
@@ -322,5 +322,9 @@ public class GameState : MonoBehaviour
     public void BackToMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void ShowFloatingText(string text, Color color)
+    {
     }
 }

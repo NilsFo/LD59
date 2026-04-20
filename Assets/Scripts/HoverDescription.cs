@@ -7,7 +7,7 @@ public class HoverDescription : MonoBehaviour, IPointerEnterHandler, IPointerExi
     [Header("Description:")] [TextArea] public string description;
 
     [Header("Config")] public bool keep = false;
-    public bool instantly;
+    public bool instantly = true;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -17,8 +17,11 @@ public class HoverDescription : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void DisplayText()
     {
-        // print("New description: " + gameObject.name);
-        _gameState.DisplayDescription(description, instantly);
+        if (_gameState != null)
+        {
+            // print("New description: " + gameObject.name);
+            _gameState.DisplayDescription(description, true);
+        }
     }
 
     private void UnitedEnter()
