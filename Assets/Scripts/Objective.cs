@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -257,18 +259,24 @@ public class Objective : MonoBehaviour
         SpawnDiscoverd();
     }
 
-    public bool ComDepthSearch()
+    public bool ComDepthSearch(out List<SatelliteInstance> satCon)
     {
         var sats = _gameState.listOfSatellites;
         Queue<int> openSet = new Queue<int>();
+        int initSat = -1, finalSat = -1;
         for (var index = 0; index < sats.Count; index++)
         {
             var sat = sats[index];
             if (sat.IsObjectiveInSight(this))
+            {
                 openSet.Enqueue(index);
+                initSat = index;
+            }
         }
 
         HashSet<int> closedSet = new HashSet<int>();
+        NativeHashMap<int, int> satcons = new NativeHashMap<int, int>();
+        bool hasCon = false;
         while (openSet.Count > 0)
         {
             var curIndex = openSet.Dequeue();
@@ -280,17 +288,31 @@ public class Objective : MonoBehaviour
                 if (othersat.IsObjectiveInSight(_gameState.home))
                 {
                     Debug.Log(displayName + " can phone home");
-                    return true;
+                    hasCon = true;
+                    openSet.Clear();
+                    finalSat = curIndex;
+                    break;
                 }
 
                 int othersatindex = sats.IndexOf(othersat);
                 if (closedSet.Contains(othersatindex))
                     continue;
                 openSet.Enqueue(othersatindex);
+                satcons.Add(othersatindex, curIndex);
+            }
+        }
+        satCon = new List<SatelliteInstance>();
+        if (hasCon)
+        {
+            int curSat = finalSat;
+            while (curSat != initSat)
+            {
+                satCon.Add(sats[curSat]);
+                curSat = satcons[curSat];
             }
         }
 
-        return false;
+        return hasCon;
     }
 
     private void ExcavatePoi(SatelliteInstance caller)
@@ -309,7 +331,7 @@ public class Objective : MonoBehaviour
                 return;
             }
 
-            if (!ComDepthSearch())
+            if (!ComDepthSearch(out List<SatelliteInstance> satConPath))
             {
                 currentCooldown = colonyCooldown;
                 return;
@@ -323,6 +345,11 @@ public class Objective : MonoBehaviour
             if (povProgress >= 1.0f)
             {
                 PaydayAvailable = true;
+                List<GameObject> dataPath = new List<GameObject>();
+                dataPath.Add(this.gameObject);
+                dataPath.AddRange(satConPath.Select(t=>t.gameObject));
+                dataPath.Add(_gameState.home.gameObject);
+                SpawnDataPackage(dataPath);
                 paydayAvailableViz.gameObject.SetActive(true);
             }
             else
@@ -383,6 +410,13 @@ public class Objective : MonoBehaviour
         {
             currentCooldown = exploreCooldown;
         }
+    }
+
+    public DataPackage dataPackageInstance;
+    private void SpawnDataPackage(List<GameObject> dataPath)
+    {
+        var dataPackage = Instantiate(dataPackageInstance);
+        dataPackage.dataPath = dataPath;
     }
 
     public Transform paydayAvailableViz;
