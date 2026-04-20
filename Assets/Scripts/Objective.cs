@@ -117,13 +117,14 @@ public class Objective : MonoBehaviour
             {
                 _gameState.musicManager.CreateAudioClip(audioMined, Vector3.zero);
             }
+
             _paydayAvailable = value;
         }
     }
 
     [Header("Audio")] public AudioClip audioMined;
     public AudioClip audioCashout, audioDiscover;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -494,23 +495,24 @@ public class Objective : MonoBehaviour
 
     public void SpawnProgressText(float percent)
     {
-        _gameState.ShowFloatingText(transform.position, percent + " %", Color.white);
+        _gameState.ShowFloatingText(transform.position, (int)(percent * 100) + "%", Color.white);
     }
 
     public void SpawnPaydayText(float amount)
     {
         _gameState.musicManager.CreateAudioClip(audioCashout, Vector3.zero);
-        _gameState.ShowFloatingText(transform.position,  "+" + amount + "$", Color.green);
+        _gameState.ShowFloatingText(transform.position, "+" + amount + "€", Color.green);
     }
 
-    public void SpawnDiscoverd() 
+    public void SpawnDiscoverd()
     {
         _gameState.musicManager.CreateAudioClip(audioDiscover, Vector3.zero);
-        _gameState.ShowFloatingText(transform.position, displayName+" discoverd!", Color.red);
+        _gameState.ShowFloatingText(transform.position, displayName + " discovered!", Color.red);
     }
+
     public void SpawnRevealed()
     {
         _gameState.musicManager.CreateAudioClip(audioDiscover, Vector3.zero);
-        _gameState.ShowFloatingText(transform.position, "Site revealed!", Color.red);
+        _gameState.ShowFloatingText(transform.position, "New site revealed!", Color.red);
     }
 }
