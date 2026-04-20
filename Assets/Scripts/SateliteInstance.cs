@@ -115,7 +115,7 @@ public class SatelliteInstance : MonoBehaviour
     void Update()
     {
         // orbit
-        omega += Time.deltaTime * orbit.rotationSpeed;
+        omega += Time.deltaTime * orbit.Speed;
         transform.localPosition = orbit.GetOrbitPosition(omega);
         transform.LookAt(Vector3.zero);
 
