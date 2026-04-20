@@ -31,8 +31,12 @@ public class SatelliteInstance : MonoBehaviour
     public float surveyAngle = 10f;
 
     public Color color;
-
     public Color colorMuted;
+    
+    public Color colorVizCam;
+    public Color colorVizScan;
+    public Color colorVizComm;
+    public Color colorVizDefault;
     
     public SatFunctions satFunction = SatFunctions.NONE;
 
@@ -288,7 +292,7 @@ public class SatelliteInstance : MonoBehaviour
     public void OnHover()
     {
         if (!isSelected)
-            orbit.Show();
+            orbit.Show(GetColorForViz());
     }
 
     public void OnUnhover()
@@ -299,7 +303,7 @@ public class SatelliteInstance : MonoBehaviour
 
     public void OnSelected()
     {
-        orbit.Show();
+        orbit.Show(GetColorForViz());
     }
 
     public void OnDeselected()
@@ -396,19 +400,9 @@ public class SatelliteInstance : MonoBehaviour
 
             displayName = candidateName;
             nameLookup[candidateName] = this;
-
-            float h = Random.value;
-            color = Color.HSVToRGB(
-                H: h,
-                S: 0.85f,
-                V: 0.8f
-            );
-
-            colorMuted = Color.HSVToRGB(
-                H: h,
-                S: 0.5f,
-                V: 0.5f
-            );
+            
+            color = Color.gray;;
+            colorMuted = Color.gray;
         }
     }
 
@@ -680,5 +674,22 @@ public class SatelliteInstance : MonoBehaviour
         }
 
         return "?";
+    }
+    
+    public Color GetColorForViz()
+    {
+        if (SatFunction == SatelliteInstance.SatFunctions.CAM)
+        {
+            return colorVizCam;
+        }
+        else if (SatFunction == SatelliteInstance.SatFunctions.SCAN)
+        {
+            return colorVizScan;
+        }
+        else if (SatFunction == SatelliteInstance.SatFunctions.COMM)
+        {
+            return colorVizComm;
+        }
+        return colorVizDefault;
     }
 }

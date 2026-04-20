@@ -8,12 +8,15 @@ public class OrbitViz3D : MonoBehaviour
     public Transform orbitViz;
     public Transform orbitPreviewViz;
 
+    public Color vizColor;
+    
     public bool isPreview;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         UpdateOrbit();
+        UpdateColor();
         orbitStartViz.gameObject.SetActive(false);
     }
 
@@ -39,5 +42,19 @@ public class OrbitViz3D : MonoBehaviour
         transform.rotation = Quaternion.LookRotation(orbit.OrbitStart, orbit.OrbitAxis);
         transform.localScale = Vector3.one * orbit.height;
         orbitStartViz.transform.position = orbit.OrbitStart * orbit.height;
+    }
+
+    private void UpdateColor()
+    {
+        var meshRenderer = orbitViz.gameObject.GetComponent<MeshRenderer>();
+        meshRenderer.material.color = vizColor;
+        var meshRendererPreview = orbitPreviewViz.gameObject.GetComponent<MeshRenderer>();
+        meshRendererPreview.material.color = vizColor;
+    }
+
+    public void SetColor(Color newColor)
+    {
+        vizColor = newColor;
+        UpdateColor();
     }
 }

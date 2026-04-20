@@ -38,7 +38,7 @@ public class Orbit : MonoBehaviour
     void Awake()
     {
         if(IsVisible)
-            Show();
+            Show(Color.white);
         else
             Hide();
     }
@@ -223,10 +223,11 @@ public class Orbit : MonoBehaviour
         return false;
     }
 
-    public void Show()
+    public void Show(Color vizColor)
     {
         if(orbitState == OrbitState.GEO) return;
         IsVisible = true;
+        orbitViz3D.SetColor(vizColor);
         orbitViz3D.gameObject.SetActive(true);
     }
 
