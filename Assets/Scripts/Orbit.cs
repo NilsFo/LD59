@@ -37,6 +37,14 @@ public class Orbit : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
+        if(IsVisible)
+            Show();
+        else
+            Hide();
+    }
+
+    private void Start()
+    {
         switch (orbitState)
         {
             case OrbitState.LEO:
@@ -51,12 +59,8 @@ public class Orbit : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
-        if(IsVisible)
-            Show();
-        else
-            Hide();
     }
-
+    
     public void SetFromIncEq(float inclination, float equator)
     {
         OrbitStart = Quaternion.AngleAxis(equator, Vector3.up) * Vector3.forward;
@@ -172,6 +176,9 @@ public class Orbit : MonoBehaviour
     {
         OrbitAxis = orbit.OrbitAxis;
         OrbitStart = orbit.OrbitStart;
+        orbitState = orbit.orbitState;
+        targetOrbitState = orbit.targetOrbitState;
+        height = orbit.height;
     }
 
     public Vector2 OrbitPosToEquirect(float omega)

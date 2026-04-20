@@ -925,7 +925,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: payout
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: longitude
@@ -933,8 +933,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: description
-      value: The UN initiative to restore communication with the colonies of Mars.
+      value: 'The UN initiative to restore communication with the colonies of Mars.
         It is also your home.
+
+        Check periodically to recieve your regular
+        allowance.'
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: displayName

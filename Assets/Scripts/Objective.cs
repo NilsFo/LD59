@@ -38,6 +38,7 @@ public class Objective : MonoBehaviour
     [SerializeField] private float discoverCooldown = 3f;
     [SerializeField] private float exploreCooldown = 3f;
     [SerializeField] private float excavateCooldown = 3f;
+    [SerializeField] private float completedCooldown = 15f;
 
     [Header("Colony")] [SerializeField] private float colonyUptimeDecay = 0.2f; //Decay of Uptime
     [SerializeField] private float colonyUptime = 2.0f; //Amount of Uptime
@@ -132,7 +133,7 @@ public class Objective : MonoBehaviour
         _gameState = FindFirstObjectByType<GameState>();
         UpdateDescription();
         objectiveStateChanged.AddListener(_ => UpdateDescription());
-        
+
         if (miniMapRepresented != null)
         {
             if (ObjectiveState == ObjectiveStateEnum.Unexplored)
@@ -144,6 +145,8 @@ public class Objective : MonoBehaviour
                 miniMapRepresented.Explored();
             }
         }
+
+        if (ObjectiveState == ObjectiveStateEnum.Completed) currentCooldown = completedCooldown; //Base Income
     }
 
 
@@ -185,6 +188,13 @@ public class Objective : MonoBehaviour
         {
             // Play logic
             if (currentCooldown > 0) currentCooldown -= Time.deltaTime;
+            if (ObjectiveState == ObjectiveStateEnum.Completed && currentCooldown <= 0) //Base Income
+            {
+                PaydayAvailable = true;
+                paydayAvailableViz.gameObject.SetActive(true);
+                currentCooldown = completedCooldown;
+            }
+
             if (
                 objectiveType == ObjectiveTypeEnum.Colony
                 && commUpTime > 0
@@ -409,11 +419,12 @@ public class Objective : MonoBehaviour
     }
 
     public Transform paydayAvailableViz;
+
     public void Abkassieren()
     {
         _gameState.economy.Money += payout;
         povProgress = 0f;
-        
+
         SpawnPaydayText(payout);
         PaydayAvailable = false;
         paydayAvailableViz.gameObject.SetActive(false);
@@ -517,26 +528,22 @@ public class Objective : MonoBehaviour
 
     public void SpawnProgressText(float percent)
     {
-        Debug.LogError("PLAY OBJ Mined!");
         _gameState.ShowFloatingText(transform.position, percent + " %", Color.white);
     }
 
     public void SpawnPaydayText(float amount)
     {
-        Debug.LogError("PLAY OBJ Cashout!");
         _gameState.musicManager.CreateAudioClip(audioCashout, Vector3.zero);
         _gameState.ShowFloatingText(transform.position,  "+" + amount + "$", Color.green);
     }
 
-    public void SpawnDiscoverd()
+    public void SpawnDiscoverd() 
     {
-        Debug.LogError("PLAY OBJ Discoverd!");
         _gameState.musicManager.CreateAudioClip(audioDiscover, Vector3.zero);
         _gameState.ShowFloatingText(transform.position, displayName+" discoverd!", Color.red);
     }
     public void SpawnRevealed()
     {
-        Debug.LogError("PLAY OBJ Revealed!");
         _gameState.musicManager.CreateAudioClip(audioDiscover, Vector3.zero);
         _gameState.ShowFloatingText(transform.position, "Site revealed!", Color.red);
     }

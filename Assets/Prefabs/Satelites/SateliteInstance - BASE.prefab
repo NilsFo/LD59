@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rotationSpeed: 10
-  axis: {x: 0, y: 0, z: 1}
+  axis: {x: 0, y: 1, z: 0}
 --- !u!1 &4586157186297270387
 GameObject:
   m_ObjectHideFlags: 0
@@ -748,7 +748,7 @@ PrefabInstance:
       value: Satelite
       objectReference: {fileID: 0}
     - target: {fileID: 6317578925029434746, guid: 8deb07f21f9b9cc74a107c6d3e7a8659, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 1d93ceeb8d4b967c79ed3c372bf5d2ca, type: 2}
     m_RemovedComponents: []
@@ -826,7 +826,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: f3f1228ac05ca90659b2e1bcd6d5c5dc, type: 3}
-      propertyPath: 'm_Materials.Array.data[0]'
+      propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: 0171438a7cd67d089b442b78883064e5, type: 2}
     - target: {fileID: 919132149155446097, guid: f3f1228ac05ca90659b2e1bcd6d5c5dc, type: 3}
