@@ -455,11 +455,7 @@ MonoBehaviour:
   selectedText: 0
   counterTF: {fileID: 6768739631652707527}
   initialTutorialTexts:
-  - Hey kid. Welcome to the job. Click here to continue.
-  - aaaaaaaaaaa
-  - bbbbbb
-  - cccc
-  - dddddd
+  - 
   basicTutorialProgress: 0
 --- !u!1 &1686933033032633490
 GameObject:
