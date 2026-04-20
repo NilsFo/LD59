@@ -3,6 +3,7 @@ using UnityEngine;
 public class SelfRotator : MonoBehaviour
 {
     public float rotationSpeed = 50;
+    public Vector3 axis = Vector3.forward;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -12,8 +13,7 @@ public class SelfRotator : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 rot = transform.localRotation.eulerAngles;
-        rot.y += rotationSpeed * Time.deltaTime;
-        transform.localRotation = Quaternion.Euler(rot);
+        var q = Quaternion.AngleAxis(rotationSpeed * Time.deltaTime, axis);
+        transform.localRotation *= q;
     }
 }

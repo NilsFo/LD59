@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -102,6 +103,7 @@ public class Objective : MonoBehaviour
     public Transform abandonedSiteViz;
     public Transform mineralSurveyViz;
     public Transform colonyViz;
+    [SerializeField] public bool paydayAvailable;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -278,9 +280,8 @@ public class Objective : MonoBehaviour
 
             if (povProgress >= 1.0f)
             {
-                povProgress = 0f;
-                SpawnPaydayText(payout);
-                _gameState.economy.Money += payout;
+                paydayAvailable = true;
+                paydayAvailableViz.gameObject.SetActive(true);
             }
             else
             {
@@ -303,10 +304,8 @@ public class Objective : MonoBehaviour
 
             if (povProgress >= 1.0f)
             {
-                povProgress = 0f;
-                SpawnPaydayText(payout);
-                _gameState.economy.Money += payout;
-                //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat MineralSurvey
+                paydayAvailable = true;
+                paydayAvailableViz.gameObject.SetActive(true);
             }
             else
             {
@@ -329,9 +328,8 @@ public class Objective : MonoBehaviour
 
             if (povProgress >= 1.0f)
             {
-                povProgress = 0f;
-                _gameState.economy.Money += payout;
-                SpawnPaydayText(payout);
+                paydayAvailable = true;
+                paydayAvailableViz.gameObject.SetActive(true);
                 //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat AbandonedSite
             }
             else
@@ -342,6 +340,25 @@ public class Objective : MonoBehaviour
         else
         {
             currentCooldown = exploreCooldown;
+        }
+    }
+
+    public Transform paydayAvailableViz;
+    public void Abkassieren()
+    {
+        _gameState.economy.Money += payout;
+        povProgress = 0f;
+        
+        SpawnPaydayText(payout);
+        paydayAvailable = false;
+        paydayAvailableViz.gameObject.SetActive(false);
+    }
+
+    private void OnMouseDown()
+    {
+        if (paydayAvailable)
+        {
+            Abkassieren();
         }
     }
 
