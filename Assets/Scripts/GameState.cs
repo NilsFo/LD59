@@ -313,7 +313,6 @@ public class GameState : MonoBehaviour
         {
             return;
         }
-
         selectionState = SelectionState.SatelliteReroute;
     }
 
