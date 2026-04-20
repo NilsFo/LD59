@@ -508,6 +508,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 6279623948300252872, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7079492537976840358, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -590,6 +594,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7312668902472197624, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8500044715283565185, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
+      propertyPath: debug
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
