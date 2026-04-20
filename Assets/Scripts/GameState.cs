@@ -244,6 +244,8 @@ public class GameState : MonoBehaviour
 
                 float newOmega = templateOrbit.SetNewOrbit(selectedSatellite.transform.position, hit.point);
                 templateOrbit.height = selectedSatellite.orbit.height;
+                templateOrbit.orbitState = selectedSatellite.orbit.orbitState;
+                templateOrbit.targetOrbitState = selectedSatellite.orbit.targetOrbitState;
                 templateOrbit.Show();
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {

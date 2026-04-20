@@ -484,7 +484,7 @@ public class Objective : MonoBehaviour
         _gameState.ShowFloatingText(transform.position,  "+" + amount + "$", Color.red);
     }
 
-    public void SpawnDiscoverd()
+    public void SpawnDiscoverd() 
     {
         Debug.LogError("PLAY OBJ Discoverd!");
         _gameState.ShowFloatingText(transform.position, displayName+" discoverd!", Color.red);

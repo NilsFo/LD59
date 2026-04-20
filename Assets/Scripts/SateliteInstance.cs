@@ -124,6 +124,7 @@ public class SatelliteInstance : MonoBehaviour
         miniMapRepresented.Dynamic();
         miniMapRepresented.SetSatellite(this);
         _drawLines = _gameState.GetCamera().GetComponent<DrawLines>();
+        InvokeRepeating(nameof(RevealFogOfWar), 0f, 1f/10f);
     }
 
     // Update is called once per frame
@@ -157,7 +158,6 @@ public class SatelliteInstance : MonoBehaviour
         UpdateObjectivesInSight();
         UpdateComSatsInSight();
         ObjectivePayday();
-        RevealFogOfWar();
     }
 
     private void UpdateComLinesViz()
@@ -332,6 +332,8 @@ public class SatelliteInstance : MonoBehaviour
 
     public void RevealFogOfWar()
     {
+        if (orbit.targetOrbitState == Orbit.OrbitState.GEO) return;
+        
         Vector2 pos = Objective.Vec3ToLongLat(transform.position);
         float lon = pos.x;
         float lat = pos.y;
@@ -545,6 +547,7 @@ public class SatelliteInstance : MonoBehaviour
 
     public bool CanAffordChangeOrbit()
     {
+        if (orbit.orbitState == Orbit.OrbitState.GEO) return false;
         return fuelCurrent >= _gameState.changeOrbitCostFuel;
     }
 
