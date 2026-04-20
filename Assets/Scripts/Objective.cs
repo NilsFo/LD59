@@ -68,6 +68,17 @@ public class Objective : MonoBehaviour
         set { Debug.LogError("Dont set CommunicationUptime!!!"); }
     }
 
+    public float CommunicationUptimeProzent
+    {
+        get
+        {
+            float currentUptime = commUpTime;
+            currentUptime /= _gameState.winUptime;
+            if (currentUptime > 1.0f) return 1.0f;
+            return currentUptime; 
+        }
+    }
+
     public ObjectiveStateEnum ObjectiveState
     {
         get => _objectiveState;
@@ -284,7 +295,7 @@ public class Objective : MonoBehaviour
             {
                 povProgress = 0f;
                 _gameState.economy.Money += payout;
-                ObjectiveState = ObjectiveStateEnum.Completed;
+                //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat MineralSurvey
             }
         }
         else if (objectiveType == ObjectiveTypeEnum.AbandonedSite)
@@ -305,7 +316,7 @@ public class Objective : MonoBehaviour
             {
                 povProgress = 0f;
                 _gameState.economy.Money += payout;
-                ObjectiveState = ObjectiveStateEnum.Completed;
+                //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat AbandonedSite
             }
         }
         else

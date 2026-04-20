@@ -835,7 +835,7 @@ Canvas:
   m_GameObject: {fileID: 3448343977961945055}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 0.33
   m_PixelPerfect: 0
@@ -1911,6 +1911,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2502157791900659224, guid: 90229116477e57c49acf3d201102dc1c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.8055992
+      objectReference: {fileID: 0}
     - target: {fileID: 7093990943351251725, guid: 90229116477e57c49acf3d201102dc1c, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -2020,6 +2024,10 @@ PrefabInstance:
     - target: {fileID: 7091841278791426263, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7460779917872423891, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -1.3002119
       objectReference: {fileID: 0}
     - target: {fileID: 8902447902011804466, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
       propertyPath: m_AnchoredPosition.y
