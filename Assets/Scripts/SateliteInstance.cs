@@ -37,7 +37,7 @@ public class SatelliteInstance : MonoBehaviour
 
     [Header("Properties")] public Vector2 position;
     private bool _isHighLighted;
-    
+
     public bool IsHighLighted
     {
         get => _isHighLighted;
@@ -60,7 +60,7 @@ public class SatelliteInstance : MonoBehaviour
     private GameState _gameState;
     private SatellitDisplayScript _displayScript;
     private FogOfWar _fogOfWar;
-    
+
     public event Action OnSatelliteDestroy;
 
     public bool[] objectiveInSight;
@@ -121,7 +121,10 @@ public class SatelliteInstance : MonoBehaviour
         // name tf
         nameTF.text = displayName;
         nameTF.gameObject.transform.parent.gameObject.SetActive(false);
-        myDescription.description = displayName;
+        myDescription.description = "[displayName]\n" +
+                                    "Mode: " + GetSatFunctionLabel() + "\n" +
+                                    "Orbit: " + GetSatOrbitLabel() + "\n" +
+                                    "Fuel: " + fuelCurrent + "/" + fuelMax;
 
         nameTF.color = colorMuted;
         if (isSelected)
@@ -298,7 +301,6 @@ public class SatelliteInstance : MonoBehaviour
 
     public bool IsObjectiveInSight(Objective obj)
     {
-
         for (var index = 0; index < _gameState.objectives.Length; index++)
         {
             if (objectiveInSight[index])
@@ -319,17 +321,17 @@ public class SatelliteInstance : MonoBehaviour
         float lat = pos.y;
         // print("lat:" + lat + "lon:" + lon);
 
-        lon = ((lon * -1 + 90+360) % 360) / 360f;
+        lon = ((lon * -1 + 90 + 360) % 360) / 360f;
         lat /= 180f;
 
         int x = (int)((lon) * _fogOfWar.width);
         int y = (int)((lat + .5f) * _fogOfWar.height);
 
         float radius = Mathf.Tan(discoverAngle * Mathf.Deg2Rad) * (orbit.height - 1);
-        
+
         _fogOfWar.RevealCircleAt(x, y, Mathf.CeilToInt(radius / Mathf.PI / 2 * _fogOfWar.width));
     }
-    
+
     public void SwitchOrbit(Orbit newOrbit, float newOmega)
     {
         Destroy(orbit.gameObject);
@@ -404,7 +406,7 @@ public class SatelliteInstance : MonoBehaviour
     {
         return _gameState.economy.Money >= _gameState.camCost;
     }
-    
+
     public bool HasNeedForCam()
     {
         if (satFunction == SatFunctions.CAM) return false;
@@ -441,7 +443,7 @@ public class SatelliteInstance : MonoBehaviour
     {
         return _gameState.economy.Money >= _gameState.scanCost;
     }
-    
+
     public bool HasNeedForScan()
     {
         if (satFunction == SatFunctions.SCAN) return false;
@@ -465,7 +467,7 @@ public class SatelliteInstance : MonoBehaviour
     {
         return _gameState.economy.Money >= _gameState.camCost;
     }
-    
+
     public bool HasNeedForComm()
     {
         if (satFunction == SatFunctions.COMM) return false;
@@ -494,14 +496,14 @@ public class SatelliteInstance : MonoBehaviour
         if (orbit.targetOrbitState == Orbit.OrbitState.LEO) return false;
         return true;
     }
-    
+
     public int GetLeoCost()
     {
         if (orbit.orbitState == Orbit.OrbitState.GEO)
             return _gameState.leoCostFuel + _gameState.meoCostFuel;
         return _gameState.leoCostFuel;
     }
-    
+
     public bool BuyMeo()
     {
         if (CanAffordMeo() && HasNeedForMeo())
@@ -518,7 +520,7 @@ public class SatelliteInstance : MonoBehaviour
     {
         return fuelCurrent >= _gameState.meoCostFuel;
     }
-    
+
     public bool HasNeedForMeo()
     {
         if (orbit.targetOrbitState == Orbit.OrbitState.MEO) return false;
@@ -571,7 +573,7 @@ public class SatelliteInstance : MonoBehaviour
             return _gameState.geoCostFuel + _gameState.meoCostFuel;
         return _gameState.geoCostFuel;
     }
-    
+
     public bool HasNeedForGeo()
     {
         if (orbit.targetOrbitState == Orbit.OrbitState.GEO) return false;
@@ -617,5 +619,37 @@ public class SatelliteInstance : MonoBehaviour
     public bool CanAffordPlusFuel()
     {
         return _gameState.economy.Money >= _gameState.refuelCost;
+    }
+
+    public string GetSatFunctionLabel()
+    {
+        switch (satFunction)
+        {
+            case SatFunctions.CAM:
+                return "Camera";
+            case SatFunctions.COMM:
+                return "Communication";
+            case SatFunctions.NONE:
+                return "None. Use the menu on the right to select a function.";
+            case SatFunctions.SCAN:
+                return "Mineral Sensor";
+        }
+
+        return "?";
+    }
+
+    public string GetSatOrbitLabel()
+    {
+        switch (orbit.orbitState)
+        {
+            case Orbit.OrbitState.GEO:
+                return "GMO";
+            case Orbit.OrbitState.LEO:
+                return "LMO";
+            case Orbit.OrbitState.MEO:
+                return "MMO";
+        }
+
+        return "?";
     }
 }

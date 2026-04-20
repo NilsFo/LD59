@@ -2837,7 +2837,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1941429730508824475, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: description
-      value: 'Change mode: Communication.'
+      value: 'Change mode: Communication.
+
+        Establishes communication between
+        colonies.
+
+        Also acts as a com relay for other communication satellites.
+
+        Restore
+        communication between all colonies!'
       objectReference: {fileID: 0}
     - target: {fileID: 2196164543189799725, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: m_Sprite
@@ -2967,7 +2975,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1941429730508824475, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: description
-      value: 'Change orbit: Low earth orbit.'
+      value: Change to low mars orbit.
       objectReference: {fileID: 0}
     - target: {fileID: 2196164543189799725, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: m_Sprite
@@ -3097,7 +3105,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1941429730508824475, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: description
-      value: Adds 1 maximal battery charge.
+      value: Adds 1 maximum fuel unit.
       objectReference: {fileID: 0}
     - target: {fileID: 2196164543189799725, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: m_Sprite
@@ -3227,7 +3235,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1941429730508824475, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: description
-      value: Fully restore battery power.
+      value: Fully restore fuel.
       objectReference: {fileID: 0}
     - target: {fileID: 2196164543189799725, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: m_Sprite
@@ -3357,7 +3365,8 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1941429730508824475, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: description
-      value: Change to low earth orbit.
+      value: Change to geostationary mars orbit. This will keep the satellite in
+        place so it does not move.
       objectReference: {fileID: 0}
     - target: {fileID: 2196164543189799725, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: m_Sprite
@@ -3487,7 +3496,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1941429730508824475, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: description
-      value: 'Change type: Mineral Sensor.'
+      value: 'Change mode: Mineral Sensor.
+
+        The data is automatically sold
+        for money.
+
+        Works from any orbit.'
       objectReference: {fileID: 0}
     - target: {fileID: 2196164543189799725, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: m_Sprite
@@ -3617,7 +3631,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1941429730508824475, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: description
-      value: 'Change type: Camera'
+      value: 'Change mode: Camera.
+
+        Reveals martian surface while in LMO.
+
+        Photographs
+        abandoned sites from any orbit.'
       objectReference: {fileID: 0}
     - target: {fileID: 2196164543189799725, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: m_Sprite
@@ -3747,7 +3766,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1941429730508824475, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: description
-      value: Change to medium earth orbit.
+      value: Change to medum mars orbit.
       objectReference: {fileID: 0}
     - target: {fileID: 2196164543189799725, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: m_Sprite
