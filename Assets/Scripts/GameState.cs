@@ -131,12 +131,8 @@ public class GameState : MonoBehaviour
         {
             commUptime = 0f;
         }
-        
+
         winning = commUptime / winUptime;
-        if (winning >= 1.0f)
-        {
-            playWin();
-        }
     }
 
     private bool HasAllColoniesConnection()
@@ -145,11 +141,6 @@ public class GameState : MonoBehaviour
         Objective[] belowThreshold =
             colonies.Where(objective => objective.CommunicationUptime < uptimeThreshold).ToArray();
         return belowThreshold.Length == 0;
-    }
-
-    private void playWin()
-    {
-        //TODO
     }
 
     private void OnNewSelectionState()
@@ -323,6 +314,7 @@ public class GameState : MonoBehaviour
         selectionState = SelectionState.SatelliteReroute;
     }
 
+    [ContextMenu("Win!")]
     public void Win()
     {
         print("A winner is you!");

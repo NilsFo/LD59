@@ -8,8 +8,8 @@ public class GlobalSignalStrength : MonoBehaviour
     private GameState _gameState;
 
     private bool winTriggered = false;
-
-    [Range(0, 1)] public float winPercentage = 0.8f;
+    public bool debug;
+    private float _count;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -20,8 +20,8 @@ public class GlobalSignalStrength : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float currentWinProgress = 0.2f;
-        float displayedProgress = currentWinProgress / winPercentage;
+        float currentWinProgress = _gameState.winning;
+        float displayedProgress = currentWinProgress;
 
         displayedProgress = Math.Clamp(displayedProgress, 0, 1);
         slider.value = displayedProgress;
