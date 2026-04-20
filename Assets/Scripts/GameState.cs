@@ -4,6 +4,7 @@ using System.Linq;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 public class GameState : MonoBehaviour
@@ -61,6 +62,7 @@ public class GameState : MonoBehaviour
     [SerializeField] private TextScroller radioDisplay;
     [SerializeField] private TextScroller descriptionDisplay;
     public RectTransform miniMapTransform;
+    private GlobalSignalStrength _globalSignalStrength;
 
     private void Awake()
     {
@@ -68,6 +70,7 @@ public class GameState : MonoBehaviour
         _mainCamera = FindFirstObjectByType<Camera>();
         _musicManager = FindAnyObjectByType<MusicManager>();
         templateOrbit.gameObject.SetActive(false);
+        _globalSignalStrength = FindFirstObjectByType<GlobalSignalStrength>();
 
         objectives = FindObjectsByType<Objective>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID);
         colonies = objectives.Where(objective => objective.objectiveType == Objective.ObjectiveTypeEnum.Colony)
@@ -303,5 +306,15 @@ public class GameState : MonoBehaviour
         }
 
         selectionState = SelectionState.SatelliteReroute;
+    }
+
+    public void Win()
+    {
+        print("A winner is you!");
+    }
+
+    public void BackToMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
     }
 }
