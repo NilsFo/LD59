@@ -54,11 +54,13 @@ public class GameState : MonoBehaviour
     private Camera _mainCamera;
 
     [Header("World Hookup")] public GameObject prefabSatellite;
+    public GameObject prefabMiniMapIcon;
     public GameObject prefabOrbit;
     public Orbit templateOrbit;
     private MusicManager _musicManager;
     [SerializeField] private TextScroller radioDisplay;
     [SerializeField] private TextScroller descriptionDisplay;
+    public RectTransform miniMapTransform;
 
     private void Awake()
     {

@@ -20,6 +20,8 @@ public class Objective : MonoBehaviour
         Completed
     }
 
+    [Header("Hookup")] public MiniMapRepresented miniMapRepresented;
+
     [Header("Params")] [Header("General")] public string id;
     public string displayName;
     [TextArea(5, 15)] public string description;
@@ -98,6 +100,7 @@ public class Objective : MonoBehaviour
         UpdateDescription();
         objectiveStateChanged.AddListener(_ => UpdateDescription());
     }
+
 
     void UpdateDescription()
     {
@@ -328,7 +331,7 @@ public class Objective : MonoBehaviour
             y: Mathf.Cos(Mathf.Deg2Rad * lat),
             z: Mathf.Sin(Mathf.Deg2Rad * lat) * Mathf.Cos(Mathf.Deg2Rad * lon));
     }
-    
+
     public static Vector2 Vec3ToLongLat(Vector3 vec)
     {
         // From https://gist.github.com/nicoptere/2f2571db4b454bb18cd9
@@ -337,24 +340,24 @@ public class Objective : MonoBehaviour
         //longitude = angle of the vector around the Y axis
         //-( ) : negate to flip the longitude (3d space specific )
         //- PI / 2 to face the Z axis
-        var lng = -( Mathf.Atan2( -vec.z, -vec.x ) ) - Mathf.PI / 2;
+        var lng = -(Mathf.Atan2(-vec.z, -vec.x)) - Mathf.PI / 2;
 
         //to bind between 0 / PI*2
-        if( lng < 0 )lng += Mathf.PI * 2;
+        if (lng < 0) lng += Mathf.PI * 2;
 
         //latitude : angle between the vector & the vector projected on the XZ plane on a unit sphere
 
         //project on the XZ plane
-        var p = new Vector3( vec.x, 0, vec.z );
+        var p = new Vector3(vec.x, 0, vec.z);
         //project on the unit sphere
         p.Normalize();
 
         //compute the angle ( both vectors are normalized, no division by the sum of lengths )
-        var lat = Mathf.Acos( Vector3.Dot(p, vec ) );
+        var lat = Mathf.Acos(Vector3.Dot(p, vec));
 
         //invert if Y is negative to ensure teh latitude is comprised between -PI/2 & PI / 2
-        if( vec.y < 0 ) lat *= -1;
+        if (vec.y < 0) lat *= -1;
 
-        return new Vector2(lng,lat) * Mathf.Rad2Deg;
+        return new Vector2(lng, lat) * Mathf.Rad2Deg;
     }
 }
