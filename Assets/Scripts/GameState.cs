@@ -38,7 +38,7 @@ public class GameState : MonoBehaviour
     [SerializeField] private float uptimeThreshold = 0.8f;
     [SerializeField] private float winUptime = 30f;
 
-    [SerializeField] private List<GameObject> listOfSatellites;
+    [SerializeField] public List<SatelliteInstance> listOfSatellites;
 
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
@@ -75,7 +75,7 @@ public class GameState : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (listOfSatellites == null) listOfSatellites = new List<GameObject>();
+        if (listOfSatellites == null) listOfSatellites = new List<SatelliteInstance>();
 
         Application.targetFrameRate = 60;
         _musicManager.Stop();
@@ -175,7 +175,7 @@ public class GameState : MonoBehaviour
 
             GameObject orbitInstance = Instantiate(prefabOrbit, Vector3.zero, Quaternion.identity);
             GameObject satInstance = Instantiate(prefabSatellite, transform);
-            listOfSatellites.Add(satInstance);
+            listOfSatellites.Add(satInstance.GetComponent<SatelliteInstance>());
 
             Orbit orbit = orbitInstance.GetComponent<Orbit>();
             orbit.SetFromIncEq(Random.Range(-80, 80), Random.Range(0, 359));
