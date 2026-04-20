@@ -60,6 +60,7 @@ public class GameState : MonoBehaviour
     public GameObject prefabMiniMapIcon;
     public GameObject prefabFloatingText;
     public GameObject prefabOrbit;
+    public Transform homeBasePosition;
     public Orbit templateOrbit;
     private MusicManager _musicManager;
     [SerializeField] private TextScroller radioDisplay;
@@ -162,7 +163,8 @@ public class GameState : MonoBehaviour
 
             GameObject orbitInstance = Instantiate(prefabOrbit, Vector3.zero, Quaternion.identity);
             GameObject satInstance = Instantiate(prefabSatellite, transform);
-            listOfSatellites.Add(satInstance.GetComponent<SatelliteInstance>());
+            SatelliteInstance instance = satInstance.GetComponent<SatelliteInstance>();
+            listOfSatellites.Add(instance);
 
             Orbit orbit = orbitInstance.GetComponent<Orbit>();
             //orbit.SetFromIncEq(Random.Range(-80, 80), Random.Range(0, 359));
@@ -171,6 +173,8 @@ public class GameState : MonoBehaviour
             SatelliteInstance sat = satInstance.GetComponent<SatelliteInstance>();
             sat.orbit = orbit;
             sat.omega = 90f;
+
+            ShowFloatingText(homeBasePosition.position, instance.displayName + " launched!", instance.color);
 
             return true;
         }
@@ -332,5 +336,6 @@ public class GameState : MonoBehaviour
         textTF.color = color;
 
         textObj.transform.LookAt(position);
+        // TODO a bit of an error here :/
     }
 }
