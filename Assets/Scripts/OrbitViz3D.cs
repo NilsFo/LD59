@@ -35,6 +35,7 @@ public class OrbitViz3D : MonoBehaviour
             orbitViz.gameObject.SetActive(true);
             orbitPreviewViz.gameObject.SetActive(false);
         }
+
         transform.rotation = Quaternion.LookRotation(orbit.OrbitStart, orbit.OrbitAxis);
         transform.localScale = Vector3.one * orbit.height;
         orbitStartViz.transform.position = orbit.OrbitStart * orbit.height;

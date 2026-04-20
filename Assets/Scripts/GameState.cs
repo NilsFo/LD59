@@ -8,10 +8,9 @@ using Random = UnityEngine.Random;
 
 public class GameState : MonoBehaviour
 {
-    [Header("Kaufhaus")] 
-    public int maxSatellites = 9;
+    [Header("Kaufhaus")] public int maxSatellites = 9;
     public int[] costOfSatellite = { 500, 1000, 1500, 2000, 2500 };
-    
+
     public int camCost = 100;
     public int scanCost = 50;
     public int commCost = 500;
@@ -32,16 +31,15 @@ public class GameState : MonoBehaviour
         SatelliteReroute
     }
 
-    [Header("Config")]
-    public SelectionState selectionState = SelectionState.None;
+    [Header("Config")] public SelectionState selectionState = SelectionState.None;
     [SerializeField] private float _currentDelay = 0f;
     [SerializeField] private float _maxDelay = 5f;
-    
-    [SerializeField] private float uptimeThreshold = 0.8f; 
+
+    [SerializeField] private float uptimeThreshold = 0.8f;
     [SerializeField] private float winUptime = 30f;
 
     [SerializeField] private List<GameObject> listOfSatellites;
-     
+
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
     public Economy economy;
@@ -78,9 +76,10 @@ public class GameState : MonoBehaviour
     void Start()
     {
         if (listOfSatellites == null) listOfSatellites = new List<GameObject>();
-        
+
         Application.targetFrameRate = 60;
-        _musicManager.Play(0);
+        _musicManager.Stop();
+        _musicManager.Play(1, stopOthers: true);
         MusicManager.userDesiredMasterVolume = 0.5f;
 
         DisplayRadioMsg("Hey kid.\n" +
@@ -132,7 +131,7 @@ public class GameState : MonoBehaviour
     private bool HasAllColoniesConnection()
     {
         if (colonies.Length < 3) return false;
-        Objective[] belowThreshold = 
+        Objective[] belowThreshold =
             colonies.Where(objective => objective.CommunicationUptime < uptimeThreshold).ToArray();
         return belowThreshold.Length == 0;
     }
@@ -160,12 +159,13 @@ public class GameState : MonoBehaviour
             print("It's crowded up there! No more Sattellites");
             return false;
         }
+
         int index = listOfSatellites.Count;
         if (index > costOfSatellite.Length - 1)
         {
             index = costOfSatellite.Length - 1;
         }
-        
+
         var newBalance = economy.Money - costOfSatellite[index];
         if (newBalance >= 0)
         {
@@ -176,7 +176,7 @@ public class GameState : MonoBehaviour
             GameObject orbitInstance = Instantiate(prefabOrbit, Vector3.zero, Quaternion.identity);
             GameObject satInstance = Instantiate(prefabSatellite, transform);
             listOfSatellites.Add(satInstance);
-            
+
             Orbit orbit = orbitInstance.GetComponent<Orbit>();
             orbit.SetFromIncEq(Random.Range(-80, 80), Random.Range(0, 359));
 
@@ -217,7 +217,7 @@ public class GameState : MonoBehaviour
 
             _currentDelay = _maxDelay;
             selectionState = SelectionState.Init;
-            if(skipDelay)  selectionState = SelectionState.Selected;
+            if (skipDelay) selectionState = SelectionState.Selected;
             selectedSatellite = sat;
             OnSelectedSatelliteChanged?.Invoke(sat);
         }
@@ -289,14 +289,17 @@ public class GameState : MonoBehaviour
         {
             return false;
         }
+
         return true;
     }
 
     public void SetReroute()
     {
-        if(selectionState != SelectionState.Selected){
-         return;
+        if (selectionState != SelectionState.Selected)
+        {
+            return;
         }
+
         selectionState = SelectionState.SatelliteReroute;
     }
 }

@@ -7,26 +7,26 @@ public class Orbit : MonoBehaviour
     public const float LeoValue = 1.3f;
     public const float MeoValue = 1.7f;
     public const float GeoValue = 2.5f;
-    
-    public enum OrbitState: Int32
+
+    public enum OrbitState : Int32
     {
-        LEO=0,
-        MEO=1,
-        GEO=2
+        LEO = 0,
+        MEO = 1,
+        GEO = 2
     }
-    
+
     public Vector3 OrbitAxis { get; private set; } = Vector3.up;
     public Vector3 OrbitStart { get; private set; } = Vector3.left;
     public float height = 1.1f;
     public float rotationSpeed = 10.0f;
-    
+
     public float ascendingSpeed = 10.0f;
     public float descendingSpeed = 10.0f;
 
     public OrbitState orbitState = OrbitState.LEO;
     public OrbitState targetOrbitState = OrbitState.LEO;
     public event Action<OrbitState> OnOrbitChanged;
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -70,6 +70,7 @@ public class Orbit : MonoBehaviour
                     height = MeoValue;
                     OnOrbitChanged?.Invoke(orbitState);
                 }
+
                 if (height >= GeoValue)
                 {
                     orbitState = OrbitState.GEO;
@@ -112,6 +113,7 @@ public class Orbit : MonoBehaviour
                     height = MeoValue;
                     OnOrbitChanged?.Invoke(orbitState);
                 }
+
                 if (height <= LeoValue)
                 {
                     orbitState = OrbitState.LEO;
@@ -173,9 +175,10 @@ public class Orbit : MonoBehaviour
             targetOrbitState = OrbitState.LEO;
             return true;
         }
+
         return false;
     }
-    
+
     public bool SetMeo()
     {
         if (orbitState == targetOrbitState)
@@ -183,9 +186,10 @@ public class Orbit : MonoBehaviour
             targetOrbitState = OrbitState.MEO;
             return true;
         }
+
         return false;
     }
-    
+
     public bool SetGeo()
     {
         if (orbitState == targetOrbitState)
@@ -193,6 +197,7 @@ public class Orbit : MonoBehaviour
             targetOrbitState = OrbitState.GEO;
             return true;
         }
+
         return false;
     }
 }

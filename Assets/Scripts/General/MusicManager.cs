@@ -82,7 +82,7 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    public void Play(int index, bool fromBeginning = false, bool stopOthers = false)
+    public void Play(int index, bool fromBeginning = false, bool stopOthers = true)
     {
         if (stopOthers)
         {
