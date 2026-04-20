@@ -3,6 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class LaunchButtonCostText : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
@@ -10,6 +11,10 @@ public class LaunchButtonCostText : MonoBehaviour, IPointerEnterHandler, IPointe
     public TMP_Text costTF;
     public TMP_Text inOrbitTF;
     public UnityEvent onClick;
+
+    public Image launchButtonImage;
+    public Sprite canAffordSprite;
+    public Sprite canNotAffordSprite;
 
     private void Awake()
     {
@@ -23,6 +28,7 @@ public class LaunchButtonCostText : MonoBehaviour, IPointerEnterHandler, IPointe
         {
             onClick = new UnityEvent();
         }
+
         costTF.text = "";
     }
 
@@ -31,6 +37,15 @@ public class LaunchButtonCostText : MonoBehaviour, IPointerEnterHandler, IPointe
     {
         int satCount = _gameState.listOfSatellites.Count;
         inOrbitTF.text = "In Orbit: " + satCount + "/" + _gameState.maxSatellites;
+
+        if (_gameState.economy.Money < _gameState.CostOfNextSatellite() || satCount >= _gameState.maxSatellites)
+        {
+            launchButtonImage.sprite = canNotAffordSprite;
+        }
+        else
+        {
+            launchButtonImage.sprite = canAffordSprite;
+        }
     }
 
     public void OnPointerEnter(PointerEventData eventData)
