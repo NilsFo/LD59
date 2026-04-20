@@ -37,6 +37,7 @@ public class Objective : MonoBehaviour
     [SerializeField] private float exploreCooldown = 3f;
     [SerializeField] private float excavateCooldown = 3f;
     [SerializeField] private float completedCooldown = 15f;
+    [SerializeField] private float completedCooldownInit = 120f;
 
     [Header("Colony")] [SerializeField] private float colonyUptimeDecay = 0.2f; //Decay of Uptime
     [SerializeField] private float colonyUptime = 2.0f; //Amount of Uptime
@@ -144,9 +145,8 @@ public class Objective : MonoBehaviour
             }
         }
 
-        if (ObjectiveState == ObjectiveStateEnum.Completed) currentCooldown = completedCooldown; //Base Income
+        if (ObjectiveState == ObjectiveStateEnum.Completed) currentCooldown = completedCooldownInit; //Base Income
     }
-
 
     void UpdateDescription()
     {
