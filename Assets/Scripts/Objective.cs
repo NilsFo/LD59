@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -195,6 +196,41 @@ public class Objective : MonoBehaviour
         ObjectiveState = ObjectiveStateEnum.Explored;
     }
 
+    public bool ComDepthSearch()
+    {
+        var sats = _gameState.listOfSatellites;
+        Queue<int> openSet = new Queue<int>();
+        for (var index = 0; index < sats.Count; index++)
+        {
+            var sat = sats[index];
+            if (sat.IsObjectiveInSight(this))
+                openSet.Enqueue(index);
+        }
+
+        HashSet<int> closedSet = new HashSet<int>();
+        while (openSet.Count > 0)
+        {
+            var curIndex = openSet.Dequeue();
+            var sat = sats[curIndex];
+            closedSet.Add(curIndex);
+            
+            foreach (var othersat in sat.comSatsInSight)
+            {
+                if (othersat.IsObjectiveInSight(_gameState.home))
+                {
+                    Debug.Log(displayName + " can phone home");
+                    return true;
+                }
+                int othersatindex = sats.IndexOf(othersat);
+                if (closedSet.Contains(othersatindex))
+                    continue;
+                openSet.Enqueue(othersatindex);
+            }
+        }
+
+        return false;
+    }
+
     private void ExcavatePoi(SatelliteInstance caller)
     {
         if (ObjectiveState != ObjectiveStateEnum.Explored)
@@ -205,6 +241,7 @@ public class Objective : MonoBehaviour
         if (objectiveType == ObjectiveTypeEnum.Colony)
         {
             //TODO check if Sat has Connection mit andere Colonie & Base
+            
             //Get Count als Multi
             if (caller.satFunction != SatelliteInstance.SatFunctions.COMM)
             {
@@ -212,7 +249,13 @@ public class Objective : MonoBehaviour
                 return;
             }
 
+            if (!ComDepthSearch())
+            {
+                currentCooldown = colonyCooldown;
+                return;
+            }
             commUpTime += colonyUptime;
+
             povProgress += colonyProgress;
             currentCooldown = colonyCooldown;
 
@@ -328,7 +371,7 @@ public class Objective : MonoBehaviour
             y: Mathf.Cos(Mathf.Deg2Rad * lat),
             z: Mathf.Sin(Mathf.Deg2Rad * lat) * Mathf.Cos(Mathf.Deg2Rad * lon));
     }
-    
+
     public static Vector2 Vec3ToLongLat(Vector3 vec)
     {
         // From https://gist.github.com/nicoptere/2f2571db4b454bb18cd9
@@ -337,24 +380,24 @@ public class Objective : MonoBehaviour
         //longitude = angle of the vector around the Y axis
         //-( ) : negate to flip the longitude (3d space specific )
         //- PI / 2 to face the Z axis
-        var lng = -( Mathf.Atan2( -vec.z, -vec.x ) ) - Mathf.PI / 2;
+        var lng = -(Mathf.Atan2(-vec.z, -vec.x)) - Mathf.PI / 2;
 
         //to bind between 0 / PI*2
-        if( lng < 0 )lng += Mathf.PI * 2;
+        if (lng < 0) lng += Mathf.PI * 2;
 
         //latitude : angle between the vector & the vector projected on the XZ plane on a unit sphere
 
         //project on the XZ plane
-        var p = new Vector3( vec.x, 0, vec.z );
+        var p = new Vector3(vec.x, 0, vec.z);
         //project on the unit sphere
         p.Normalize();
 
         //compute the angle ( both vectors are normalized, no division by the sum of lengths )
-        var lat = Mathf.Acos( Vector3.Dot(p, vec ) );
+        var lat = Mathf.Acos(Vector3.Dot(p, vec));
 
         //invert if Y is negative to ensure teh latitude is comprised between -PI/2 & PI / 2
-        if( vec.y < 0 ) lat *= -1;
+        if (vec.y < 0) lat *= -1;
 
-        return new Vector2(lng,lat) * Mathf.Rad2Deg;
+        return new Vector2(lng, lat) * Mathf.Rad2Deg;
     }
 }

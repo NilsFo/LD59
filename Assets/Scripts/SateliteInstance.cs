@@ -4,6 +4,7 @@ using TMPro;
 using UI;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Object = System.Object;
 using Random = UnityEngine.Random;
 
 public class SatelliteInstance : MonoBehaviour
@@ -286,6 +287,22 @@ public class SatelliteInstance : MonoBehaviour
                 objective.Payday(this);
             }
         }
+    }
+
+    public bool IsObjectiveInSight(Objective obj)
+    {
+
+        for (var index = 0; index < _gameState.objectives.Length; index++)
+        {
+            if (objectiveInSight[index])
+            {
+                var objective = _gameState.objectives[index];
+                if (objective == obj)
+                    return true;
+            }
+        }
+
+        return false;
     }
 
     public void SwitchOrbit(Orbit newOrbit, float newOmega)

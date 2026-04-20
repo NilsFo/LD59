@@ -46,6 +46,7 @@ public class GameState : MonoBehaviour
 
     public Objective[] objectives;
     public Objective[] colonies;
+    public Objective home;
     public float commUptime = 0f;
 
     [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
@@ -70,6 +71,8 @@ public class GameState : MonoBehaviour
         objectives = FindObjectsByType<Objective>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID);
         colonies = objectives.Where(objective => objective.objectiveType == Objective.ObjectiveTypeEnum.Colony)
             .ToArray();
+        home = objectives.First(objective => objective.objectiveType == Objective.ObjectiveTypeEnum.Home);
+        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
