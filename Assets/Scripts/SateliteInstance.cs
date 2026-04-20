@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UI;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 public class SatelliteInstance : MonoBehaviour
@@ -30,9 +31,24 @@ public class SatelliteInstance : MonoBehaviour
     public float surveyAngle = 10f;
 
     public Color color;
-    public Color colorMuted;
 
+    public Color colorMuted;
+    
     public SatFunctions satFunction = SatFunctions.NONE;
+
+    public SatFunctions SatFunction
+    {
+        get
+        {
+            return satFunction;
+        }
+        set
+        {
+            satFunction = value;
+            Debug.LogError("PLAY Sat Config Changes");
+        }
+    }
+    
     public event Action<SatFunctions> OnSatFunktionChanged;
 
     [Header("Properties")] public Vector2 position;
@@ -143,7 +159,7 @@ public class SatelliteInstance : MonoBehaviour
 
     private void UpdateComLinesViz()
     {
-        if ((!IsHighLighted && !IsSelected) || satFunction != SatFunctions.COMM) return;
+        if ((!IsHighLighted && !IsSelected) || SatFunction != SatFunctions.COMM) return;
         foreach (var sat in comSatsInSight)
         {
             _drawLines.lines.Enqueue((sat.transform.position, transform.position));
@@ -171,7 +187,7 @@ public class SatelliteInstance : MonoBehaviour
         {
             signalHalo.gameObject.SetActive(true);
             signalHalo.height = orbit.height - 1f;
-            switch (satFunction)
+            switch (SatFunction)
             {
                 case SatFunctions.CAM:
                     signalHalo.angle = discoverAngle;
@@ -247,12 +263,12 @@ public class SatelliteInstance : MonoBehaviour
 
     public void UpdateComSatsInSight()
     {
-        if (satFunction != SatFunctions.COMM)
+        if (SatFunction != SatFunctions.COMM)
             return;
         comSatsInSight.Clear();
         foreach (var sat in _gameState.listOfSatellites)
         {
-            if (sat.satFunction != SatFunctions.COMM)
+            if (sat.SatFunction != SatFunctions.COMM)
                 continue;
             var blocked = Physics.Linecast(transform.position, sat.transform.position, LayerMask.GetMask("satBlock"));
             if (blocked)
@@ -407,7 +423,7 @@ public class SatelliteInstance : MonoBehaviour
     
     public bool HasNeedForCam()
     {
-        if (satFunction == SatFunctions.CAM) return false;
+        if (SatFunction == SatFunctions.CAM) return false;
         return true;
     }
 
@@ -416,8 +432,8 @@ public class SatelliteInstance : MonoBehaviour
         if (CanAffordCam() && HasNeedForCam())
         {
             _gameState.economy.Money -= _gameState.camCost;
-            satFunction = SatFunctions.CAM;
-            OnSatFunktionChanged?.Invoke(satFunction);
+            SatFunction = SatFunctions.CAM;
+            OnSatFunktionChanged?.Invoke(SatFunction);
             return true;
         }
 
@@ -429,8 +445,8 @@ public class SatelliteInstance : MonoBehaviour
         if (CanAffordScan() && HasNeedForScan())
         {
             _gameState.economy.Money -= _gameState.scanCost;
-            satFunction = SatFunctions.SCAN;
-            OnSatFunktionChanged?.Invoke(satFunction);
+            SatFunction = SatFunctions.SCAN;
+            OnSatFunktionChanged?.Invoke(SatFunction);
             return true;
         }
 
@@ -444,7 +460,7 @@ public class SatelliteInstance : MonoBehaviour
     
     public bool HasNeedForScan()
     {
-        if (satFunction == SatFunctions.SCAN) return false;
+        if (SatFunction == SatFunctions.SCAN) return false;
         return true;
     }
 
@@ -453,8 +469,8 @@ public class SatelliteInstance : MonoBehaviour
         if (CanAffordComm() && HasNeedForComm())
         {
             _gameState.economy.Money -= _gameState.camCost;
-            satFunction = SatFunctions.COMM;
-            OnSatFunktionChanged?.Invoke(satFunction);
+            SatFunction = SatFunctions.COMM;
+            OnSatFunktionChanged?.Invoke(SatFunction);
             return true;
         }
 
@@ -468,7 +484,7 @@ public class SatelliteInstance : MonoBehaviour
     
     public bool HasNeedForComm()
     {
-        if (satFunction == SatFunctions.COMM) return false;
+        if (SatFunction == SatFunctions.COMM) return false;
         return true;
     }
 

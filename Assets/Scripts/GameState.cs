@@ -175,7 +175,7 @@ public class GameState : MonoBehaviour
             sat.omega = 90f;
 
             ShowFloatingText(homeBasePosition.position, instance.displayName + " launched!", instance.color);
-
+            Debug.LogError("PLAY SAT LAUNCH!");
             return true;
         }
         else
@@ -224,6 +224,7 @@ public class GameState : MonoBehaviour
             if (skipDelay) selectionState = SelectionState.Selected;
             selectedSatellite = sat;
             sat.IsSelected = true;
+            Debug.LogError("PLAY Satellit Changed!");
             OnSelectedSatelliteChanged?.Invoke(sat);
         }
     }
