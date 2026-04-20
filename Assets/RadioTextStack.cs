@@ -22,15 +22,15 @@ public class RadioTextStack : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     private List<string> initialTutorialTexts = new string[]
     {
         "> ORFS Mission Control:\nWelcome to Mars. The last solar storm fried all of our satellites. We need to reestablish communication with the other colonies.\n[Click here to continue]]",
-        "> ORFS Mission Control:\nFirst, launch a satellite to establish visual contact and scan the surface. Use the [LAUNCH] button on the right.\n[Click here to continue]]",
-        "> ORFS Mission Control:\nThe satellite should find some points of interest on the surface. Use the [RIGHT MOUSE BUTTON] to rotate your view.\n[Click here to continue]]",
-        "> ORFS Mission Control:\nWe need a closer look to see what we are dealing with. Equip the satellite with a camera [CAM] and scan the locations.\n[Click here to continue]]",
-        "> ORFS Mission Control:\nThere are three types of sites of interest.\nCraters can be scanned for resources using a satellite with the mineral sensor [MSE]. The data is sold for money.\n[Click here to continue]]",
-        "> ORFS Mission Control:\nAbandoned sites are no longer of value to us, but can be photographed with a camera [CAM] for a small sum of money.\n[Click here to continue]]",
-        "> ORFS Mission Control:\nColonies are what we are looking for. Equip a satellite with a communication dish [COMM] and ensure it can phone home to ORFS. You may need more than one satellite to establish a connection over multiple signal relays.\n[Click here to continue]]",
-        "> ORFS Mission Control:\nTo expand to other areas of Mars, use the maneuver button [MAN] to send a satellite into a new orbit. This will cost some fuel, but you can refuel the satellite using the [REF] button.\n[Click here to continue]]",
-        "> ORFS Mission Control:\nFor a full communication network, we may need to boost our satellite to the Geostationary Mars Orbit [GMO]. This will cost more fuel than what we have currently, so save up some money and use [FUEL+] to increase your capacity.\n[Click here to continue]]",
-        "> ORFS Mission Control:\nThis should be all the information you need. Reestablish communication with all colonies to over 90% uptime. The bar above your map shows your progress.\nThe colonies of Mars will be in your debt."
+        "> ORFS Mission Control:\nFirst, launch a satellite to establish visual contact and scan the surface. Use the <color=\"green\">[LAUNCH]</color> button on the right.\n[Click here to continue]]",
+        "> ORFS Mission Control:\nThe satellite should find some points of interest on the surface. Use the <color=\"green\">[RIGHT MOUSE BUTTON]</color> to rotate your view. Use the <color=\"green\">[SCROLL WHEEL]</color> to zoom.\n[Click here to continue]]",
+        "> ORFS Mission Control:\nWe need a closer look to see what we are dealing with. Equip your satellite with a camera <color=\"orange\">[CAM]</color> and scan the locations from Low Mars Orbit <color=\"green\">[LMO]</color>.\n[Click here to continue]]",
+        "> ORFS Mission Control:\nThere are three types of sites of interest.\nCraters can be scanned for resources using a satellite with the mineral sensor <color=\"red\">[MSE]</color>. The data is sold for money. Collect funding by clicking on a scanned site.\n[Click here to continue]]",
+        "> ORFS Mission Control:\nAbandoned sites are no longer of value to us, but can be photographed with a camera <color=\"orange\">[CAM]</color> for a small sum of money.\n[Click here to continue]]",
+        "> ORFS Mission Control:\nColonies are what we are looking for. Equip a satellite with a communication dish <color=\"blue\">[COM]</color> and ensure it can phone home to <color=\"green\">ORFS</color>. Try boosting your satellite to Medium Mars Orbit <color=\"green\">[MMO]</color> first. You may need more than one satellite to establish a connection over multiple signal relays.\n[Click here to continue]]",
+        "> ORFS Mission Control:\nTo expand to other areas of Mars, use the maneuver button <color=\"blue\">[MAN]</color> to send a satellite into a new orbit. This will cost some fuel, but you can refuel the satellite using the <color=\"blue\">[REF]</color> button.\n[Click here to continue]]",
+        "> ORFS Mission Control:\nFor a full communication network, we may need to boost our satellite to the Geostationary Mars Orbit <color=\"green\">[GMO]</color>. This will cost more fuel than what we have currently, so save up some money and use <color=\"blue\">[FUEL+]</color> to increase your capacity.\n[Click here to continue]]",
+        "> ORFS Mission Control:\nThis should be all the information you need. Reestablish communication with all colonies to over 90% uptime. The bar above your map shows your progress.\nThe colonies of Mars will be in your debt. Godspeed."
     }.ToList();
 
     private void Awake()
