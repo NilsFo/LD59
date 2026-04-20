@@ -2975,7 +2975,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1941429730508824475, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: description
-      value: Change to low mars orbit.
+      value: 'Change to low mars orbit
+
+        Satellites reveal martian surface
+        and sites while in this orbit.'
       objectReference: {fileID: 0}
     - target: {fileID: 2196164543189799725, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: m_Sprite
@@ -3365,8 +3368,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1941429730508824475, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: description
-      value: Change to geostationary mars orbit. This will keep the satellite in
-        place so it does not move.
+      value: 'Change to geostationary mars orbit.
+
+        This effectively keeps
+        the satellite in place so it does not move.'
       objectReference: {fileID: 0}
     - target: {fileID: 2196164543189799725, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: m_Sprite
@@ -3633,10 +3638,10 @@ PrefabInstance:
       propertyPath: description
       value: 'Change mode: Camera.
 
-        Reveals martian surface while in LMO.
+        Reveals sites and points of interest
+        while in LMO.
 
-        Photographs
-        abandoned sites from any orbit.'
+        Photographs abandoned sites from any orbit.'
       objectReference: {fileID: 0}
     - target: {fileID: 2196164543189799725, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: m_Sprite
@@ -3766,7 +3771,10 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1941429730508824475, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: description
-      value: Change to medum mars orbit.
+      value: 'Change to medum mars orbit.
+
+        Satellites reveal martian surface
+        while in this orbit.'
       objectReference: {fileID: 0}
     - target: {fileID: 2196164543189799725, guid: 0de502b47b91fce4ca505cd68d60df98, type: 3}
       propertyPath: m_Sprite
