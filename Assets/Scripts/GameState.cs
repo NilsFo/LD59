@@ -48,6 +48,7 @@ public class GameState : MonoBehaviour
     public Objective[] objectives;
     public Objective[] colonies;
     public float commUptime = 0f;
+    public float winning = 0f;
 
     [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
     public event Action<SatelliteInstance> OnSelectedSatelliteChanged;
@@ -124,8 +125,9 @@ public class GameState : MonoBehaviour
         {
             commUptime = 0f;
         }
-
-        if (commUptime >= winUptime)
+        
+        winning = commUptime / winUptime;
+        if (winning >= 1.0f)
         {
             playWin();
         }
