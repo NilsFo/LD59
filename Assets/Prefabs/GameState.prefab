@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 143916942937267964}
   - component: {fileID: 6526647676600779061}
-  - component: {fileID: 1234729011407369579}
   - component: {fileID: 2778121098870243101}
   - component: {fileID: 5680505794962426054}
   m_Layer: 0
@@ -65,38 +64,22 @@ MonoBehaviour:
   selectionState: 0
   _currentDelay: 0
   _maxDelay: 0.2
-  uptimeThreshold: 0.8
   winUptime: 30
   listOfSatellites: []
   economy: {fileID: 2778121098870243101}
   objectives: []
   colonies: []
   home: {fileID: 0}
-  commUptime: 0
   winning: 0
   selectedSatellite: {fileID: 0}
   prefabSatellite: {fileID: 7970513347705034793, guid: af377b3e53b120342ba115938c5b6f74, type: 3}
   prefabMiniMapIcon: {fileID: 3945830237297060368, guid: bf4fcb69a881079488388532ec05bd87, type: 3}
+  prefabFloatingText: {fileID: 5550755665023628024, guid: faf45129e781af24f95531e57150da25, type: 3}
   prefabOrbit: {fileID: 3949989248589237322, guid: 84a44b61f2e168b78beca49d57132f18, type: 3}
   templateOrbit: {fileID: 5017074930250875595}
   radioDisplay: {fileID: 0}
   descriptionDisplay: {fileID: 0}
   miniMapTransform: {fileID: 0}
---- !u!114 &1234729011407369579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6917025001172583946}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 59307e30b7e6424b81868798e607ebf4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeScale: 1
-  limitFPS: 0
-  targetFPS: 30
 --- !u!114 &2778121098870243101
 MonoBehaviour:
   m_ObjectHideFlags: 0

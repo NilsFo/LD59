@@ -124,6 +124,11 @@ Camera:
   m_CorrespondingSourceObject: {fileID: 2104295052497045706, guid: 3424855b47477fb439a575d1d76c6192, type: 3}
   m_PrefabInstance: {fileID: 734779848234504613}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1278401122 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2458147429782805048, guid: 0c079297f190bd4fbb8f1c66589dee11, type: 3}
+  m_PrefabInstance: {fileID: 2487642586952711038}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1669464839
 GameObject:
   m_ObjectHideFlags: 0
@@ -509,6 +514,10 @@ PrefabInstance:
       propertyPath: radioDisplay
       value: 
       objectReference: {fileID: 8182820032519256876}
+    - target: {fileID: 6526647676600779061, guid: d8ff428b66e29464f8f2de13c75c13b7, type: 3}
+      propertyPath: homeBasePosition
+      value: 
+      objectReference: {fileID: 1278401122}
     - target: {fileID: 6526647676600779061, guid: d8ff428b66e29464f8f2de13c75c13b7, type: 3}
       propertyPath: miniMapTransform
       value: 
