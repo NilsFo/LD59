@@ -36,7 +36,7 @@ public class GameState : MonoBehaviour
     [Header("Config")] public SelectionState selectionState = SelectionState.None;
     [SerializeField] private float _currentDelay = 0f;
     [SerializeField] private float _maxDelay = 5f;
-    
+
     [SerializeField] public float winUptime = 30f;
 
     [SerializeField] public List<SatelliteInstance> listOfSatellites;
@@ -48,7 +48,7 @@ public class GameState : MonoBehaviour
     public Objective[] objectives;
     public Objective[] colonies;
     public Objective home;
-    
+
     public float winning = 0f;
 
     [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
@@ -58,6 +58,7 @@ public class GameState : MonoBehaviour
 
     [Header("World Hookup")] public GameObject prefabSatellite;
     public GameObject prefabMiniMapIcon;
+    public GameObject prefabFloatingText;
     public GameObject prefabOrbit;
     public Orbit templateOrbit;
     private MusicManager _musicManager;
@@ -82,7 +83,6 @@ public class GameState : MonoBehaviour
         colonies = objectives.Where(objective => objective.objectiveType == Objective.ObjectiveTypeEnum.Colony)
             .ToArray();
         home = objectives.First(objective => objective.objectiveType == Objective.ObjectiveTypeEnum.Home);
-        
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -107,7 +107,7 @@ public class GameState : MonoBehaviour
         }
 
         UpdateOrbitPreview();
-        
+
         if (selectionState == SelectionState.Init)
         {
             _currentDelay -= Time.unscaledDeltaTime;
@@ -128,6 +128,7 @@ public class GameState : MonoBehaviour
             var colony = colonies[i];
             avgUptime += colony.CommunicationUptimeProzent;
         }
+
         avgUptime /= colonies.Length;
         winning = avgUptime;
     }
@@ -150,7 +151,7 @@ public class GameState : MonoBehaviour
             print("It's crowded up there! No more Sattellites");
             return false;
         }
-        
+
         var cost = CostOfNextSatellite();
         var newBalance = economy.Money - cost;
         if (newBalance >= 0)
@@ -165,7 +166,7 @@ public class GameState : MonoBehaviour
 
             Orbit orbit = orbitInstance.GetComponent<Orbit>();
             //orbit.SetFromIncEq(Random.Range(-80, 80), Random.Range(0, 359));
-            orbit.SetFromIncEq(34f,90f);
+            orbit.SetFromIncEq(34f, 90f);
 
             SatelliteInstance sat = satInstance.GetComponent<SatelliteInstance>();
             sat.orbit = orbit;
@@ -188,9 +189,10 @@ public class GameState : MonoBehaviour
         {
             index = costOfSatellite.Length - 1;
         }
+
         return costOfSatellite[index];
     }
-    
+
     public void SetSelectedSatellite(SatelliteInstance sat = null, bool skipDelay = false)
     {
         if (sat == null)
@@ -320,5 +322,9 @@ public class GameState : MonoBehaviour
     public void BackToMenu()
     {
         SceneManager.LoadScene("MainMenu");
+    }
+
+    public void ShowFloatingText(string text, Color color)
+    {
     }
 }
