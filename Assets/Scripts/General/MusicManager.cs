@@ -12,7 +12,7 @@ public class MusicManager : MonoBehaviour
     public GameObject temporalAudioPlayerPrefab;
     public static float userDesiredMusicVolume = 1f;
     public static float userDesiredSoundVolume = 1f;
-    public static float userDesiredMasterVolume = 1f;
+    public static float userDesiredMasterVolume = 0.5f;
 
     [Header("Custom sound level balance")] [Range(0, 1)]
     public float baselineMusicVolume = 1.0f;

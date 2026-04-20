@@ -100,7 +100,6 @@ public class GameState : MonoBehaviour
         Application.targetFrameRate = 60;
         musicManager.Stop();
         musicManager.Play(1, stopOthers: true);
-        MusicManager.userDesiredMasterVolume = 0.5f;
     }
 
     // Update is called once per frame
