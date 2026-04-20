@@ -27,10 +27,10 @@ public class MiniMapRepresented : MonoBehaviour
         float lat = pos.y;
         // print("lat:" + lat + "lon:" + lon);
 
-        lon = ((lon - 90) % 360) / 360f;
+        lon = ((lon * -1 + 90+360) % 360) / 360f;
         lat = lat / 180f;
 
-        float x = (lon - .25f) * _gameState.miniMapTransform.rect.width;
+        float x = (lon - .5f) * _gameState.miniMapTransform.rect.width;
         float y = (lat) * _gameState.miniMapTransform.rect.height;
 
         _rect.anchoredPosition = new Vector2(x, y);

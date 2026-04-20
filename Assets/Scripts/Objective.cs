@@ -243,8 +243,6 @@ public class Objective : MonoBehaviour
 
         if (objectiveType == ObjectiveTypeEnum.Colony)
         {
-            //TODO check if Sat has Connection mit andere Colonie & Base
-            
             //Get Count als Multi
             if (caller.satFunction != SatelliteInstance.SatFunctions.COMM)
             {
