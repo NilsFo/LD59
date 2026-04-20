@@ -74,6 +74,7 @@ public class Objective : MonoBehaviour
         {
             float currentUptime = commUpTime;
             currentUptime /= _gameState.winUptime;
+            if (currentUptime > 1.0f) return 1.0f;
             return currentUptime; 
         }
     }
