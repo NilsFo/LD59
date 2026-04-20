@@ -205,10 +205,12 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        displayScript.costTF.text = GetCost();
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
+        displayScript.costTF.text = "";
     }
 
     public void OnPointerClick(PointerEventData eventData)
