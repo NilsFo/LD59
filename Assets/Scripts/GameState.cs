@@ -72,7 +72,7 @@ public class GameState : MonoBehaviour
         _timeScaler = FindFirstObjectByType<TimeScaler>();
         _mainCamera = FindFirstObjectByType<Camera>();
         _musicManager = FindAnyObjectByType<MusicManager>();
-        templateOrbit.gameObject.SetActive(false);
+        templateOrbit.Hide();
         _globalSignalStrength = FindFirstObjectByType<GlobalSignalStrength>();
 
         objectives = FindObjectsByType<Objective>(FindObjectsInactive.Exclude, FindObjectsSortMode.InstanceID);
@@ -109,11 +109,9 @@ public class GameState : MonoBehaviour
             economy.Money += 100;
         }
 
-        if (selectionState == SelectionState.SatelliteReroute)
-        {
-            UpdateOrbitPreview();
-        }
-        else if (selectionState == SelectionState.Init)
+        UpdateOrbitPreview();
+        
+        if (selectionState == SelectionState.Init)
         {
             _currentDelay -= Time.unscaledDeltaTime;
             if (_currentDelay <= 0f)
@@ -221,6 +219,7 @@ public class GameState : MonoBehaviour
             selectionState = SelectionState.Init;
             if (skipDelay) selectionState = SelectionState.Selected;
             selectedSatellite = sat;
+            sat.IsSelected = true;
             OnSelectedSatelliteChanged?.Invoke(sat);
         }
     }
@@ -239,7 +238,7 @@ public class GameState : MonoBehaviour
 
                 float newOmega = templateOrbit.SetNewOrbit(selectedSatellite.transform.position, hit.point);
                 templateOrbit.height = selectedSatellite.orbit.height;
-                templateOrbit.gameObject.SetActive(true);
+                templateOrbit.Show();
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
                     if (selectedSatellite.CanAffordChangeOrbit())
@@ -247,7 +246,7 @@ public class GameState : MonoBehaviour
                         selectedSatellite.payChangeOrbit();
                         var newOrbit = Instantiate(templateOrbit, Vector3.zero, Quaternion.identity);
                         newOrbit.SetFromOrbit(templateOrbit);
-                        newOrbit.GetComponentInChildren<OrbitViz3D>().isPreview = false;
+                        newOrbit.orbitViz3D.isPreview = false;
                         selectedSatellite.SwitchOrbit(newOrbit, newOmega);
                         SetSelectedSatellite(); //Reset
                     }
@@ -260,12 +259,12 @@ public class GameState : MonoBehaviour
             }
             else
             {
-                templateOrbit.gameObject.SetActive(false);
+                templateOrbit.Hide();
             }
         }
         else
         {
-            templateOrbit.gameObject.SetActive(false);
+            templateOrbit.Hide();
         }
     }
 

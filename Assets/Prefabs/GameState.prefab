@@ -57,6 +57,7 @@ MonoBehaviour:
   commCost: 500
   refuelCost: 1000
   fuelPlusCost: 200
+  fuelPlusAmount: 25
   changeOrbitCostFuel: 25
   leoCostFuel: 25
   meoCostFuel: 50
@@ -70,13 +71,17 @@ MonoBehaviour:
   economy: {fileID: 2778121098870243101}
   objectives: []
   colonies: []
+  home: {fileID: 0}
   commUptime: 0
+  winning: 0
   selectedSatellite: {fileID: 0}
   prefabSatellite: {fileID: 7970513347705034793, guid: af377b3e53b120342ba115938c5b6f74, type: 3}
+  prefabMiniMapIcon: {fileID: 0}
   prefabOrbit: {fileID: 3949989248589237322, guid: 84a44b61f2e168b78beca49d57132f18, type: 3}
   templateOrbit: {fileID: 5017074930250875595}
   radioDisplay: {fileID: 0}
   descriptionDisplay: {fileID: 0}
+  miniMapTransform: {fileID: 0}
 --- !u!114 &1234729011407369579
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,7 +215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3949989248589237322, guid: 84a44b61f2e168b78beca49d57132f18, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8558374890020363382, guid: 84a44b61f2e168b78beca49d57132f18, type: 3}
       propertyPath: m_LocalPosition.x

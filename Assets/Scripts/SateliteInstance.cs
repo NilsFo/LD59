@@ -229,10 +229,14 @@ public class SatelliteInstance : MonoBehaviour
                         case Objective.ObjectiveTypeEnum.Colony:
                             inSight = colony < dot;
                             break;
+                        case Objective.ObjectiveTypeEnum.Home:
+                            inSight = colony < dot;
+                            break;
                     }
 
                     break;
                 case Objective.ObjectiveStateEnum.Completed:
+                    inSight = colony < dot;
                     break;
                 default:
                     throw new ArgumentOutOfRangeException();
