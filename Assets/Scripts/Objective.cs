@@ -296,7 +296,7 @@ public class Objective : MonoBehaviour
             {
                 povProgress = 0f;
                 _gameState.economy.Money += payout;
-                ObjectiveState = ObjectiveStateEnum.Completed;
+                //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat MineralSurvey
             }
         }
         else if (objectiveType == ObjectiveTypeEnum.AbandonedSite)
@@ -317,7 +317,7 @@ public class Objective : MonoBehaviour
             {
                 povProgress = 0f;
                 _gameState.economy.Money += payout;
-                ObjectiveState = ObjectiveStateEnum.Completed;
+                //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat AbandonedSite
             }
         }
         else

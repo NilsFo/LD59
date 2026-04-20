@@ -923,6 +923,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4327541186844250535, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b7d044d12261d0b42a1ccced522a65ce, type: 2}
     - target: {fileID: 4565615088542195623, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: miniMapSprite
       value: 
