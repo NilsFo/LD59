@@ -470,7 +470,7 @@ public class SatelliteInstance : MonoBehaviour
     {
         if (CanAffordComm() && HasNeedForComm())
         {
-            _gameState.economy.Money -= _gameState.camCost;
+            _gameState.economy.Money -= _gameState.commCost;
             SatFunction = SatFunctions.COMM;
             OnSatFunktionChanged?.Invoke(SatFunction);
             return true;
@@ -481,7 +481,7 @@ public class SatelliteInstance : MonoBehaviour
 
     public bool CanAffordComm()
     {
-        return _gameState.economy.Money >= _gameState.camCost;
+        return _gameState.economy.Money >= _gameState.commCost;
     }
 
     public bool HasNeedForComm()
