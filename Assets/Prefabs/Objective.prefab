@@ -263,6 +263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   miniMapSprite: {fileID: 0}
+  _iconObj: {fileID: 0}
 --- !u!1001 &6944285376194808021
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -327,6 +328,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -2571118854743697038, guid: 8b72ef13d71fae7bea84dfaa285d398a, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c229af42889340646ab4d898a6f40ad6, type: 2}
     - target: {fileID: 919132149155446097, guid: 8b72ef13d71fae7bea84dfaa285d398a, type: 3}
       propertyPath: m_Name
       value: Colony
@@ -405,6 +410,10 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 3b763f124abb80b3292db88bc18ac5cb, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: b46cb1bdc9628414c92993972f3285be, type: 2}
     - target: {fileID: 919132149155446097, guid: 3b763f124abb80b3292db88bc18ac5cb, type: 3}
       propertyPath: m_Name
       value: AbandondSite

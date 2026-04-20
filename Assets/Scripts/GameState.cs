@@ -36,9 +36,8 @@ public class GameState : MonoBehaviour
     [Header("Config")] public SelectionState selectionState = SelectionState.None;
     [SerializeField] private float _currentDelay = 0f;
     [SerializeField] private float _maxDelay = 5f;
-
-    [SerializeField] private float uptimeThreshold = 0.8f;
-    [SerializeField] private float winUptime = 30f;
+    
+    [SerializeField] public float winUptime = 30f;
 
     [SerializeField] public List<SatelliteInstance> listOfSatellites;
 
@@ -49,7 +48,7 @@ public class GameState : MonoBehaviour
     public Objective[] objectives;
     public Objective[] colonies;
     public Objective home;
-    public float commUptime = 0f;
+    
     public float winning = 0f;
 
     [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
@@ -118,25 +117,19 @@ public class GameState : MonoBehaviour
             }
         }
 
-        if (HasAllColoniesConnection())
-        {
-            commUptime += Time.deltaTime;
-            //TODO Maybe Set State and Display Connections on all Satellites
-        }
-        else
-        {
-            commUptime = 0f;
-        }
-
-        winning = commUptime / winUptime;
+        CalcUptime();
     }
 
-    private bool HasAllColoniesConnection()
+    private void CalcUptime()
     {
-        if (colonies.Length < 3) return false;
-        Objective[] belowThreshold =
-            colonies.Where(objective => objective.CommunicationUptime < uptimeThreshold).ToArray();
-        return belowThreshold.Length == 0;
+        float avgUptime = 0f;
+        for (int i = 0; i < colonies.Length; i++)
+        {
+            var colony = colonies[i];
+            avgUptime += colony.CommunicationUptimeProzent;
+        }
+        avgUptime /= colonies.Length;
+        winning = avgUptime;
     }
 
     private void OnNewSelectionState()
@@ -157,14 +150,9 @@ public class GameState : MonoBehaviour
             print("It's crowded up there! No more Sattellites");
             return false;
         }
-
-        int index = listOfSatellites.Count;
-        if (index > costOfSatellite.Length - 1)
-        {
-            index = costOfSatellite.Length - 1;
-        }
-
-        var newBalance = economy.Money - costOfSatellite[index];
+        
+        var cost = CostOfNextSatellite();
+        var newBalance = economy.Money - cost;
         if (newBalance >= 0)
         {
             print("Buying a sat.");
@@ -191,6 +179,16 @@ public class GameState : MonoBehaviour
         return false;
     }
 
+    public int CostOfNextSatellite()
+    {
+        int index = listOfSatellites.Count;
+        if (index > costOfSatellite.Length - 1)
+        {
+            index = costOfSatellite.Length - 1;
+        }
+        return costOfSatellite[index];
+    }
+    
     public void SetSelectedSatellite(SatelliteInstance sat = null, bool skipDelay = false)
     {
         if (sat == null)
