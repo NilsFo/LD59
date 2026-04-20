@@ -36,6 +36,7 @@ public class Objective : MonoBehaviour
     [SerializeField] private float discoverCooldown = 3f;
     [SerializeField] private float exploreCooldown = 3f;
     [SerializeField] private float excavateCooldown = 3f;
+    [SerializeField] private float completedCooldown = 15f;
 
     [Header("Colony")] [SerializeField] private float colonyUptimeDecay = 0.2f; //Decay of Uptime
     [SerializeField] private float colonyUptime = 2.0f; //Amount of Uptime
@@ -125,6 +126,8 @@ public class Objective : MonoBehaviour
                 miniMapRepresented.Explored();
             }
         }
+        
+        if(ObjectiveState == ObjectiveStateEnum.Completed) currentCooldown = completedCooldown; //Base Income
     }
 
 
@@ -166,6 +169,13 @@ public class Objective : MonoBehaviour
         {
             // Play logic
             if (currentCooldown > 0) currentCooldown -= Time.deltaTime;
+            if (ObjectiveState == ObjectiveStateEnum.Completed && currentCooldown <= 0) //Base Income
+            {
+                paydayAvailable = true;
+                paydayAvailableViz.gameObject.SetActive(true);
+                currentCooldown = completedCooldown;
+            }
+            
             if (
                 objectiveType == ObjectiveTypeEnum.Colony
                 && commUpTime > 0
