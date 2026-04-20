@@ -65,12 +65,16 @@ public class GameState : MonoBehaviour
     [SerializeField] private TextScroller descriptionDisplay;
     public RectTransform miniMapTransform;
     private GlobalSignalStrength _globalSignalStrength;
+    private RadioTextStack _radioTextStack;
+
+    // [Header("Tutorial texte")] public List<string> welcomeTutorialTexts;
 
     private void Awake()
     {
         _timeScaler = FindFirstObjectByType<TimeScaler>();
         _mainCamera = FindFirstObjectByType<Camera>();
         _musicManager = FindAnyObjectByType<MusicManager>();
+        _radioTextStack = FindFirstObjectByType<RadioTextStack>();
         templateOrbit.Hide();
         _globalSignalStrength = FindFirstObjectByType<GlobalSignalStrength>();
 
@@ -90,12 +94,6 @@ public class GameState : MonoBehaviour
         _musicManager.Stop();
         _musicManager.Play(1, stopOthers: true);
         MusicManager.userDesiredMasterVolume = 0.5f;
-
-        DisplayRadioMsg("Hey kid.\n" +
-                        "You are a new guy on the job. Since you graduated idiot school, " +
-                        "I will show you the ropes.\n" +
-                        "This is gonna take a lot of text to describe all you have to do.\n" +
-                        "But this text is very long to compensate for your stupidity.");
     }
 
     // Update is called once per frame
@@ -263,7 +261,7 @@ public class GameState : MonoBehaviour
 
     public void DisplayRadioMsg(string text, bool instantly = false)
     {
-        radioDisplay.DisplayText(text, instantly);
+        _radioTextStack.DisplayMsg(text);
     }
 
     public void DisplayDescription(string text, bool instantly = false)
