@@ -23,6 +23,7 @@ public class LaunchButtonCostText : MonoBehaviour, IPointerEnterHandler, IPointe
         {
             onClick = new UnityEvent();
         }
+        costTF.text = "";
     }
 
     // Update is called once per frame
