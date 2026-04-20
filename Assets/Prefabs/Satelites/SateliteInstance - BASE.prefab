@@ -449,6 +449,7 @@ GameObject:
   - component: {fileID: 2963246432289856120}
   - component: {fileID: 6803123685264841383}
   - component: {fileID: 2435133557367980837}
+  - component: {fileID: 1657858914408928555}
   m_Layer: 0
   m_Name: SateliteInstance - BASE
   m_TagString: Untagged
@@ -542,6 +543,20 @@ MonoBehaviour:
   description: BOII
   keep: 0
   instantly: 0
+--- !u!114 &1657858914408928555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7970513347705034793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cf65168e2cf4364ab810ae1f0f838df, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  miniMapSprite: {fileID: 21300000, guid: 03162294f0e84ca4eb369959c423551d, type: 3}
+  _iconObj: {fileID: 0}
 --- !u!1 &8230744325072750880
 GameObject:
   m_ObjectHideFlags: 0
