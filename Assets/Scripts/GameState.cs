@@ -186,7 +186,7 @@ public class GameState : MonoBehaviour
             {
                 DisplayRadioMsg("> ORFS Mission Control:\n" +
                                 "Congratulations on your first launch!\n" +
-                                "You can change the mode and orbit of your satellite with the panels on the right.\n" +
+                                "You can change the equipment and orbit of your satellite with the panels on the right.\n" +
                                 "You can launch more satellites as you seem fit.\n\n" +
                                 "[Click here to continue.]");
             }
