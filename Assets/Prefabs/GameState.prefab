@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6526647676600779061}
   - component: {fileID: 1234729011407369579}
   - component: {fileID: 2778121098870243101}
+  - component: {fileID: 5680505794962426054}
   m_Layer: 0
   m_Name: GameState
   m_TagString: Untagged
@@ -104,6 +105,27 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   money: 200000
+--- !u!114 &5680505794962426054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6917025001172583946}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d1e62ff060681441b870f33bb06b593, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  texture: {fileID: 0}
+  width: 1600
+  height: 1600
+  hiddenColor: {r: 0, g: 0, b: 0, a: 1}
+  revealColor: {r: 1, g: 1, b: 1, a: 0}
+  hasChanges: 0
+  onFogOfWarChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &4039185744172549839
 PrefabInstance:
   m_ObjectHideFlags: 0

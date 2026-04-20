@@ -17,6 +17,7 @@ public class GameState : MonoBehaviour
 
     public int refuelCost = 1000;
     public int fuelPlusCost = 200;
+    public int fuelPlusAmount = 25;
 
     public int changeOrbitCostFuel = 25;
     public int leoCostFuel = 25;
@@ -38,7 +39,7 @@ public class GameState : MonoBehaviour
     [SerializeField] private float uptimeThreshold = 0.8f;
     [SerializeField] private float winUptime = 30f;
 
-    [SerializeField] private List<GameObject> listOfSatellites;
+    public List<GameObject> listOfSatellites;
 
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;

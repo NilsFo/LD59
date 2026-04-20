@@ -10,6 +10,7 @@ public class SatelliteInstance : MonoBehaviour
 {
     public enum SatFunctions
     {
+        NONE,
         CAM,
         SCAN,
         COMM
@@ -32,7 +33,7 @@ public class SatelliteInstance : MonoBehaviour
     public Color color;
     public Color colorMuted;
 
-    public SatFunctions satFunction = SatFunctions.CAM;
+    public SatFunctions satFunction = SatFunctions.NONE;
     public event Action<SatFunctions> OnSatFunktionChanged;
 
     [Header("Properties")] public Vector2 position;
@@ -277,7 +278,7 @@ public class SatelliteInstance : MonoBehaviour
             newName += Glyphs[Random.Range(0, Glyphs.Length)];
         }
 
-        newName += "-" + Random.Range(1, 10);
+        newName += "-" + (_gameState.listOfSatellites.Count + 1);
         return newName;
     }
 
@@ -285,10 +286,16 @@ public class SatelliteInstance : MonoBehaviour
     {
         return _gameState.economy.Money >= _gameState.camCost;
     }
+    
+    public bool HasNeedForCam()
+    {
+        if (satFunction == SatFunctions.CAM) return false;
+        return true;
+    }
 
     public bool BuyCam()
     {
-        if (CanAffordCam())
+        if (CanAffordCam() && HasNeedForCam())
         {
             _gameState.economy.Money -= _gameState.camCost;
             satFunction = SatFunctions.CAM;
@@ -301,7 +308,7 @@ public class SatelliteInstance : MonoBehaviour
 
     public bool BuyScan()
     {
-        if (CanAffordScan())
+        if (CanAffordScan() && HasNeedForScan())
         {
             _gameState.economy.Money -= _gameState.scanCost;
             satFunction = SatFunctions.SCAN;
@@ -316,10 +323,16 @@ public class SatelliteInstance : MonoBehaviour
     {
         return _gameState.economy.Money >= _gameState.scanCost;
     }
+    
+    public bool HasNeedForScan()
+    {
+        if (satFunction == SatFunctions.SCAN) return false;
+        return true;
+    }
 
     public bool BuyComm()
     {
-        if (CanAffordComm())
+        if (CanAffordComm() && HasNeedForComm())
         {
             _gameState.economy.Money -= _gameState.camCost;
             satFunction = SatFunctions.COMM;
@@ -334,10 +347,16 @@ public class SatelliteInstance : MonoBehaviour
     {
         return _gameState.economy.Money >= _gameState.camCost;
     }
+    
+    public bool HasNeedForComm()
+    {
+        if (satFunction == SatFunctions.COMM) return false;
+        return true;
+    }
 
     public bool BuyLeo()
     {
-        if (CanAffordLeo())
+        if (CanAffordLeo() && HasNeedForLeo())
         {
             fuelCurrent -= _gameState.leoCostFuel;
             orbit.SetLeo();
@@ -352,9 +371,15 @@ public class SatelliteInstance : MonoBehaviour
         return fuelCurrent >= _gameState.leoCostFuel;
     }
 
+    public bool HasNeedForLeo()
+    {
+        if (orbit.targetOrbitState == Orbit.OrbitState.LEO) return false;
+        return true;
+    }
+    
     public bool BuyMeo()
     {
-        if (CanAffordMeo())
+        if (CanAffordMeo() && HasNeedForMeo())
         {
             fuelCurrent -= _gameState.meoCostFuel;
             orbit.SetMeo();
@@ -367,6 +392,12 @@ public class SatelliteInstance : MonoBehaviour
     public bool CanAffordMeo()
     {
         return fuelCurrent >= _gameState.meoCostFuel;
+    }
+    
+    public bool HasNeedForMeo()
+    {
+        if (orbit.targetOrbitState == Orbit.OrbitState.MEO) return false;
+        return true;
     }
 
     public bool CanAffordChangeOrbit()
@@ -394,7 +425,7 @@ public class SatelliteInstance : MonoBehaviour
 
     public bool BuyGeo()
     {
-        if (CanAffordGeo())
+        if (CanAffordGeo() && HasNeedForGeo())
         {
             fuelCurrent -= _gameState.meoCostFuel;
             orbit.SetGeo();
@@ -408,10 +439,16 @@ public class SatelliteInstance : MonoBehaviour
     {
         return fuelCurrent >= _gameState.meoCostFuel;
     }
+    
+    public bool HasNeedForGeo()
+    {
+        if (orbit.targetOrbitState == Orbit.OrbitState.GEO) return false;
+        return true;
+    }
 
     public bool BuyRefuel()
     {
-        if (CanAffordRefuel())
+        if (CanAffordRefuel() && HasNeedForRefuel())
         {
             _gameState.economy.Money -= _gameState.refuelCost;
             fuelCurrent = fuelMax;
@@ -426,12 +463,18 @@ public class SatelliteInstance : MonoBehaviour
         return _gameState.economy.Money >= _gameState.refuelCost;
     }
 
+    public bool HasNeedForRefuel()
+    {
+        if (fuelCurrent == fuelMax) return false; //Dont Need to Refule
+        return true;
+    }
+
     public bool BuyPlusFuel()
     {
         if (CanAffordPlusFuel())
         {
             _gameState.economy.Money -= _gameState.refuelCost;
-            fuelMax += 25;
+            fuelMax += _gameState.fuelPlusAmount;
             fuelCurrent = fuelMax;
             return true;
         }
