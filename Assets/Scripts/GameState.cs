@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using JetBrains.Annotations;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 
 public class GameState : MonoBehaviour
 {
@@ -324,7 +324,13 @@ public class GameState : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void ShowFloatingText(string text, Color color)
+    public void ShowFloatingText(Vector3 position, string text, Color color)
     {
+        GameObject textObj = Instantiate(prefabFloatingText, Vector3.zero, Quaternion.identity);
+        TMP_Text textTF = textObj.GetComponentInChildren<TMP_Text>();
+        textTF.text = text;
+        textTF.color = color;
+
+        textObj.transform.LookAt(position);
     }
 }
