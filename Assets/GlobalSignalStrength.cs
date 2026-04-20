@@ -15,6 +15,7 @@ public class GlobalSignalStrength : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _gameState = FindFirstObjectByType<GameState>();
     }
 
     // Update is called once per frame

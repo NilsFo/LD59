@@ -18,7 +18,10 @@ public class Orbit : MonoBehaviour
     public Vector3 OrbitAxis { get; private set; } = Vector3.up;
     public Vector3 OrbitStart { get; private set; } = Vector3.left;
     public float height = 1.1f;
+    
     public float rotationSpeed = 10.0f;
+    public float rotationSpeedMeo = 5.0f;
+    public float rotationSpeedGeo = 0.0f;
 
     public float ascendingSpeed = 10.0f;
     public float descendingSpeed = 10.0f;
@@ -78,7 +81,6 @@ public class Orbit : MonoBehaviour
                     height = MeoValue;
                     OnOrbitChanged?.Invoke(orbitState);
                 }
-
                 if (height >= GeoValue)
                 {
                     orbitState = OrbitState.GEO;
@@ -129,6 +131,11 @@ public class Orbit : MonoBehaviour
                     OnOrbitChanged?.Invoke(orbitState);
                 }
             }
+        }
+
+        if (orbitState == OrbitState.GEO)
+        {
+            Hide();
         }
     }
 
@@ -211,6 +218,7 @@ public class Orbit : MonoBehaviour
 
     public void Show()
     {
+        if(orbitState == OrbitState.GEO) return;
         IsVisible = true;
         orbitViz3D.gameObject.SetActive(true);
     }
@@ -219,5 +227,15 @@ public class Orbit : MonoBehaviour
     {
         IsVisible = false;
         orbitViz3D.gameObject.SetActive(false);
+    }
+
+    public float Speed
+    {
+        get
+        {
+            if (orbitState == OrbitState.GEO) return rotationSpeedGeo;
+            if (orbitState == OrbitState.MEO) return rotationSpeedMeo;
+            return rotationSpeed;
+        }
     }
 }
