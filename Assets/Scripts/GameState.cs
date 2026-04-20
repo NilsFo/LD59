@@ -18,6 +18,7 @@ public class GameState : MonoBehaviour
 
     public int refuelCost = 1000;
     public int fuelPlusCost = 200;
+    public int fuelPlusAmount = 25;
 
     public int changeOrbitCostFuel = 25;
     public int leoCostFuel = 25;
@@ -39,7 +40,7 @@ public class GameState : MonoBehaviour
     [SerializeField] private float uptimeThreshold = 0.8f;
     [SerializeField] private float winUptime = 30f;
 
-    [SerializeField] private List<GameObject> listOfSatellites;
+    [SerializeField] public List<SatelliteInstance> listOfSatellites;
 
     public TimeScaler TimeScaler => _timeScaler;
     private TimeScaler _timeScaler;
@@ -48,6 +49,7 @@ public class GameState : MonoBehaviour
     public Objective[] objectives;
     public Objective[] colonies;
     public float commUptime = 0f;
+    public float winning = 0f;
 
     [SerializeField] [CanBeNull] private SatelliteInstance selectedSatellite;
     public event Action<SatelliteInstance> OnSelectedSatelliteChanged;
@@ -80,7 +82,7 @@ public class GameState : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        if (listOfSatellites == null) listOfSatellites = new List<GameObject>();
+        if (listOfSatellites == null) listOfSatellites = new List<SatelliteInstance>();
 
         Application.targetFrameRate = 60;
         _musicManager.Stop();
@@ -126,8 +128,9 @@ public class GameState : MonoBehaviour
         {
             commUptime = 0f;
         }
-
-        if (commUptime >= winUptime)
+        
+        winning = commUptime / winUptime;
+        if (winning >= 1.0f)
         {
             playWin();
         }
@@ -180,7 +183,7 @@ public class GameState : MonoBehaviour
 
             GameObject orbitInstance = Instantiate(prefabOrbit, Vector3.zero, Quaternion.identity);
             GameObject satInstance = Instantiate(prefabSatellite, transform);
-            listOfSatellites.Add(satInstance);
+            listOfSatellites.Add(satInstance.GetComponent<SatelliteInstance>());
 
             Orbit orbit = orbitInstance.GetComponent<Orbit>();
             orbit.SetFromIncEq(Random.Range(-80, 80), Random.Range(0, 359));
@@ -245,11 +248,20 @@ public class GameState : MonoBehaviour
                 templateOrbit.gameObject.SetActive(true);
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
-                    var newOrbit = Instantiate(templateOrbit, Vector3.zero, Quaternion.identity);
-                    newOrbit.SetFromOrbit(templateOrbit);
-                    newOrbit.GetComponentInChildren<OrbitViz3D>().isPreview = false;
-                    selectedSatellite.SwitchOrbit(newOrbit, newOmega);
-                    SetSelectedSatellite(); //Reset
+                    if (selectedSatellite.CanAffordChangeOrbit())
+                    {
+                        selectedSatellite.payChangeOrbit();
+                        var newOrbit = Instantiate(templateOrbit, Vector3.zero, Quaternion.identity);
+                        newOrbit.SetFromOrbit(templateOrbit);
+                        newOrbit.GetComponentInChildren<OrbitViz3D>().isPreview = false;
+                        selectedSatellite.SwitchOrbit(newOrbit, newOmega);
+                        SetSelectedSatellite(); //Reset
+                    }
+                    else
+                    {
+                        //TODO Feedback User can afford ChangeOrbit
+                        print("Ups! You can't afford that! Not enough fule left!");
+                    }
                 }
             }
             else

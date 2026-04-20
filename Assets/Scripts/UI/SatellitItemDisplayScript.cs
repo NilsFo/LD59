@@ -22,7 +22,7 @@ namespace UI
                 fuelTF.SetText("Fuel: " + satelliteInstance.fuelCurrent + "/" + satelliteInstance.fuelMax);
 
                 nameTF.color = Color.white;
-                if (satelliteInstance.isHighLighted)
+                if (satelliteInstance.IsHighLighted)
                 {
                     nameTF.color = satelliteInstance.colorMuted;
                 }

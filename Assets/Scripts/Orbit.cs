@@ -27,6 +27,10 @@ public class Orbit : MonoBehaviour
     public OrbitState targetOrbitState = OrbitState.LEO;
     public event Action<OrbitState> OnOrbitChanged;
 
+    public OrbitViz3D orbitViz3D;
+    
+    public bool IsVisible { get; private set; }
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Awake()
     {
@@ -44,6 +48,10 @@ public class Orbit : MonoBehaviour
             default:
                 throw new ArgumentOutOfRangeException();
         }
+        if(IsVisible)
+            Show();
+        else
+            Hide();
     }
 
     public void SetFromIncEq(float inclination, float equator)
@@ -199,5 +207,17 @@ public class Orbit : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void Show()
+    {
+        IsVisible = true;
+        orbitViz3D.gameObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        IsVisible = false;
+        orbitViz3D.gameObject.SetActive(false);
     }
 }

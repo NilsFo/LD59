@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class FogOfWarBehaviourScript : MonoBehaviour
+public class FogOfWar : MonoBehaviour
 {
     public Texture2D texture;
 
@@ -26,11 +26,6 @@ public class FogOfWarBehaviourScript : MonoBehaviour
     void Start()
     {
         DrawRectangle(hiddenColor, 0, 0, width-1, height-1);
-        RevealCircleAt(200, 200, 45);
-        RevealCircleAt(800, 200, 300);
-        RevealCircleAt(952, 745, 50);
-        RevealCircleAt(1400, 1255, 150);
-        
         hasChanges = true;
     }
     
