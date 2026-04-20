@@ -113,6 +113,15 @@ public class Objective : MonoBehaviour
         _gameState = FindFirstObjectByType<GameState>();
         UpdateDescription();
         objectiveStateChanged.AddListener(_ => UpdateDescription());
+        
+        if (ObjectiveState == ObjectiveStateEnum.Unexplored)
+        {
+            miniMapRepresented.Unexplored();
+        }
+        else if (ObjectiveState == ObjectiveStateEnum.Explored || ObjectiveState == ObjectiveStateEnum.Completed)
+        {
+            miniMapRepresented.Explored();
+        }
     }
 
 
