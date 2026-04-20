@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   costTF: {fileID: 0}
+  inOrbitTF: {fileID: 0}
   onClick:
     m_PersistentCalls:
       m_Calls:
@@ -314,3 +315,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  launchButtonImage: {fileID: 2238559006623436260}
+  canAffordSprite: {fileID: 21300000, guid: 0bd1ee48267a5cf46aefba1915f4db1a, type: 3}
+  canNotAffordSprite: {fileID: 21300000, guid: b359c4991f5e67b488b2c172a832a12e, type: 3}

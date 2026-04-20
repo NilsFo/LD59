@@ -180,6 +180,7 @@ public class GameState : MonoBehaviour
         }
         else
         {
+            DisplayDescription("Insufficient funding!",false);
             print("I can't give credit. Come back when you are... richer!");
         }
 

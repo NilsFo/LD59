@@ -75,9 +75,8 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
 
         if (!CanAfford())
         {
-            var err = "Sorry player, this satellite can't give credit. Come back when you are little bit... richer!";
-            Debug.Log(err);
-            _gameState.DisplayDescription(err, false);
+            Debug.Log("Sorry player, this satellite can't give credit. Come back when you are little bit... richer!");
+            _gameState.DisplayDescription("Insufficient funding or fuel!", false);
 
             return;
         }
