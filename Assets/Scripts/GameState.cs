@@ -240,11 +240,20 @@ public class GameState : MonoBehaviour
                 templateOrbit.gameObject.SetActive(true);
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
-                    var newOrbit = Instantiate(templateOrbit, Vector3.zero, Quaternion.identity);
-                    newOrbit.SetFromOrbit(templateOrbit);
-                    newOrbit.GetComponentInChildren<OrbitViz3D>().isPreview = false;
-                    selectedSatellite.SwitchOrbit(newOrbit, newOmega);
-                    SetSelectedSatellite(); //Reset
+                    if (selectedSatellite.CanAffordChangeOrbit())
+                    {
+                        selectedSatellite.payChangeOrbit();
+                        var newOrbit = Instantiate(templateOrbit, Vector3.zero, Quaternion.identity);
+                        newOrbit.SetFromOrbit(templateOrbit);
+                        newOrbit.GetComponentInChildren<OrbitViz3D>().isPreview = false;
+                        selectedSatellite.SwitchOrbit(newOrbit, newOmega);
+                        SetSelectedSatellite(); //Reset
+                    }
+                    else
+                    {
+                        //TODO Feedback User can afford ChangeOrbit
+                        print("Ups! You can't afford that! Not enough fule left!");
+                    }
                 }
             }
             else

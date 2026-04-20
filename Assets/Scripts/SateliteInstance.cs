@@ -44,7 +44,8 @@ public class SatelliteInstance : MonoBehaviour
 
     private GameState _gameState;
     private SatellitDisplayScript _displayScript;
-
+    private FogOfWar _fogOfWar;
+    
     public event Action OnSatelliteDestroy;
 
     public float omega;
@@ -70,6 +71,7 @@ public class SatelliteInstance : MonoBehaviour
     {
         _gameState = FindFirstObjectByType<GameState>();
         _displayScript = FindFirstObjectByType<SatellitDisplayScript>();
+        _fogOfWar = FindFirstObjectByType<FogOfWar>();
         SetNewName();
     }
 
@@ -107,6 +109,7 @@ public class SatelliteInstance : MonoBehaviour
     {
         UpdateObjectivesInSight();
         ObjectivePayday();
+        RevealFogOfWar();
     }
 
     private void UpdateHaloViz()
@@ -199,6 +202,15 @@ public class SatelliteInstance : MonoBehaviour
         }
     }
 
+    public void RevealFogOfWar()
+    {
+        if (satFunction == SatFunctions.CAM)
+        {
+            //TODO Need Pos on Surface + Radius
+            //_fogOfWar.RevealCircleAt();
+        }
+    }
+    
     public void SwitchOrbit(Orbit newOrbit, float newOmega)
     {
         Destroy(orbit.gameObject);
@@ -366,13 +378,18 @@ public class SatelliteInstance : MonoBehaviour
     {
         if (CanAffordChangeOrbit())
         {
-            fuelCurrent -= _gameState.changeOrbitCostFuel;
             _gameState.SetSelectedSatellite(this, true);
             _gameState.SetReroute();
             return true;
         }
 
         return false;
+    }
+
+    public bool payChangeOrbit()
+    {
+        fuelCurrent -= _gameState.changeOrbitCostFuel;
+        return true;
     }
 
     public bool BuyGeo()

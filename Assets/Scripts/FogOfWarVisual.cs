@@ -5,7 +5,7 @@ public class FogOfWarVisual : MonoBehaviour
 {
     private void Start()
     {
-        var fog = FindFirstObjectByType<FogOfWarBehaviourScript>();
+        var fog = FindFirstObjectByType<FogOfWar>();
         var meshRenderer = GetComponent<MeshRenderer>();
         meshRenderer.material.mainTexture = fog.texture;
     }
