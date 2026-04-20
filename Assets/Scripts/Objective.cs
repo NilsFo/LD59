@@ -149,6 +149,8 @@ public class Objective : MonoBehaviour
         }
 
         if (ObjectiveState == ObjectiveStateEnum.Completed) currentCooldown = completedCooldownInit; //Base Income
+        if (objectiveType != ObjectiveTypeEnum.Home)
+            povProgress = 0.9f;
     }
 
     void UpdateDescription()
@@ -275,37 +277,39 @@ public class Objective : MonoBehaviour
         }
 
         HashSet<int> closedSet = new HashSet<int>();
-        NativeHashMap<int, int> satcons = new NativeHashMap<int, int>();
+        int[] satcons = new []{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
         bool hasCon = false;
         while (openSet.Count > 0)
         {
             var curIndex = openSet.Dequeue();
             var sat = sats[curIndex];
             closedSet.Add(curIndex);
+            if (sat.IsObjectiveInSight(_gameState.home))
+            {
+                //Debug.Log(displayName + " can phone home");
+                hasCon = true;
+                finalSat = curIndex;
+                break;
+            }
 
             foreach (var othersat in sat.comSatsInSight)
             {
-                if (othersat.IsObjectiveInSight(_gameState.home))
-                {
-                    Debug.Log(displayName + " can phone home");
-                    hasCon = true;
-                    openSet.Clear();
-                    finalSat = curIndex;
-                    break;
-                }
-
                 int othersatindex = sats.IndexOf(othersat);
+                
                 if (closedSet.Contains(othersatindex))
                     continue;
+                
+                satcons[othersatindex] = curIndex;
+
                 openSet.Enqueue(othersatindex);
-                satcons.Add(othersatindex, curIndex);
             }
         }
         satCon = new List<SatelliteInstance>();
         if (hasCon)
         {
             int curSat = finalSat;
-            while (curSat != initSat)
+
+            while (curSat != -1)
             {
                 satCon.Add(sats[curSat]);
                 curSat = satcons[curSat];
@@ -341,15 +345,15 @@ public class Objective : MonoBehaviour
 
             povProgress += colonyProgress;
             currentCooldown = colonyCooldown;
+            List<GameObject> dataPath = new List<GameObject>();
+            dataPath.Add(this.gameObject);
+            dataPath.AddRange(satConPath.Select(t=>t.gameObject).Reverse());
+            dataPath.Add(_gameState.home.gameObject);
+            SpawnDataPackage(dataPath);
 
             if (povProgress >= 1.0f)
             {
                 PaydayAvailable = true;
-                List<GameObject> dataPath = new List<GameObject>();
-                dataPath.Add(this.gameObject);
-                dataPath.AddRange(satConPath.Select(t=>t.gameObject));
-                dataPath.Add(_gameState.home.gameObject);
-                SpawnDataPackage(dataPath);
                 paydayAvailableViz.gameObject.SetActive(true);
             }
             else
