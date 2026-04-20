@@ -188,7 +188,7 @@ public class Objective : MonoBehaviour
             if (currentCooldown > 0) currentCooldown -= Time.deltaTime;
             if (ObjectiveState == ObjectiveStateEnum.Completed && currentCooldown <= 0) //Base Income
             {
-                paydayAvailable = true;
+                PaydayAvailable = true;
                 paydayAvailableViz.gameObject.SetActive(true);
                 currentCooldown = completedCooldown;
             }
