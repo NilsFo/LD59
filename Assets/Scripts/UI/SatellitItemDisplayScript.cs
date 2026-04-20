@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -14,6 +15,13 @@ namespace UI
         public TextMeshProUGUI fuelTF;
 
         private bool markedForDestroy = false;
+
+        private GameState _gameState;
+
+        private void Start()
+        {
+            _gameState = FindFirstObjectByType<GameState>();
+        }
 
         // Update is called once per frame
         void Update()
@@ -53,7 +61,7 @@ namespace UI
 
         public void OnNameClicked()
         {
-            print("NAME CLICKED!!!!!!!!!!!!!!!!");
+            _gameState.SetSelectedSatellite(satelliteInstance);
         }
     }
 }

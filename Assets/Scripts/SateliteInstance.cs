@@ -80,7 +80,6 @@ public class SatelliteInstance : MonoBehaviour
             isSelected = value;
             if (isSelected)
             {
-                _gameState.SetSelectedSatellite(this);
                 OnSelected();
             }
             else
@@ -352,7 +351,7 @@ public class SatelliteInstance : MonoBehaviour
     {
         if (!IsSelected)
         {
-            IsSelected = true;
+            _gameState.SetSelectedSatellite(this, true);
         }
     }
 
