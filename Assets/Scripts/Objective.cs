@@ -114,13 +114,16 @@ public class Objective : MonoBehaviour
         UpdateDescription();
         objectiveStateChanged.AddListener(_ => UpdateDescription());
         
-        if (ObjectiveState == ObjectiveStateEnum.Unexplored)
+        if (miniMapRepresented != null)
         {
-            miniMapRepresented.Unexplored();
-        }
-        else if (ObjectiveState == ObjectiveStateEnum.Explored || ObjectiveState == ObjectiveStateEnum.Completed)
-        {
-            miniMapRepresented.Explored();
+            if (ObjectiveState == ObjectiveStateEnum.Unexplored)
+            {
+                miniMapRepresented.Unexplored();
+            }
+            else if (ObjectiveState == ObjectiveStateEnum.Explored || ObjectiveState == ObjectiveStateEnum.Completed)
+            {
+                miniMapRepresented.Explored();
+            }
         }
     }
 
