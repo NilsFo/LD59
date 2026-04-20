@@ -417,10 +417,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   onMouseEnter:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3699460865941068601}
+        m_TargetAssemblyTypeName: UI.SatellitItemDisplayScript, Assembly-CSharp
+        m_MethodName: OnNameEntered
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onMouseExit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 3699460865941068601}
+        m_TargetAssemblyTypeName: UI.SatellitItemDisplayScript, Assembly-CSharp
+        m_MethodName: OnNameExited
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   onMouseClick:
     m_PersistentCalls:
       m_Calls:

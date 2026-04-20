@@ -63,5 +63,15 @@ namespace UI
         {
             _gameState.SetSelectedSatellite(satelliteInstance);
         }
+
+        public void OnNameEntered()
+        {
+            satelliteInstance.OnHover();
+        }
+
+        public void OnNameExited()
+        {
+            satelliteInstance.OnUnhover();
+        }
     }
 }
