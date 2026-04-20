@@ -17,8 +17,11 @@ public class HoverDescription : MonoBehaviour, IPointerEnterHandler, IPointerExi
 
     public void DisplayText()
     {
-        // print("New description: " + gameObject.name);
-        _gameState.DisplayDescription(description, instantly);
+        if (_gameState != null)
+        {
+            // print("New description: " + gameObject.name);
+            _gameState.DisplayDescription(description, instantly);
+        }
     }
 
     private void UnitedEnter()
