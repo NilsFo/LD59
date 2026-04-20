@@ -32,12 +32,12 @@ public class SatelliteInstance : MonoBehaviour
 
     public Color color;
     public Color colorMuted;
-    
+
     public Color colorVizCam;
     public Color colorVizScan;
     public Color colorVizComm;
     public Color colorVizDefault;
-    
+
     public SatFunctions satFunction = SatFunctions.NONE;
 
     [Header("Audio")] public AudioClip satConfigChange;
@@ -45,17 +45,14 @@ public class SatelliteInstance : MonoBehaviour
 
     public SatFunctions SatFunction
     {
-        get
-        {
-            return satFunction;
-        }
+        get { return satFunction; }
         set
         {
             satFunction = value;
             _gameState.musicManager.CreateAudioClip(satConfigChange, Vector3.zero);
         }
     }
-    
+
     public event Action<SatFunctions> OnSatFunktionChanged;
 
     [Header("Properties")] public Vector2 position;
@@ -131,7 +128,7 @@ public class SatelliteInstance : MonoBehaviour
         miniMapRepresented.Dynamic();
         miniMapRepresented.SetSatellite(this);
         _drawLines = _gameState.GetCamera().GetComponent<DrawLines>();
-        InvokeRepeating(nameof(RevealFogOfWar), 0f, 1f/10f);
+        InvokeRepeating(nameof(RevealFogOfWar), 0f, 1f / 10f);
         _gameState.musicManager.CreateAudioClip(satLaunch, Vector3.zero);
     }
 
@@ -146,7 +143,7 @@ public class SatelliteInstance : MonoBehaviour
         // name tf
         nameTF.text = displayName;
         nameTF.gameObject.transform.parent.gameObject.SetActive(false);
-        myDescription.description = "[displayName]\n" +
+        myDescription.description = displayName + "\n" +
                                     "Mode: " + GetSatFunctionLabel() + "\n" +
                                     "Orbit: " + GetSatOrbitLabel() + "\n" +
                                     "Fuel: " + fuelCurrent + "/" + fuelMax;
@@ -194,7 +191,7 @@ public class SatelliteInstance : MonoBehaviour
 
     private void UpdateHaloViz(bool force = false)
     {
-        if (IsHighLighted || isSelected || force)
+        if ((orbit.orbitState != Orbit.OrbitState.GEO && (IsHighLighted || isSelected)) || force)
         {
             signalHalo.gameObject.SetActive(true);
             signalHalo.height = orbit.height - 1f;
@@ -341,7 +338,7 @@ public class SatelliteInstance : MonoBehaviour
     public void RevealFogOfWar()
     {
         if (orbit.targetOrbitState == Orbit.OrbitState.GEO) return;
-        
+
         Vector2 pos = Objective.Vec3ToLongLat(transform.position);
         float lon = pos.x;
         float lat = pos.y;
@@ -400,9 +397,10 @@ public class SatelliteInstance : MonoBehaviour
 
             displayName = candidateName;
             nameLookup[candidateName] = this;
-            
-            color = Color.gray;;
-            colorMuted = Color.gray;
+
+            Color satColor = new Color(200, 212, 93);
+            color = satColor;
+            colorMuted = satColor;
         }
     }
 
@@ -573,9 +571,9 @@ public class SatelliteInstance : MonoBehaviour
     {
         if (CanAffordGeo() && HasNeedForGeo())
         {
-            fuelCurrent -= _gameState.meoCostFuel;
+            fuelCurrent -= GetGeoCost();
             orbit.SetGeo();
-            
+
             _gameState.musicManager.CreateAudioClip(satManeuver, Vector3.zero);
             return true;
         }
@@ -675,7 +673,7 @@ public class SatelliteInstance : MonoBehaviour
 
         return "?";
     }
-    
+
     public Color GetColorForViz()
     {
         if (SatFunction == SatelliteInstance.SatFunctions.CAM)
@@ -690,6 +688,7 @@ public class SatelliteInstance : MonoBehaviour
         {
             return colorVizComm;
         }
+
         return colorVizDefault;
     }
 }

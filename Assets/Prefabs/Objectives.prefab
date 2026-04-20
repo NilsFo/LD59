@@ -34,6 +34,7 @@ Transform:
   - {fileID: 1640998135033056746}
   - {fileID: 8868992975867570742}
   - {fileID: 4716752692787783675}
+  - {fileID: 5682257334468064435}
   - {fileID: 4394577347546353306}
   - {fileID: 3815860516389194260}
   - {fileID: 8299606707664351504}
@@ -601,6 +602,120 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8721188541493458902, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
   m_PrefabInstance: {fileID: 3459700298298994983}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4025246326722593637
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 4099260797864188755}
+    m_Modifications:
+    - target: {fileID: 1049490216513202135, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: id
+      value: ld-59
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: payout
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: latitude
+      value: -44.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: longitude
+      value: -83.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: description
+      value: 'This long abandoned research facility was first established by the
+        German Aerospace Center.
+
+        The Element LD-59 from nearby caves is
+        believed to contain the essence of quaternion.'
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: displayName
+      value: LD-59 Research Site
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: povProgress
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: objectiveType
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4176596883154448042, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4565615088542195623, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: miniMapSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ae5950e2dfe6cb0428d4845d95f39190, type: 3}
+    - target: {fileID: 5371586004135692536, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5416114777395619381, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_Name
+      value: ld-59
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721188541493458902, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.7037866
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721188541493458902, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.70587146
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721188541493458902, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.080186374
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721188541493458902, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.68951607
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721188541493458902, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.28490216
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721188541493458902, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.6154166
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721188541493458902, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0.2542849
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721188541493458902, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721188541493458902, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721188541493458902, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+--- !u!4 &5682257334468064435 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8721188541493458902, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+  m_PrefabInstance: {fileID: 4025246326722593637}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4067497379267809325
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1080,8 +1195,9 @@ PrefabInstance:
       value: 'The UN initiative to restore communication with the colonies of Mars.
         It is also your home.
 
-        Check periodically to recieve your regular
-        allowance.'
+
+        Check periodically to recieve regular funding
+        (Click to collect).'
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: displayName
@@ -1103,8 +1219,9 @@ PrefabInstance:
         The UN initiative to restore communication with the
         colonies of Mars. It is also your home.
 
+
         Check periodically to recieve
-        your regular allowance.'
+        regular funding (Click to collect).'
       objectReference: {fileID: 0}
     - target: {fileID: 4176596883154448042, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: m_IsActive
@@ -1206,9 +1323,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: description
-      value: Camp Courage of the first permantent Mars bases, founded by the Texan
-        NASA, has been plagued by its decades old equipment. The solar flare hit
-        them hard, but they manage to hold on.
+      value: Camp Courage was one of the first permantent Mars bases. Founded by
+        the Texan NASA, has been plagued by its decades old equipment. The solar
+        flare hit them hard, but they manage to hold on.
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: displayName

@@ -347,7 +347,7 @@ public class GameState : MonoBehaviour
         SceneManager.LoadScene("MainMenu");
     }
 
-    public void ShowFloatingText(Vector3 position, string text, Color color)
+    public GameObject ShowFloatingText(Vector3 position, string text, Color color)
     {
         GameObject textObj = Instantiate(prefabFloatingText, Vector3.zero, Quaternion.identity);
         TMP_Text textTF = textObj.GetComponentInChildren<TMP_Text>();
@@ -355,7 +355,7 @@ public class GameState : MonoBehaviour
         textTF.color = color;
 
         textObj.transform.LookAt(position);
-        // TODO a bit of an error here :/
+        return textObj;
     }
 
     public void OnAllColoniesDiscovered()

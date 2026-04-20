@@ -692,10 +692,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 411dbd5d3d2e470499a6ccfe991a601c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  description: 'The communication signal strength among all collonies on Mars.
+  description: 'The communication signal strength among all colonies on Mars.
 
-    You
-    win the game if you manage to keep all collonies connected for 30 seconds!'
+    Your
+    main objective is to span a communication network among all colonies and the
+    ORFS base.'
   keep: 0
   instantly: 0
 --- !u!1 &1691975782585331918

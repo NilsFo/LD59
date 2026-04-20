@@ -277,7 +277,11 @@ public class Objective : MonoBehaviour
         }
 
         HashSet<int> closedSet = new HashSet<int>();
-        int[] satcons = new []{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1};
+        int[] satcons = new[]
+        {
+            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1
+        };
         bool hasCon = false;
         while (openSet.Count > 0)
         {
@@ -295,15 +299,16 @@ public class Objective : MonoBehaviour
             foreach (var othersat in sat.comSatsInSight)
             {
                 int othersatindex = sats.IndexOf(othersat);
-                
+
                 if (closedSet.Contains(othersatindex))
                     continue;
-                
+
                 satcons[othersatindex] = curIndex;
 
                 openSet.Enqueue(othersatindex);
             }
         }
+
         satCon = new List<SatelliteInstance>();
         if (hasCon)
         {
@@ -347,7 +352,7 @@ public class Objective : MonoBehaviour
             currentCooldown = colonyCooldown;
             List<GameObject> dataPath = new List<GameObject>();
             dataPath.Add(this.gameObject);
-            dataPath.AddRange(satConPath.Select(t=>t.gameObject).Reverse());
+            dataPath.AddRange(satConPath.Select(t => t.gameObject).Reverse());
             dataPath.Add(_gameState.home.gameObject);
             SpawnDataPackage(dataPath);
 
@@ -358,7 +363,7 @@ public class Objective : MonoBehaviour
             }
             else
             {
-                SpawnProgressText(colonyProgress);
+                SpawnProgressText(povProgress);
             }
         }
         else if (objectiveType == ObjectiveTypeEnum.MineralSurvey)
@@ -417,6 +422,7 @@ public class Objective : MonoBehaviour
     }
 
     public DataPackage dataPackageInstance;
+
     private void SpawnDataPackage(List<GameObject> dataPath)
     {
         var dataPackage = Instantiate(dataPackageInstance);
@@ -533,7 +539,12 @@ public class Objective : MonoBehaviour
 
     public void SpawnProgressText(float percent)
     {
-        _gameState.ShowFloatingText(transform.position, (int)(percent * 100) + "%", Color.white);
+        GameObject textObj = _gameState.ShowFloatingText(transform.position, (int)(percent * 100) + "%", Color.white);
+        TimedLife timedLife = textObj.GetComponent<TimedLife>();
+        timedLife.aliveTime = 1.5f;
+
+        Canvas can = textObj.GetComponentInChildren<Canvas>();
+        can.gameObject.transform.parent.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
     }
 
     public void SpawnPaydayText(float amount)
