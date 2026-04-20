@@ -58,7 +58,7 @@ public class MiniMapRepresented : MonoBehaviour
 
         _rect.anchoredPosition = new Vector2(x, y);
     }
-    
+
     private void SpawnMiniMapIcon()
     {
         _iconObj = Instantiate(_gameState.prefabMiniMapIcon, _gameState.miniMapTransform);
@@ -67,6 +67,11 @@ public class MiniMapRepresented : MonoBehaviour
         _image.gameObject.SetActive(false);
         _image.sprite = miniMapSprite;
         _rect = _iconObj.GetComponent<RectTransform>();
+
+        MiniMapIcon iconScript = _iconObj.GetComponent<MiniMapIcon>();
+        HoverDescription description = GetComponentInChildren<HoverDescription>();
+        iconScript.sourceDescription = description;
+
         UpdatePos();
     }
 
@@ -76,14 +81,14 @@ public class MiniMapRepresented : MonoBehaviour
         _image.gameObject.SetActive(true);
         _state = RepresentedState.Unexplored;
     }
-    
+
     public void Explored()
     {
         _image.sprite = miniMapSprite;
         _image.gameObject.SetActive(true);
         _state = RepresentedState.Explored;
     }
-    
+
     public void Dynamic()
     {
         _image.sprite = miniMapSprite;

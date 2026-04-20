@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6548779855664734971}
   - component: {fileID: 6164365791788327135}
   - component: {fileID: 1630062086061894374}
+  - component: {fileID: 7938545514252023161}
   m_Layer: 5
   m_Name: MiniMapIcon
   m_TagString: Untagged
@@ -89,3 +90,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sat: {fileID: 0}
+--- !u!114 &7938545514252023161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3945830237297060368}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20692096f50221f489130c78e754fc63, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
