@@ -114,7 +114,7 @@ public class Objective : MonoBehaviour
         _gameState = FindFirstObjectByType<GameState>();
         UpdateDescription();
         objectiveStateChanged.AddListener(_ => UpdateDescription());
-        
+
         if (miniMapRepresented != null)
         {
             if (ObjectiveState == ObjectiveStateEnum.Unexplored)
@@ -126,8 +126,8 @@ public class Objective : MonoBehaviour
                 miniMapRepresented.Explored();
             }
         }
-        
-        if(ObjectiveState == ObjectiveStateEnum.Completed) currentCooldown = completedCooldown; //Base Income
+
+        if (ObjectiveState == ObjectiveStateEnum.Completed) currentCooldown = completedCooldown; //Base Income
     }
 
 
@@ -175,7 +175,7 @@ public class Objective : MonoBehaviour
                 paydayAvailableViz.gameObject.SetActive(true);
                 currentCooldown = completedCooldown;
             }
-            
+
             if (
                 objectiveType == ObjectiveTypeEnum.Colony
                 && commUpTime > 0
@@ -366,11 +366,12 @@ public class Objective : MonoBehaviour
     }
 
     public Transform paydayAvailableViz;
+
     public void Abkassieren()
     {
         _gameState.economy.Money += payout;
         povProgress = 0f;
-        
+
         SpawnPaydayText(payout);
         paydayAvailable = false;
         paydayAvailableViz.gameObject.SetActive(false);
@@ -475,18 +476,18 @@ public class Objective : MonoBehaviour
     public void SpawnProgressText(float percent)
     {
         Debug.LogError("PLAY OBJ Mined!");
-        _gameState.ShowFloatingText(transform.position, percent + " %", Color.red);
+        _gameState.ShowFloatingText(transform.position, percent + " %", Color.yellow);
     }
 
     public void SpawnPaydayText(float amount)
     {
         Debug.LogError("PLAY OBJ Cashout!");
-        _gameState.ShowFloatingText(transform.position,  "+" + amount + "$", Color.red);
+        _gameState.ShowFloatingText(transform.position, "+" + amount + "$", Color.green);
     }
 
     public void SpawnDiscoverd() 
     {
         Debug.LogError("PLAY OBJ Discoverd!");
-        _gameState.ShowFloatingText(transform.position, displayName+" discoverd!", Color.red);
+        _gameState.ShowFloatingText(transform.position, "New site discovered: " + displayName + "!", Color.white);
     }
 }

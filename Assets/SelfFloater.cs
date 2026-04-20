@@ -13,7 +13,7 @@ public class SelfFloater : MonoBehaviour
     void Update()
     {
         Vector3 pos = transform.localPosition;
-        pos.y += speed * Time.unscaledDeltaTime;
+        pos.z += speed * Time.unscaledDeltaTime;
         transform.localPosition = pos;
     }
 }
