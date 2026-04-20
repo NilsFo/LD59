@@ -7,6 +7,7 @@ namespace UI
     {
         [SerializeField] [Header("My Satellite")]
         public SatelliteInstance satelliteInstance;
+
         public TMP_Text costTF;
 
         [Header("World Hookup")] public TextMeshProUGUI nameTF;
@@ -48,6 +49,11 @@ namespace UI
         public void OnSatelliteDestroy()
         {
             markedForDestroy = true;
+        }
+
+        public void OnNameClicked()
+        {
+            print("NAME CLICKED!!!!!!!!!!!!!!!!");
         }
     }
 }

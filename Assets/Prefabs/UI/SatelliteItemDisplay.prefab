@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: 1952137983996551802}
   - component: {fileID: 6022910507329066771}
   - component: {fileID: 4088695655263727579}
+  - component: {fileID: 2570956060263609571}
   m_Layer: 5
   m_Name: nameTF
   m_TagString: Untagged
@@ -301,7 +302,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
   m_AnchoredPosition: {x: 1, y: 0}
-  m_SizeDelta: {x: 40, y: 40}
+  m_SizeDelta: {x: 38, y: 46}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &6022910507329066771
 CanvasRenderer:
@@ -402,6 +403,39 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2570956060263609571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 914239871648236405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bd2561b33fd6234c82b77c96266439e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onMouseEnter:
+    m_PersistentCalls:
+      m_Calls: []
+  onMouseExit:
+    m_PersistentCalls:
+      m_Calls: []
+  onMouseClick:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 3699460865941068601}
+        m_TargetAssemblyTypeName: UI.SatellitItemDisplayScript, Assembly-CSharp
+        m_MethodName: OnNameClicked
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1027296855144118681
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,7 +1197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -2500,6 +2534,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   satelliteInstance: {fileID: 0}
+  costTF: {fileID: 0}
   nameTF: {fileID: 4088695655263727579}
   fuelTF: {fileID: 8138365014600171303}
 --- !u!1 &8331625676146273688
