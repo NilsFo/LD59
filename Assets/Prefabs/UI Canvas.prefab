@@ -3263,7 +3263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7091841278791426263, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 74.9715
+      value: 44.1864
       objectReference: {fileID: 0}
     - target: {fileID: 7091841278791426263, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
       propertyPath: m_SizeDelta.y
@@ -3331,20 +3331,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8902447902011804466, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -0.9169998
+      value: -0.91700745
       objectReference: {fileID: 0}
     - target: {fileID: 8902447902011804466, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.23590088
       objectReference: {fileID: 0}
     - target: {fileID: 9084519667786709016, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
+      propertyPath: m_fontSize
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 9084519667786709016, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: 857ac71872ead704c9cd05d7d2860b6f, type: 2}
     - target: {fileID: 9084519667786709016, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 18
+      objectReference: {fileID: 0}
+    - target: {fileID: 9084519667786709016, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 9084519667786709016, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 4916761013119891321, guid: 857ac71872ead704c9cd05d7d2860b6f, type: 2}
+    - target: {fileID: 9084519667786709016, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 9084519667786709016, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 4
