@@ -262,6 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf65168e2cf4364ab810ae1f0f838df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  miniMapHiddenSprite: {fileID: 21300000, guid: f76a71e408673cc4a890514e8bbbdf95, type: 3}
   miniMapSprite: {fileID: 0}
   _iconObj: {fileID: 0}
 --- !u!1001 &6944285376194808021

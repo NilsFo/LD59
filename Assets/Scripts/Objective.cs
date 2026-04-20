@@ -196,6 +196,7 @@ public class Objective : MonoBehaviour
 
         currentCooldown = discoverCooldown;
         ObjectiveState = ObjectiveStateEnum.Unexplored;
+        miniMapRepresented.Unexplored();
     }
 
     private void ExplorePoi(SatelliteInstance caller)
@@ -208,6 +209,7 @@ public class Objective : MonoBehaviour
         //Debug.Log(displayName + " WAS FOUND BY "+caller.displayName+" WITH " + caller.satFunction );
         currentCooldown = exploreCooldown;
         ObjectiveState = ObjectiveStateEnum.Explored;
+        miniMapRepresented.Explored();
     }
 
     public bool ComDepthSearch()

@@ -499,14 +499,15 @@ MonoBehaviour:
   colorMuted: {r: 0, g: 0, b: 0, a: 0}
   satFunction: 0
   position: {x: 0, y: 0}
-  isHighLighted: 0
   isSelected: 0
   nameTF: {fileID: 6834391147949281963}
   myDescription: {fileID: 2435133557367980837}
+  miniMapRepresented: {fileID: 1657858914408928555}
+  objectiveInSight: 
+  comSatsInSight: []
   omega: 0
   orbit: {fileID: 0}
   signalHalo: {fileID: 2098227919005853732}
-  objectiveInSight: 
 --- !u!65 &6803123685264841383
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -555,6 +556,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cf65168e2cf4364ab810ae1f0f838df, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  miniMapHiddenSprite: {fileID: 0}
   miniMapSprite: {fileID: 21300000, guid: 03162294f0e84ca4eb369959c423551d, type: 3}
   _iconObj: {fileID: 0}
 --- !u!1 &8230744325072750880

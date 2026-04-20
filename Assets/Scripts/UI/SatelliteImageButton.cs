@@ -138,9 +138,9 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
             case SatelliteButtonType.COMM:
                 return _gameState.commCost + "€";
             case SatelliteButtonType.GEO:
-                return _gameState.geoCostFuel + " fuel";
+                return displayScript.satelliteInstance.GetGeoCost() + " fuel";
             case SatelliteButtonType.LEO:
-                return _gameState.leoCostFuel + " fuel";
+                return displayScript.satelliteInstance.GetLeoCost() + " fuel";
             case SatelliteButtonType.MAXFUEL:
                 return _gameState.fuelPlusCost + "€";
             case SatelliteButtonType.MEO:
