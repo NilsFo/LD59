@@ -150,14 +150,9 @@ public class GameState : MonoBehaviour
             print("It's crowded up there! No more Sattellites");
             return false;
         }
-
-        int index = listOfSatellites.Count;
-        if (index > costOfSatellite.Length - 1)
-        {
-            index = costOfSatellite.Length - 1;
-        }
-
-        var newBalance = economy.Money - costOfSatellite[index];
+        
+        var cost = CostOfNextSatellite();
+        var newBalance = economy.Money - cost;
         if (newBalance >= 0)
         {
             print("Buying a sat.");
@@ -186,6 +181,16 @@ public class GameState : MonoBehaviour
         return false;
     }
 
+    public int CostOfNextSatellite()
+    {
+        int index = listOfSatellites.Count;
+        if (index > costOfSatellite.Length - 1)
+        {
+            index = costOfSatellite.Length - 1;
+        }
+        return costOfSatellite[index];
+    }
+    
     public void SetSelectedSatellite(SatelliteInstance sat = null, bool skipDelay = false)
     {
         if (sat == null)

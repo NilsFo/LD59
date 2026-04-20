@@ -274,7 +274,12 @@ public class Objective : MonoBehaviour
             if (povProgress >= 1.0f)
             {
                 povProgress = 0f;
+                spawnPaydayText(payout);
                 _gameState.economy.Money += payout;
+            }
+            else
+            {
+                spawnProgressText(colonyProgress);
             }
         }
         else if (objectiveType == ObjectiveTypeEnum.MineralSurvey)
@@ -294,8 +299,13 @@ public class Objective : MonoBehaviour
             if (povProgress >= 1.0f)
             {
                 povProgress = 0f;
+                spawnPaydayText(payout);
                 _gameState.economy.Money += payout;
                 //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat MineralSurvey
+            }
+            else
+            {
+                spawnProgressText(currentProgress);
             }
         }
         else if (objectiveType == ObjectiveTypeEnum.AbandonedSite)
@@ -316,7 +326,12 @@ public class Objective : MonoBehaviour
             {
                 povProgress = 0f;
                 _gameState.economy.Money += payout;
+                spawnPaydayText(payout);
                 //ObjectiveState = ObjectiveStateEnum.Completed; Can repeat AbandonedSite
+            }
+            else
+            {
+                spawnProgressText(currentProgress);
             }
         }
         else
@@ -411,5 +426,17 @@ public class Objective : MonoBehaviour
         if (vec.y < 0) lat *= -1;
 
         return new Vector2(lng, lat) * Mathf.Rad2Deg;
+    }
+
+    public void spawnProgressText(float prozent)
+    {
+        //TODO 
+        Debug.Log("NEED TO SPAWN FLOATING TEXT MADE PROGRESS: "+ prozent);
+    }
+    
+    public void spawnPaydayText(float amount)
+    {
+        //TODO 
+        Debug.Log("NEED TO SPAWN FLOATING TEXT EARNED: "+ amount);
     }
 }
