@@ -554,9 +554,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
-    - target: {fileID: 5985941837949396641, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 1.2000008
+    - target: {fileID: 7006140059850449788, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7079492537976840358, guid: 2f9ed3e62bdfdd64cb6e830dd7a573fc, type: 3}
       propertyPath: m_AnchorMax.y

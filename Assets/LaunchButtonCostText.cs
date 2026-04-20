@@ -8,6 +8,7 @@ public class LaunchButtonCostText : MonoBehaviour, IPointerEnterHandler, IPointe
 {
     private GameState _gameState;
     public TMP_Text costTF;
+    public TMP_Text inOrbitTF;
     public UnityEvent onClick;
 
     private void Awake()
@@ -27,10 +28,13 @@ public class LaunchButtonCostText : MonoBehaviour, IPointerEnterHandler, IPointe
     // Update is called once per frame
     void Update()
     {
+        int satCount = _gameState.listOfSatellites.Count;
+        inOrbitTF.text = "In Orbit: " + satCount + "/" + _gameState.maxSatellites;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        costTF.text = _gameState.CostOfNextSatellite() + "€";
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -41,5 +45,6 @@ public class LaunchButtonCostText : MonoBehaviour, IPointerEnterHandler, IPointe
     public void OnPointerClick(PointerEventData eventData)
     {
         onClick.Invoke();
+        costTF.text = _gameState.CostOfNextSatellite() + "€";
     }
 }

@@ -626,8 +626,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -283.32373, y: 161.29}
-  m_SizeDelta: {x: 110.09, y: 24.003}
+  m_AnchoredPosition: {x: -283.32373, y: 160.83154}
+  m_SizeDelta: {x: 110.09, y: 23.0861}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3248341266246918599
 CanvasRenderer:
@@ -739,8 +739,9 @@ GameObject:
   - component: {fileID: 1809709269087576994}
   - component: {fileID: 3395846430604944580}
   - component: {fileID: 6743282059426014253}
+  - component: {fileID: 2514895058485840141}
   m_Layer: 5
-  m_Name: SatCount
+  m_Name: SatCountTF
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -763,7 +764,7 @@ RectTransform:
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
   m_AnchoredPosition: {x: -3.7526855, y: 0}
-  m_SizeDelta: {x: 124.6092, y: 26.4154}
+  m_SizeDelta: {x: 89.4305, y: 26.4154}
   m_Pivot: {x: 1, y: 0}
 --- !u!222 &3395846430604944580
 CanvasRenderer:
@@ -864,6 +865,21 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &2514895058485840141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2096437620408147379}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 411dbd5d3d2e470499a6ccfe991a601c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  description: The UN has granted us funding for a limited amount of Sattelites.
+  keep: 0
+  instantly: 0
 --- !u!1 &2216484096609117664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1492,8 +1508,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -283.32373, y: 161.29}
-  m_SizeDelta: {x: 110.09, y: 24.003}
+  m_AnchoredPosition: {x: -283.32373, y: 160.83154}
+  m_SizeDelta: {x: 110.09, y: 23.0861}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6108372371800707958
 CanvasRenderer:
@@ -2082,7 +2098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &8755403394514594736
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2332,8 +2348,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -433.77527, y: 161.29}
-  m_SizeDelta: {x: 38.4795, y: 24.003}
+  m_AnchoredPosition: {x: -418.50888, y: 160.59859}
+  m_SizeDelta: {x: 69.0122, y: 22.9348}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &622678528860431296
 CanvasRenderer:
@@ -2363,7 +2379,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Funds:'
+  m_text: 'Funds (MRD):'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 857ac71872ead704c9cd05d7d2860b6f, type: 2}
   m_sharedMaterial: {fileID: 4916761013119891321, guid: 857ac71872ead704c9cd05d7d2860b6f, type: 2}
@@ -3190,6 +3206,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8049002218451682293}
     - target: {fileID: 5870232414932536009, guid: 90229116477e57c49acf3d201102dc1c, type: 3}
+      propertyPath: inOrbitTF
+      value: 
+      objectReference: {fileID: 6743282059426014253}
+    - target: {fileID: 5870232414932536009, guid: 90229116477e57c49acf3d201102dc1c, type: 3}
       propertyPath: onClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 4713790711938575973}
@@ -3308,12 +3328,20 @@ PrefabInstance:
       value: -1.3002119
       objectReference: {fileID: 0}
     - target: {fileID: 8902447902011804466, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -1.8338
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902447902011804466, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 0.0000076294
+      value: -0.1573
+      objectReference: {fileID: 0}
+    - target: {fileID: 8902447902011804466, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.9169998
       objectReference: {fileID: 0}
     - target: {fileID: 8902447902011804466, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000038146973
+      value: -0.23590088
       objectReference: {fileID: 0}
     - target: {fileID: 9084519667786709016, guid: a8fba77c6e1eaf24599d19860e65132d, type: 3}
       propertyPath: m_fontAsset
@@ -3635,11 +3663,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 167120700550713592, guid: 9d45b67c56e206b46b4124d52563e3d9, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 222.4103
+      value: 222
       objectReference: {fileID: 0}
     - target: {fileID: 167120700550713592, guid: 9d45b67c56e206b46b4124d52563e3d9, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 408.88
+      value: 490
       objectReference: {fileID: 0}
     - target: {fileID: 167120700550713592, guid: 9d45b67c56e206b46b4124d52563e3d9, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3671,11 +3699,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 167120700550713592, guid: 9d45b67c56e206b46b4124d52563e3d9, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 478.4262
+      value: 478
       objectReference: {fileID: 0}
     - target: {fileID: 167120700550713592, guid: 9d45b67c56e206b46b4124d52563e3d9, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -240.94
+      value: -264
       objectReference: {fileID: 0}
     - target: {fileID: 167120700550713592, guid: 9d45b67c56e206b46b4124d52563e3d9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

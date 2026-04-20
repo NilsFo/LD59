@@ -47,8 +47,8 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
             onClick = new UnityEvent();
         }
 
-        myHoverDescription.description = myHoverDescription + "\n" +
-                                         "[Cost: " + GetCost() + "!]";
+        // myHoverDescription.description = myHoverDescription + "\n" +
+        //                                  "[Cost: " + GetCost() + "!]";
     }
 
     // Update is called once per frame
