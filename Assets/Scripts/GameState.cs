@@ -63,7 +63,10 @@ public class GameState : MonoBehaviour
     public GameObject prefabOrbit;
     public Transform homeBasePosition;
     public Orbit templateOrbit;
-    [FormerlySerializedAs("_musicManager")] public MusicManager musicManager;
+
+    [FormerlySerializedAs("_musicManager")]
+    public MusicManager musicManager;
+
     [SerializeField] private TextScroller radioDisplay;
     [SerializeField] private TextScroller descriptionDisplay;
     public RectTransform miniMapTransform;
@@ -178,11 +181,21 @@ public class GameState : MonoBehaviour
             sat.omega = 90f;
 
             ShowFloatingText(homeBasePosition.position, instance.displayName + " launched!", instance.color);
+
+            if (listOfSatellites.Count == 1)
+            {
+                DisplayRadioMsg("> ORFS Mission Control:\n" +
+                                "Congratulations on your first launch!\n" +
+                                "You can change the mode and orbit of your satellite with the panels on the right.\n" +
+                                "You can launch more satellites as you seem fit.\n\n" +
+                                "[Click here to continue.]");
+            }
+
             return true;
         }
         else
         {
-            DisplayDescription("Insufficient funding!",false);
+            DisplayDescription("Insufficient funding!", false);
             print("I can't give credit. Come back when you are... richer!");
         }
 
@@ -320,6 +333,7 @@ public class GameState : MonoBehaviour
         {
             return;
         }
+
         selectionState = SelectionState.SatelliteReroute;
     }
 
@@ -343,5 +357,17 @@ public class GameState : MonoBehaviour
 
         textObj.transform.LookAt(position);
         // TODO a bit of an error here :/
+    }
+
+    public void OnAllColoniesDiscovered()
+    {
+        Debug.Log("YOU DISCOVERED ALL COLONIES!");
+        DisplayRadioMsg(
+            "> ORFS Mission Control:\n" +
+            "That should be all colonies! Great job so far!\n" +
+            "Now you must establish a communication network!\n" +
+            "Remember, only satellites in communication mode can relay signals from the colonies. " +
+            "If you keep them in GMO they make the best relay."
+        );
     }
 }
