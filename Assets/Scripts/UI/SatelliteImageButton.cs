@@ -186,9 +186,9 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
         switch (buttonType)
         {
             case SatelliteButtonType.CAM:
-                return displayScript.satelliteInstance.satFunction == SatelliteInstance.SatFunctions.CAM;
+                return displayScript.satelliteInstance.SatFunction == SatelliteInstance.SatFunctions.CAM;
             case SatelliteButtonType.COMM:
-                return displayScript.satelliteInstance.satFunction == SatelliteInstance.SatFunctions.COMM;
+                return displayScript.satelliteInstance.SatFunction == SatelliteInstance.SatFunctions.COMM;
             case SatelliteButtonType.GEO:
                 return displayScript.satelliteInstance.orbit.orbitState == Orbit.OrbitState.GEO;
             case SatelliteButtonType.LEO:
@@ -196,7 +196,7 @@ public class SatelliteImageButton : MonoBehaviour, IPointerEnterHandler, IPointe
             case SatelliteButtonType.MEO:
                 return displayScript.satelliteInstance.orbit.orbitState == Orbit.OrbitState.MEO;
             case SatelliteButtonType.SCAN:
-                return displayScript.satelliteInstance.satFunction == SatelliteInstance.SatFunctions.SCAN;
+                return displayScript.satelliteInstance.SatFunction == SatelliteInstance.SatFunctions.SCAN;
         }
 
         return false;

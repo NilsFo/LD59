@@ -36,6 +36,7 @@ public class Objective : MonoBehaviour
     [SerializeField] private float discoverCooldown = 3f;
     [SerializeField] private float exploreCooldown = 3f;
     [SerializeField] private float excavateCooldown = 3f;
+    [SerializeField] private float completedCooldown = 15f;
 
     [Header("Colony")] [SerializeField] private float colonyUptimeDecay = 0.2f; //Decay of Uptime
     [SerializeField] private float colonyUptime = 2.0f; //Amount of Uptime
@@ -114,14 +115,19 @@ public class Objective : MonoBehaviour
         UpdateDescription();
         objectiveStateChanged.AddListener(_ => UpdateDescription());
         
-        if (ObjectiveState == ObjectiveStateEnum.Unexplored)
+        if (miniMapRepresented != null)
         {
-            miniMapRepresented.Unexplored();
+            if (ObjectiveState == ObjectiveStateEnum.Unexplored)
+            {
+                miniMapRepresented.Unexplored();
+            }
+            else if (ObjectiveState == ObjectiveStateEnum.Explored || ObjectiveState == ObjectiveStateEnum.Completed)
+            {
+                miniMapRepresented.Explored();
+            }
         }
-        else if (ObjectiveState == ObjectiveStateEnum.Explored || ObjectiveState == ObjectiveStateEnum.Completed)
-        {
-            miniMapRepresented.Explored();
-        }
+        
+        if(ObjectiveState == ObjectiveStateEnum.Completed) currentCooldown = completedCooldown; //Base Income
     }
 
 
@@ -163,6 +169,13 @@ public class Objective : MonoBehaviour
         {
             // Play logic
             if (currentCooldown > 0) currentCooldown -= Time.deltaTime;
+            if (ObjectiveState == ObjectiveStateEnum.Completed && currentCooldown <= 0) //Base Income
+            {
+                paydayAvailable = true;
+                paydayAvailableViz.gameObject.SetActive(true);
+                currentCooldown = completedCooldown;
+            }
+            
             if (
                 objectiveType == ObjectiveTypeEnum.Colony
                 && commUpTime > 0
@@ -213,7 +226,7 @@ public class Objective : MonoBehaviour
     private void ExplorePoi(SatelliteInstance caller)
     {
         if (ObjectiveState != ObjectiveStateEnum.Unexplored
-            || caller.satFunction != SatelliteInstance.SatFunctions.CAM)
+            || caller.SatFunction != SatelliteInstance.SatFunctions.CAM)
         {
             return;
         }
@@ -270,7 +283,7 @@ public class Objective : MonoBehaviour
         if (objectiveType == ObjectiveTypeEnum.Colony)
         {
             //Get Count als Multi
-            if (caller.satFunction != SatelliteInstance.SatFunctions.COMM)
+            if (caller.SatFunction != SatelliteInstance.SatFunctions.COMM)
             {
                 currentCooldown = colonyCooldown;
                 return;
@@ -299,7 +312,7 @@ public class Objective : MonoBehaviour
         }
         else if (objectiveType == ObjectiveTypeEnum.MineralSurvey)
         {
-            if (caller.satFunction != SatelliteInstance.SatFunctions.SCAN)
+            if (caller.SatFunction != SatelliteInstance.SatFunctions.SCAN)
             {
                 currentCooldown = surveyCooldown;
                 return;
@@ -323,7 +336,7 @@ public class Objective : MonoBehaviour
         }
         else if (objectiveType == ObjectiveTypeEnum.AbandonedSite)
         {
-            if (caller.satFunction != SatelliteInstance.SatFunctions.CAM)
+            if (caller.SatFunction != SatelliteInstance.SatFunctions.CAM)
             {
                 currentCooldown = siteCooldown;
                 return;
@@ -461,16 +474,19 @@ public class Objective : MonoBehaviour
 
     public void SpawnProgressText(float percent)
     {
-        //TODO 
-        Debug.Log("NEED TO SPAWN FLOATING TEXT MADE PROGRESS: " + percent);
-        _gameState.ShowFloatingText(transform.position, "NEED TO SPAWN FLOATING TEXT MADE PROGRESS: " + percent,
-            Color.red);
+        Debug.LogError("PLAY OBJ Mined!");
+        _gameState.ShowFloatingText(transform.position, percent + " %", Color.red);
     }
 
     public void SpawnPaydayText(float amount)
     {
-        //TODO 
-        Debug.Log("NEED TO SPAWN FLOATING TEXT EARNED: " + amount);
-        _gameState.ShowFloatingText(transform.position, "NEED TO SPAWN FLOATING TEXT EARNED: " + amount, Color.red);
+        Debug.LogError("PLAY OBJ Cashout!");
+        _gameState.ShowFloatingText(transform.position,  "+" + amount + "$", Color.red);
+    }
+
+    public void SpawnDiscoverd()
+    {
+        Debug.LogError("PLAY OBJ Discoverd!");
+        _gameState.ShowFloatingText(transform.position, displayName+" discoverd!", Color.red);
     }
 }

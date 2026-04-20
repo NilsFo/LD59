@@ -188,6 +188,7 @@ public class Orbit : MonoBehaviour
         if (orbitState == targetOrbitState)
         {
             targetOrbitState = OrbitState.LEO;
+            Debug.LogError("PLAY Manover Sound!");
             return true;
         }
 
@@ -199,6 +200,7 @@ public class Orbit : MonoBehaviour
         if (orbitState == targetOrbitState)
         {
             targetOrbitState = OrbitState.MEO;
+            Debug.LogError("PLAY Manover Sound!");
             return true;
         }
 
@@ -210,6 +212,7 @@ public class Orbit : MonoBehaviour
         if (orbitState == targetOrbitState)
         {
             targetOrbitState = OrbitState.GEO;
+            Debug.LogError("PLAY Manover Sound!");
             return true;
         }
 
