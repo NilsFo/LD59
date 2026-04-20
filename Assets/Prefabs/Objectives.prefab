@@ -57,6 +57,10 @@ PrefabInstance:
       value: korolev
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: payout
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: latitude
       value: 75.2
       objectReference: {fileID: 0}
@@ -158,6 +162,10 @@ PrefabInstance:
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: id
       value: neod
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: payout
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: latitude
@@ -262,6 +270,10 @@ PrefabInstance:
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: id
       value: eurdc
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: payout
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: latitude
@@ -370,6 +382,10 @@ PrefabInstance:
       value: australe
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: payout
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: latitude
       value: -82.5
       objectReference: {fileID: 0}
@@ -471,6 +487,10 @@ PrefabInstance:
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: id
       value: ozy
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: payout
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: latitude
@@ -581,6 +601,10 @@ PrefabInstance:
       value: newton
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: payout
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: latitude
       value: 47.1
       objectReference: {fileID: 0}
@@ -682,6 +706,10 @@ PrefabInstance:
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: id
       value: huygens
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: payout
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: latitude
@@ -787,6 +815,10 @@ PrefabInstance:
       value: gao
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: payout
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: latitude
       value: 16.5
       objectReference: {fileID: 0}
@@ -889,6 +921,10 @@ PrefabInstance:
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: id
       value: home
+      objectReference: {fileID: 0}
+    - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
+      propertyPath: payout
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1079981369689103345, guid: 7db111be2d08aef5e91d6841577574d4, type: 3}
       propertyPath: longitude
