@@ -261,7 +261,7 @@ public class GameState : MonoBehaviour
                 templateOrbit.height = selectedSatellite.orbit.height;
                 templateOrbit.orbitState = selectedSatellite.orbit.orbitState;
                 templateOrbit.targetOrbitState = selectedSatellite.orbit.targetOrbitState;
-                templateOrbit.Show();
+                templateOrbit.Show(selectedSatellite.GetColorForViz());
                 if (Mouse.current.leftButton.wasPressedThisFrame)
                 {
                     if (selectedSatellite.CanAffordChangeOrbit())

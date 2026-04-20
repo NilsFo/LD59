@@ -498,10 +498,13 @@ MonoBehaviour:
   surveyAngle: 20
   color: {r: 0, g: 0, b: 0, a: 0}
   colorMuted: {r: 0, g: 0, b: 0, a: 0}
+  colorVizCam: {r: 0.8989223, g: 1, b: 0, a: 0}
+  colorVizScan: {r: 1, g: 0, b: 0, a: 0}
+  colorVizComm: {r: 0.02352941, g: 0.27675873, b: 1, a: 0}
+  colorVizDefault: {r: 1, g: 1, b: 1, a: 0}
   satFunction: 0
   satConfigChange: {fileID: 8300000, guid: 269725e0afb6a82c5ba1fb39d54bbcfc, type: 3}
   satLaunch: {fileID: 8300000, guid: 3bfb1feb7786483eba78fd1f6ba08361, type: 3}
-  satSelect: {fileID: 8300000, guid: 5dfdd721caa11a88e888a174be85113c, type: 3}
   satManeuver: {fileID: 8300000, guid: 3bfb1feb7786483eba78fd1f6ba08361, type: 3}
   position: {x: 0, y: 0}
   isSelected: 0
@@ -748,7 +751,7 @@ PrefabInstance:
       value: Satelite
       objectReference: {fileID: 0}
     - target: {fileID: 6317578925029434746, guid: 8deb07f21f9b9cc74a107c6d3e7a8659, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 1d93ceeb8d4b967c79ed3c372bf5d2ca, type: 2}
     m_RemovedComponents: []
@@ -826,7 +829,7 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: f3f1228ac05ca90659b2e1bcd6d5c5dc, type: 3}
-      propertyPath: m_Materials.Array.data[0]
+      propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 0171438a7cd67d089b442b78883064e5, type: 2}
     - target: {fileID: 919132149155446097, guid: f3f1228ac05ca90659b2e1bcd6d5c5dc, type: 3}
